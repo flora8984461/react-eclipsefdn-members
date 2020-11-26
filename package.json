@@ -1,0 +1,12 @@
+{
+  "name": "my-keycloak-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "install": "cd src/main/js && npm install",
+    "start": "cd src/main/js && npm run start",
+    "build": "cd src/main/js && npm run build && mkdir -p ../resources/META-INF/resources/ && cp -rf build/* ../resources/META-INF/resources/",
+    "test": "cd src/main/js && npm run test",
+    "eject": "cd src/main/js && npm run eject"
+  }
+}
