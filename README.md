@@ -31,6 +31,30 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### Running the project in included web server
+
+A prerequisite to running the Java web server locally is installing the external Jar dependencies for the Eclipse Foundation Java SDK. This provides bundling of common Quarkus functionality and models used in creating APIs. Eventually this will be available in a public repository, but for now it is only available in packaged jars. The jars can be installed using the below maven commands in the project root directory: 
+
+```  
+mvn install:install-file -Dfile=$(pwd)/lib/eclipsefdn-java-sdk-core-0.1-BETA.jar \
+-DgroupId=org.eclipsefoundation \
+-DartifactId=eclipsefdn-java-sdk-core \
+-Dversion=0.1-BETA \
+-Dpackaging=jar
+
+mvn install:install-file -Dfile=$(pwd)/lib/eclipsefdn-java-sdk-persistence-deployment-0.1-BETA.jar \
+-DgroupId=org.eclipsefoundation \
+-DartifactId=eclipsefdn-java-sdk-persistence-deployment \
+-Dversion=0.1-BETA \
+-Dpackaging=jar
+
+mvn install:install-file -Dfile=$(pwd)/lib/eclipsefdn-java-sdk-persistence-0.1-BETA.jar \
+-DgroupId=org.eclipsefoundation \
+-DartifactId=eclipsefdn-java-sdk-persistence \
+-Dversion=0.1-BETA \
+-Dpackaging=jar
+```  
+
 ## Contributing
 
 1. [Fork](https://help.github.com/articles/fork-a-repo/) the [eclipsefdn/react-eclipsefdn-members](https://github.com/eclipsefdn/react-eclipsefdn-members) repository
