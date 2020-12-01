@@ -11,19 +11,13 @@ servers:
 tags:
 -  name: Membership form
    description: Definitions related to membership form data in the database
--  name: Contacts
-   description: Definitions related to membership form designated contacts
--  name: Organizations
-   description: Definitions related to membership form organizations
--  name: Working Groups
-   description: Definitions related to membership form working group targets
 paths:
-   /form:
+   /membership:
       get:
          tags:
          - Membership form
          summary: Membership form list
-         description: Returns a list of tracked membership forms
+         description: Returns a list of tracked organizations
          responses:
             200:
                description: Success
@@ -33,13 +27,13 @@ paths:
                         $ref: '#/components/schemas/MembershipForms'
             500:
                description: Error while retrieving data
-      post:
+      put:
          tags:
          - Membership form
-         summary: Membership form create
-         description: Using the passed form object, updates or inserts are made to save the data.
+         summary: Membership form update
+         description: Using the passed organization object, updates or inserts are made to save the data.
          requestBody:
-            description: The form to be updated or inserted into the data set.
+            description: The organization to be updated or inserted into the data set.
             content:
                application/json:
                   schema:
@@ -47,14 +41,38 @@ paths:
          responses:
             200:
                description: Success
+            403:
+               description: Unauthorized
+   /membership/{userId}:
+      parameters:
+      -  name: userId
+         in: path
+         description: Unique ID of the user creating the form entry
+         required: true
+         schema:
+            $ref: '#/components/schemas/ObjectID'
+      get:
+         tags:
+         - Membership form
+         summary: Membership form list for user
+         description: Returns a list of tracked organizations
+         responses:
+            200:
+               description: Success
                content:
                   application/json:
                      schema:
-                        $ref: '#/components/schemas/MembershipForm'
-            403:
-               description: Unauthorized
-   /form/{id}:
+                        $ref: '#/components/schemas/MembershipForms'
+            500:
+               description: Error while retrieving data
+   /membership/{userId}/{id}:
       parameters:
+      -  name: userId
+         in: path
+         description: Unique ID of the user creating the form entry
+         required: true
+         schema:
+            $ref: '#/components/schemas/ObjectID'
       -  name: id
          in: path
          description: Unique ID of the membership form entry
@@ -73,314 +91,18 @@ paths:
                   application/json:
                      schema:
                         $ref: '#/components/schemas/MembershipForm'
-            403:
-               description: Unauthorized
             500:
                description: Error while retrieving data
-      put:
-         tags:
-         - Membership form
-         summary: Membership form update
-         description: Using the passed form object, updates or inserts are made to save the data.
-         requestBody:
-            description: The form to be updated or inserted into the data set.
-            content:
-               application/json:
-                  schema:
-                     $ref: '#/components/schemas/MembershipForm'
-         responses:
-            200:
-               description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/MembershipForm'
-            403:
-               description: Unauthorized
       delete:
          tags:
          - Membership form
          summary: Membership form delete
          description: Remove a membership form entry with the given ID
          responses:
-            204:
-               description: Success
-            403:
-               description: Unauthorized
-   /form/{id}/contacts:
-      parameters:
-      -  name: id
-         in: path
-         description: Unique ID of the membership form entry
-         required: true
-         schema:
-            $ref: '#/components/schemas/ObjectID'
-      get:
-         tags:
-         - Contacts
-         summary: Contacts list
-         description: Returns a list of tracked contacts
-         responses:
             200:
                description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/Contacts'
-            500:
-               description: Error while retrieving data
-      post:
-         tags:
-         - Contacts
-         summary: Contacts create
-         description: Using the passed contact object, updates or inserts are made to save the data.
-         requestBody:
-            description: The contact to be updated or inserted into the data set.
-            content:
-               application/json:
-                  schema:
-                     $ref: '#/components/schemas/Contact'
-         responses:
-            200:
-               description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/Contact'
             403:
                description: Unauthorized
-   /form/{id}/contacts/{contactID}:
-      parameters:
-      -  name: id
-         in: path
-         description: Unique ID of the membership form entry
-         required: true
-         schema:
-            $ref: '#/components/schemas/ObjectID'
-      -  name: contactID
-         in: path
-         description: Unique ID of the contact for the current form
-         required: true
-         schema:
-            $ref: '#/components/schemas/ObjectID'
-      get:
-         tags:
-         - Contacts
-         summary: Contacts
-         description: Returns a contact for the form given a form ID and contact ID
-         responses:
-            200:
-               description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/Contact'
-            403:
-               description: Unauthorized
-            500:
-               description: Error while retrieving data
-      put:
-         tags:
-         - Contacts
-         summary: Contacts update
-         description: Using the passed contact object, updates or inserts are made to save the data.
-         requestBody:
-            description: The contact to be updated or inserted into the data set.
-            content:
-               application/json:
-                  schema:
-                     $ref: '#/components/schemas/Contact'
-         responses:
-            200:
-               description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/Contact'
-            403:
-               description: Unauthorized
-      delete:
-         tags:
-         - Contacts
-         summary: Contacts delete
-         description: Remove a contact entry with the given ID
-         responses:
-            204:
-               description: Success
-            403:
-               description: Unauthorized
-   /form/{id}/organizations:
-      parameters:
-      -  name: id
-         in: path
-         description: Unique ID of the membership form entry
-         required: true
-         schema:
-            $ref: '#/components/schemas/ObjectID'
-      get:
-         tags:
-         - Organizations
-         summary: Organizations list
-         description: Returns a list of tracked organizationsfor the form
-         responses:
-            200:
-               description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/Organizations'
-            500:
-               description: Error while retrieving data
-      post:
-         tags:
-         - Organizations
-         summary: Organizations create
-         description: Using the passed organization object, a new organization object is saved to the dataset.
-         requestBody:
-            description: The organization to be updated or inserted into the data set.
-            content:
-               application/json:
-                  schema:
-                     $ref: '#/components/schemas/Organization'
-         responses:
-            200:
-               description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/Organization'
-               
-            403:
-               description: Unauthorized
-   /form/{id}/organizations/{orgID}:
-      parameters:
-      -  name: id
-         in: path
-         description: Unique ID of the membership form entry
-         required: true
-         schema:
-            $ref: '#/components/schemas/ObjectID'
-      -  name: orgID
-         in: path
-         description: Unique ID of the organization for the form entry
-         required: true
-         schema:
-            $ref: '#/components/schemas/ObjectID'
-      put:
-         tags:
-         - Organizations
-         summary: Organizations update
-         description: Using the passed organization object, updates or inserts are made to save the data.
-         requestBody:
-            description: The organization to be updated or inserted into the data set.
-            content:
-               application/json:
-                  schema:
-                     $ref: '#/components/schemas/Organization'
-         responses:
-            200:
-               description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/Organization'
-            403:
-               description: Unauthorized
-      delete:
-         tags:
-         - Organizations
-         summary: Organizations delete
-         description: Remove an organization for the form given a form ID
-         responses:
-            204:
-               description: Success
-            403:
-               description: Unauthorized
-   /form/{id}/working_groups:
-      parameters:
-      -  name: id
-         in: path
-         description: Unique ID of the membership form entry
-         required: true
-         schema:
-            $ref: '#/components/schemas/ObjectID'
-      get:
-         tags:
-         - Working Groups
-         summary: Working Groups list
-         description: Returns a list of tracked Working Groups for membership form
-         responses:
-            200:
-               description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/WorkingGroups'
-            403:
-               description: Unauthorized
-            500:
-               description: Error while retrieving data
-      put:
-         tags:
-         - Working Groups
-         summary: Working Groups update
-         description: Using the passed Working Groups object, updates or inserts are made to save the data.
-         requestBody:
-            description: The working group to be updated or inserted into the data set.
-            content:
-               application/json:
-                  schema:
-                     $ref: '#/components/schemas/WorkingGroup'
-         responses:
-            200:
-               description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/Organization'
-            403:
-               description: Unauthorized
-   /form/{id}/working_groups/{workingGroupID}:
-      parameters:
-      -  name: id
-         in: path
-         description: Unique ID of the membership form entry
-         required: true
-         schema:
-            $ref: '#/components/schemas/ObjectID'
-      -  name: workingGroupID
-         in: path
-         description: Unique ID of the working group relationship within a form
-         required: true
-         schema:
-            $ref: '#/components/schemas/ObjectID'
-      get:
-         tags:
-         - Working Groups
-         summary: Working Group
-         description: Returns a working group entry that has a matching ID 
-         responses:
-            200:
-               description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/WorkingGroup'
-            403:
-               description: Unauthorized
-            500:
-               description: Error while retrieving data
-      delete:
-         tags:
-         - Working Groups
-         summary: Working Groups delete
-         description: Remove a working group form entry with the given ID
-         responses:
-            204:
-               description: Success
-            403:
-               description: Unauthorized
-
 components:
    schemas:
       ObjectID:
@@ -394,69 +116,22 @@ components:
             Date string in the RFC 3339 format. Example, `1990-12-31T15:59:60-08:00`.
 
             More on this standard can be read at https://tools.ietf.org/html/rfc3339.
-      Contacts:
-         type: array
-         items:
-            $ref: '#/components/schemas/Contact'
-      Contact:
-        type: object
-        properties:
-            id:
-               $ref: '#/components/schemas/ObjectID'
-            form_id:
-               $ref: '#/components/schemas/ObjectID'
-            first_name:
-               type: string
-               description: First name of the contact
-            last_name:
-               type: string
-               description: Last name of the contact
-            email:
-               type: string
-               description: Professional email address at which the individual can be reached at
-            job_title:
-               type: string
-               description: Job title of the contact
-            type:
-               type: string
-               description: The type of contact that is being stored
-
-      Organizations:
-         type: array
-         items:
-            $ref: '#/components/schemas/Organization'
-      
-      Organization:
+      Representative:
          type: object
          properties:
-            form_id:
-               $ref: '#/components/schemas/ObjectID'
-            organization_id:
-               $ref: '#/components/schemas/ObjectID'
-            legal_name:
+            first_name:
                type: string
-               description: Legal Name of the Organization
-            twitter:
+               description: Placeholder
+            last_name:
                type: string
-               description: The Twitter handle of the organization
-            address:
-               type: object
-               properties:
-                  street:
-                     type: string
-                     description: Street address of the organization
-                  city:
-                     type: string
-                     description: The ciy in which the organization is based
-                  province_state:
-                     type: string
-                     description: The province/state in which the organization is based
-                  country:
-                     type: string
-                     description: The country in which the organization is based
-                  postal_code:
-                     type: string
-                     description: The postal code of the physical address of the organization
+               description: Placeholder
+            email:
+               type: string
+               description: Placeholder
+            job_title:
+               type: string
+               description: Placeholder
+      
       MembershipForms:
          type: array
          items:
@@ -466,32 +141,62 @@ components:
          properties:
             id:
                $ref: '#/components/schemas/ObjectID'
+               description: an ID for the current form
             user_id:
                $ref: '#/components/schemas/ObjectID'
+               description: The user that is filling out the form
+            organization:
+               type: object
+               description: The organization that would be joining the Eclipse Foundation and a working group
+               properties:
+                  legal_name:
+                     type: string
+                     description: Legal Name of the Organization
+                  address:
+                     type: object
+                     properties:
+                        street:
+                           type: string
+                           description: Street address for the organization
+                        city:
+                           type: string
+                           description: City name for the organization address
+                        province_state:
+                           type: string
+                           description: The province/state for the organization address 
+                        country:
+                           type: string
+                           description: The country for the organization address
+                        postal_code:
+                           type: string
+                           description: The postal/zip code for the organization address
+                        twitter:
+                           type: string
+                           description: The Twitter handle for the organization (optional)
+                  representative:
+                     $ref: '#/components/schemas/Representative'
+            working_group:
+               type: object
+               properties:
+                  id:
+                     $ref: '#/components/schemas/ObjectID'
+                     description: the ID of the working group for lookup purposes
+                  representative:
+                     $ref: '#/components/schemas/Representative'
             membership_level:
                type: string
-               description: The level of membership with the Eclipse Foundation that is being targeted.
-            signing_authority:
-               type: boolean
-               description: Whether the currently submitting user has signing authority for membership contracts.
-
-      WorkingGroups:
-         type: array
-         items:
-            $ref: '#/components/schemas/WorkingGroup'
-      WorkingGroup:
-         type: object
-         properties:
-            id:
-               $ref: '#/components/schemas/ObjectID'
-            working_group:
-               type: string
-               description: The ID of the working group relationship to be formed
+               description: Intended membership level within the Eclipse Foundation
             participation_level:
                type: string
-               description: The desired participation level desired within the new working group
+               description: Intended participation level within the working group
             effective_date:
                $ref: '#/components/schemas/DateTime'
-            contact:
-               $ref: '#/components/schemas/Contact'
-         
+               description: Effective date for your Membership Agreement/Working Group Participation Agreement
+            signing:
+               type: object
+               properties:
+                  signing_authority:
+                     type: boolean
+                     description: Whether the current user has the authority to sign legal agreements
+                  signing_representative:
+                     $ref: '#/components/schemas/Representative'
