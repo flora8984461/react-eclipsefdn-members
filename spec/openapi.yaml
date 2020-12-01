@@ -43,36 +43,8 @@ paths:
                description: Success
             403:
                description: Unauthorized
-   /membership/{userId}:
+   /membership/{id}:
       parameters:
-      -  name: userId
-         in: path
-         description: Unique ID of the user creating the form entry
-         required: true
-         schema:
-            $ref: '#/components/schemas/ObjectID'
-      get:
-         tags:
-         - Membership form
-         summary: Membership form list for user
-         description: Returns a list of tracked organizations
-         responses:
-            200:
-               description: Success
-               content:
-                  application/json:
-                     schema:
-                        $ref: '#/components/schemas/MembershipForms'
-            500:
-               description: Error while retrieving data
-   /membership/{userId}/{id}:
-      parameters:
-      -  name: userId
-         in: path
-         description: Unique ID of the user creating the form entry
-         required: true
-         schema:
-            $ref: '#/components/schemas/ObjectID'
       -  name: id
          in: path
          description: Unique ID of the membership form entry
@@ -131,7 +103,6 @@ components:
             job_title:
                type: string
                description: Placeholder
-      
       MembershipForms:
          type: array
          items:
@@ -141,13 +112,10 @@ components:
          properties:
             id:
                $ref: '#/components/schemas/ObjectID'
-               description: an ID for the current form
             user_id:
                $ref: '#/components/schemas/ObjectID'
-               description: The user that is filling out the form
             organization:
                type: object
-               description: The organization that would be joining the Eclipse Foundation and a working group
                properties:
                   legal_name:
                      type: string
@@ -157,46 +125,55 @@ components:
                      properties:
                         street:
                            type: string
-                           description: Street address for the organization
+                           description: Placeholder
                         city:
                            type: string
-                           description: City name for the organization address
+                           description: Placeholder
                         province_state:
                            type: string
-                           description: The province/state for the organization address 
+                           description: Placeholder
                         country:
                            type: string
-                           description: The country for the organization address
+                           description: Placeholder
                         postal_code:
                            type: string
-                           description: The postal/zip code for the organization address
+                           description: Placeholder
                         twitter:
                            type: string
-                           description: The Twitter handle for the organization (optional)
-                  representative:
-                     $ref: '#/components/schemas/Representative'
+                           description: Placeholder
+                  representatives:
+                     type: object
+                     properties:
+                        company:
+                           $ref: '#/components/schemas/Representative'
+                           description: The direct company representative
+                        marketing:
+                           $ref: '#/components/schemas/Representative'
+                           description: The company marketing representative
+                        accounting_contact:
+                           $ref: '#/components/schemas/Representative'
+                           description: The company accounting contact/representative
             working_group:
                type: object
                properties:
-                  id:
-                     $ref: '#/components/schemas/ObjectID'
-                     description: the ID of the working group for lookup purposes
+                  name:
+                     type: string
+                     description: Placeholder
                   representative:
                      $ref: '#/components/schemas/Representative'
             membership_level:
                type: string
-               description: Intended membership level within the Eclipse Foundation
+               description: Placeholder
             participation_level:
                type: string
-               description: Intended participation level within the working group
+               description: Placeholder
             effective_date:
                $ref: '#/components/schemas/DateTime'
-               description: Effective date for your Membership Agreement/Working Group Participation Agreement
             signing:
                type: object
                properties:
                   signing_authority:
                      type: boolean
-                     description: Whether the current user has the authority to sign legal agreements
+                     description: Placeholder
                   signing_representative:
                      $ref: '#/components/schemas/Representative'
