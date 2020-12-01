@@ -1,0 +1,202 @@
+openapi: 3.0.0
+info:
+   version: 1.0.0
+   title: Membership portal
+   license:
+      name: Eclipse Public License - 2.0
+      url: https://www.eclipse.org/legal/epl-2.0/
+servers:
+-  url: TBD - Internal
+   description: Production endpoint for the membership portal data
+tags:
+-  name: Membership form
+   description: Definitions related to membership form data in the database
+paths:
+   /membership:
+      get:
+         tags:
+         - Membership form
+         summary: Membership form list
+         description: Returns a list of tracked organizations
+         responses:
+            200:
+               description: Success
+               content:
+                  application/json:
+                     schema:
+                        $ref: '#/components/schemas/MembershipForms'
+            500:
+               description: Error while retrieving data
+      put:
+         tags:
+         - Membership form
+         summary: Membership form update
+         description: Using the passed organization object, updates or inserts are made to save the data.
+         requestBody:
+            description: The organization to be updated or inserted into the data set.
+            content:
+               application/json:
+                  schema:
+                     $ref: '#/components/schemas/MembershipForm'
+         responses:
+            200:
+               description: Success
+            403:
+               description: Unauthorized
+   /membership/{userId}:
+      parameters:
+      -  name: userId
+         in: path
+         description: Unique ID of the user creating the form entry
+         required: true
+         schema:
+            $ref: '#/components/schemas/ObjectID'
+      get:
+         tags:
+         - Membership form
+         summary: Membership form list for user
+         description: Returns a list of tracked organizations
+         responses:
+            200:
+               description: Success
+               content:
+                  application/json:
+                     schema:
+                        $ref: '#/components/schemas/MembershipForms'
+            500:
+               description: Error while retrieving data
+   /membership/{userId}/{id}:
+      parameters:
+      -  name: userId
+         in: path
+         description: Unique ID of the user creating the form entry
+         required: true
+         schema:
+            $ref: '#/components/schemas/ObjectID'
+      -  name: id
+         in: path
+         description: Unique ID of the membership form entry
+         required: true
+         schema:
+            $ref: '#/components/schemas/ObjectID'
+      get:
+         tags:
+         - Membership form
+         summary: Membership form
+         description: Returns a membership form entry that has a matching ID
+         responses:
+            200:
+               description: Success
+               content:
+                  application/json:
+                     schema:
+                        $ref: '#/components/schemas/MembershipForm'
+            500:
+               description: Error while retrieving data
+      delete:
+         tags:
+         - Membership form
+         summary: Membership form delete
+         description: Remove a membership form entry with the given ID
+         responses:
+            200:
+               description: Success
+            403:
+               description: Unauthorized
+components:
+   schemas:
+      ObjectID:
+         description: Unique identifier for an addressable object in the API.
+         type: string
+         minimum: 1
+      DateTime:
+         type: string
+         format: datetime
+         description: |
+            Date string in the RFC 3339 format. Example, `1990-12-31T15:59:60-08:00`.
+
+            More on this standard can be read at https://tools.ietf.org/html/rfc3339.
+      Representative:
+         type: object
+         properties:
+            first_name:
+               type: string
+               description: Placeholder
+            last_name:
+               type: string
+               description: Placeholder
+            email:
+               type: string
+               description: Placeholder
+            job_title:
+               type: string
+               description: Placeholder
+      
+      MembershipForms:
+         type: array
+         items:
+            $ref: '#/components/schemas/MembershipForm'
+      MembershipForm:
+         type: object
+         properties:
+            id:
+               $ref: '#/components/schemas/ObjectID'
+               description: an ID for the current form
+            user_id:
+               $ref: '#/components/schemas/ObjectID'
+               description: The user that is filling out the form
+            organization:
+               type: object
+               description: The organization that would be joining the Eclipse Foundation and a working group
+               properties:
+                  legal_name:
+                     type: string
+                     description: Legal Name of the Organization
+                  address:
+                     type: object
+                     properties:
+                        street:
+                           type: string
+                           description: Street address for the organization
+                        city:
+                           type: string
+                           description: City name for the organization address
+                        province_state:
+                           type: string
+                           description: The province/state for the organization address 
+                        country:
+                           type: string
+                           description: The country for the organization address
+                        postal_code:
+                           type: string
+                           description: The postal/zip code for the organization address
+                        twitter:
+                           type: string
+                           description: The Twitter handle for the organization (optional)
+                  representative:
+                     $ref: '#/components/schemas/Representative'
+            working_group:
+               type: object
+               properties:
+                  id:
+                     $ref: '#/components/schemas/ObjectID'
+                     description: the ID of the working group for lookup purposes
+                  representative:
+                     $ref: '#/components/schemas/Representative'
+            membership_level:
+               type: string
+               description: Intended membership level within the Eclipse Foundation
+            participation_level:
+               type: string
+               description: Intended participation level within the working group
+            effective_date:
+               $ref: '#/components/schemas/DateTime'
+               description: Effective date for your Membership Agreement/Working Group Participation Agreement
+            signing:
+               type: object
+               properties:
+                  signing_authority:
+                     type: boolean
+                     description: Whether the current user has the authority to sign legal agreements
+                  signing_representative:
+                     $ref: '#/components/schemas/Representative'
