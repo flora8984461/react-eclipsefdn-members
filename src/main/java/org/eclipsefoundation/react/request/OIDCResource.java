@@ -3,17 +3,16 @@ package org.eclipsefoundation.react.request;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 import org.eclipsefoundation.core.model.RequestWrapper;
-import org.eclipsefoundation.core.namespace.UrlParameterNamespace.UrlParameter;
 import org.eclipsefoundation.react.helper.CSRFHelper;
 import org.eclipsefoundation.react.model.AdditionalUserData;
 
+import io.quarkus.security.Authenticated;
 import io.quarkus.security.identity.SecurityIdentity;
 
 /**
@@ -29,7 +28,7 @@ public class OIDCResource {
   @Inject SecurityIdentity ident;
 
   @GET
-  @RolesAllowed("")
+  @Authenticated
   @Path("/login")
   public Response routeLogin() throws URISyntaxException {
     return redirect("/");
@@ -62,7 +61,7 @@ public class OIDCResource {
   public Response generateCSRF() {
     if (!ident.isAnonymous()) {
       aud.setCsrf(csrfHelper.getNewCSRFToken());
-      wrap.setParam(new UrlParameter("csrf"), aud.getCsrf());
+      wrap.setHeader("csrf", aud.getCsrf());
       return Response.ok().build();
     } else {
       return Response.status(403).build();

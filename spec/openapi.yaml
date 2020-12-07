@@ -313,6 +313,9 @@ components:
             legal_name:
                type: string
                description: Legal Name of the Organization
+            twitter:
+               type: string
+               description: Placeholder
             address:
                type: object
                properties:
@@ -329,9 +332,6 @@ components:
                      type: string
                      description: Placeholder
                   postal_code:
-                     type: string
-                     description: Placeholder
-                  twitter:
                      type: string
                      description: Placeholder
       MembershipForms:
