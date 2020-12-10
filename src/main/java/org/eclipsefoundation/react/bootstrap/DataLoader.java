@@ -41,7 +41,7 @@ public class DataLoader {
   private static final List<String> PARTICIPATION_LEVELS =
       Collections.unmodifiableList(Arrays.asList("platinum", "gold", "silver", "associate"));
   private static final List<String> CONTACT_TYPES =
-      Collections.unmodifiableList(Arrays.asList("platinum", "gold", "silver", "associate"));
+      Collections.unmodifiableList(Arrays.asList("working_group", "company", "marketing", "accounting"));
 
   @Inject PersistenceDao dao;
   @Inject FilterService filters;
