@@ -52,7 +52,7 @@ public class Address {
     this.organizationID = organizationID;
   }
   /** @return the steet */
-  public String getSrteet() {
+  public String getStreet() {
     return street;
   }
   /** @param street the street to set */
