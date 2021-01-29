@@ -46,7 +46,7 @@ const CountrySelect = (props) => {
         handleSelect(option, action)
       }}
       onBlur={props.form.handleBlur(props.field.name)}
-      className="margin-bottom-10"
+      className="margin-bottom-10 form-group"
       theme={selectTheme}
     />
   )

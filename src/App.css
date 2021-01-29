@@ -14,3 +14,8 @@ label {
 .form-border-error {
     border-color: red;
 }
+
+.btn-primary {
+    margin-bottom: 10px;
+    border-radius: 5px;
+}

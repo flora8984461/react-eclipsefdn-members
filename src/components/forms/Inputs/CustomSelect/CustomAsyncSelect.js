@@ -136,7 +136,7 @@ const CustomAsyncSelect = (props) => {
         styles={generateCustomStyles(meta.error)}
         theme={selectTheme}
         noOptionsMessage={() => "Type to Search..."}
-        className="margin-bottom-10"
+        className="margin-bottom-10 form-group"
       />
     )
   }
@@ -155,7 +155,7 @@ const CustomAsyncSelect = (props) => {
       onBlur={props.form.handleBlur(props.field.name)}
       styles={wgCustomStyles}
       theme={selectTheme}
-      className="margin-bottom-10"
+      className="margin-bottom-10 form-group"
     />
   )
 
