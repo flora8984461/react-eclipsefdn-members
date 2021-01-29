@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { useFormikContext } from 'formik';
+import { selectTheme } from './customSelectStyle';
 
 const StatesSelect = (props) => {
   const { values } = useFormikContext()
@@ -42,6 +43,8 @@ const StatesSelect = (props) => {
         handleSelect(option, action)
       }}
       onBlur={props.form.handleBlur(props.field.name)}
+      className="margin-bottom-10"
+      theme={selectTheme}
     />
   )
 

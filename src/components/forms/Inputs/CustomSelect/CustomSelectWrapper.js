@@ -5,6 +5,7 @@ const CustomSelectWrapper = ({ name, srcData, isExistingMember, setDisableInput,
 
   return (
     <>
+    <ErrorMessage className="error" component="div" name={name} />
     <Field
       name={name}
       component={renderComponent}
@@ -13,7 +14,6 @@ const CustomSelectWrapper = ({ name, srcData, isExistingMember, setDisableInput,
       setDisableInput={setDisableInput}
       organiazationData={organiazationData}
     />
-    <ErrorMessage className="error" component="div" name={name} />
     </>
   )
 }

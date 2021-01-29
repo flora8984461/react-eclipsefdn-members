@@ -23,9 +23,11 @@ const CompanyInformation = ({ formField, label, skipped, addMKTRepre, setAddMKTR
 
   return (
     <>
-      <h3>Confirm/Complete your Company’s Information</h3>
-      <hr />
-      <h4> Organizations </h4>
+      <h2 className="fw-600">Company Information</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      
+      <div>
+      <h4 className="fw-600"> Organization * </h4>
       <CustomSelectWrapper
         name="organization.legalName"
         srcData="companies"
@@ -34,10 +36,10 @@ const CompanyInformation = ({ formField, label, skipped, addMKTRepre, setAddMKTR
         organiazationData={organiazationData}
         renderComponent={CustomAsyncSelect}
       />
-      <hr />
-      <h5>Address</h5>
+      <Input name="organization.twitterHandle" labelName="Twitter" placeholder="Twitter" disableInput={disableInput} />
+
+      <h4 className="fw-600">Address</h4>
       <Input name="organization.address.street" labelName="Street" placeholder="Street" disableInput={disableInput} />
-      <Input name="organization.address.postalCode" labelName="Postal Code" placeholder="Postal Code" disableInput={disableInput} />
       <Input name="organization.address.city" labelName="City" placeholder="City" disableInput={disableInput} />
 
       {
@@ -68,9 +70,8 @@ const CompanyInformation = ({ formField, label, skipped, addMKTRepre, setAddMKTR
           />        
         </>
       }
-      <Input name="organization.twitterHandle" labelName="Twitter" placeholder="Twitter" disableInput={disableInput} />
+      <Input name="organization.address.postalCode" labelName="Postal Code" placeholder="Postal Code" disableInput={disableInput} />
 
-      <hr />
       <h4>Company Representative Contact</h4>
       { companyRepresentative.map(el => <Input name={el.name} labelName={el.label} placeholder={el.placeholder} key={el.name} />) }
 
@@ -98,6 +99,7 @@ const CompanyInformation = ({ formField, label, skipped, addMKTRepre, setAddMKTR
         </>
       }
 
+      </div>
     </>
   );
 };

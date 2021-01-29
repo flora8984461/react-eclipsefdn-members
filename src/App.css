@@ -1,3 +1,16 @@
 .error {
     color: red;
 }
+
+.form-control {
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+label {
+    font-weight: unset;
+}
+
+.form-border-error {
+    border-color: red;
+}

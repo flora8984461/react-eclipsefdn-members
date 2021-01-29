@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
+import { selectTheme } from './customSelectStyle';
 
 const CountrySelect = (props) => {
 
@@ -45,6 +46,8 @@ const CountrySelect = (props) => {
         handleSelect(option, action)
       }}
       onBlur={props.form.handleBlur(props.field.name)}
+      className="margin-bottom-10"
+      theme={selectTheme}
     />
   )
 

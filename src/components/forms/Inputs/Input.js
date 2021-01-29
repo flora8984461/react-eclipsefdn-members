@@ -15,12 +15,12 @@ const Input = ({ name, labelName, placeholder, disableInput }) => {
         
         // console.log(field.value)
         return (
-        <div>
-          <input {...field} className="form-control" type="text" placeholder={placeholder} disabled={disableInput} />
-          {meta.touched && meta.error && (
-            <div className="error">{meta.error}</div>
-          )}
-        </div>
+        <>
+          <input {...field} className={`form-control margin-bottom-10 ${meta.touched && meta.error ? "form-border-error" : ""}`} type="text" placeholder={placeholder} disabled={disableInput} />
+          {/* {meta.touched && meta.error && (
+            <div className="error margin-bottom-5">{meta.error}</div>
+          )} */}
+        </>
       )}}
     </Field>
     </>

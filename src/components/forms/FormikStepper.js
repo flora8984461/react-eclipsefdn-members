@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 import { validationSchema } from '../formModels/ValidationSchema';
 import Stepper from "../steppers/Stepper";
 import Step from "../steppers/Step";
-import FormComponent from "./FormComponent";
+import CustomStepButton from "./CustomStepButton";
 
 //form.validateForm(); to manually call validate
 
@@ -84,8 +84,17 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
                   )
                 })}
               </Stepper>
-
-              <FormComponent formik={formik} currentChild={currentChild} step={step} setStep={setStep} isLastStep={isLastStep} />
+              <Form>
+                {React.cloneElement(currentChild, { parentState: { formik, ...props } })}
+                <CustomStepButton
+                  values={formik.values}
+                  step={step}
+                  isSubmitting={formik.isSubmitting}
+                  setStep={setStep}
+                  isLastStep={isLastStep}
+                  formikSubmit={formik.submitForm}
+                />
+              </Form>
             </>
         }
       </Formik>

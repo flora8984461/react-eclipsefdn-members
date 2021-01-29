@@ -1,42 +1,14 @@
 import React, { useEffect } from 'react';
 import AsyncCreatable from 'react-select/async-creatable';
 import AsyncSelect from 'react-select/async';
-// import { useField } from 'formik';
+import { wgCustomStyles, selectTheme, generateCustomStyles } from './customSelectStyle';
+import { useField } from 'formik';
 
 const CustomAsyncSelect = (props) => {
 
-  // const [field, meta, helpers] = useField(props.field.name);  //// or props.field, must contain name key
-  // console.log(field)
-  // console.log(meta)
+  const [field, meta] = useField(props.field.name);  //// or props.field, must contain name key
 
-  // selectorStyles object
-  const companyCustomStyles = {
-    option: (styles, state) => ({
-      ...styles,
-      cursor: "pointer"
-    }),
-    control: (styles) => ({
-      ...styles,
-      cursor: "text"
-    }),
-    clearIndicator: (styles) => ({
-      ...styles,
-      cursor: "pointer"
-    })
-  };
-
-
-  const wgCustomStyles = {
-    option: (styles, state) => ({
-      ...styles,
-      cursor: "pointer"
-    }),
-    clearIndicator: (styles) => ({
-      ...styles,
-      cursor: "pointer"
-    })
-  };
-
+  // console.log(props)
 
   useEffect(() => {
     // When has initial data and has not been changed, show prefilled address data and disable input
@@ -151,6 +123,7 @@ const CustomAsyncSelect = (props) => {
   if (props.srcData === "companies") {
     return (
       <AsyncCreatable
+        {...field}
         isClearable
         cacheOptions
         defaultOptions
@@ -160,14 +133,17 @@ const CustomAsyncSelect = (props) => {
           handleSelect(option, action)
         }}
         onBlur={props.form.handleBlur(props.field.name)}
-        styles={companyCustomStyles}
+        styles={generateCustomStyles(meta.error)}
+        theme={selectTheme}
         noOptionsMessage={() => "Type to Search..."}
+        className="margin-bottom-10"
       />
     )
   }
 
   else return (
     <AsyncSelect
+      {...field}
       isClearable
       cacheOptions
       defaultOptions
@@ -178,6 +154,8 @@ const CustomAsyncSelect = (props) => {
       }}
       onBlur={props.form.handleBlur(props.field.name)}
       styles={wgCustomStyles}
+      theme={selectTheme}
+      className="margin-bottom-10"
     />
   )
 

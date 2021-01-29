@@ -17,12 +17,12 @@ export const validationSchema = [
   // First step - company Info
   yup.object().shape({
     organization: yup.object().shape({
-        legalName: yup.string().required(`${requiredErrorMsg}`),
+        legalName: yup.mixed().required(`${requiredErrorMsg}`),
         address: yup.object().shape({
             street: yup.string().required(`${requiredErrorMsg}`),
             city: yup.string().required(`${requiredErrorMsg}`),
-            provinceOrState: yup.string().required(`${requiredErrorMsg}`),
-            country: yup.string().required(`${requiredErrorMsg}`),
+            provinceOrState: yup.mixed().required(`${requiredErrorMsg}`),
+            country: yup.mixed().required(`${requiredErrorMsg}`),
             postalCode: yup.string().required(`${requiredErrorMsg}`),
         })
       }),
