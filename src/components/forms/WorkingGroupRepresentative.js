@@ -9,9 +9,14 @@ const WorkingGroupRepresentative = ({ formField }) => {
   
   return (
     <>
-      <h3>Who is the working group representative?</h3>
-      <hr />
-      { wgRepresentative.map(el => <Input name={el.name} labelName={el.label} placeholder={el.placeholder} key={el.name} />) }
+      <h4 className="fw-600">Who is the working group representative?</h4>
+      <div className="row">
+      { wgRepresentative.map(el => 
+          <div key={el.name} className="col-md-12">
+            <Input name={el.name} labelName={el.label} placeholder={el.placeholder} />
+          </div>
+      ) }
+      </div>
     </>
   );
 };

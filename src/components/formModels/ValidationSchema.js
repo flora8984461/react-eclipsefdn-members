@@ -63,24 +63,10 @@ export const validationSchema = [
 
   // Forth, signing Authority
   yup.object().shape({
-    signingAuthority: yup.string().required(`${requiredErrorMsg}`),
     signingAuthorityRepresentative:yup.object().shape({
-      firstName: yup.string().when("signingAuthority", {
-        is: value => value === "noSigningAuthority",
-        then: yup.string().required(`${requiredErrorMsg}`)
-      }),
-      lastName: yup.string().when("signingAuthority", {
-        is: value => value === "noSigningAuthority",
-        then: yup.string().required(`${requiredErrorMsg}`)
-      }),
-      jobtitle: yup.string().when("signingAuthority", {
-        is: value => value === "noSigningAuthority",
-        then: yup.string().required(`${requiredErrorMsg}`)
-      }),
-      email: yup.string().when("signingAuthority", {
-        is: value => value === "noSigningAuthority",
-        then: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
-      })
+      firstName: yup.string().required(`${requiredErrorMsg}`),
+      lastName: yup.string().required(`${requiredErrorMsg}`),
+      email: yup.string().required(`${requiredErrorMsg}`)
     })
   })
-] 
+]

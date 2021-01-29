@@ -14,14 +14,17 @@ const MembershipLevel = ({ formField }) => {
 
   return (
     <>
-      <h4>What is your intended Membership Level? </h4>
+    <div className="align-center">
+      <h2 className="fw-600">Membership Level</h2>
+      <p>Please Indicate the class of membership for which you are applying</p>
+      <h3 className="fw-600">What is your intended Membership Level?</h3>
       <Select
-        label="Membership Level"
+        label="membershipLevel"
         name="membershipLevel"
         options={dropdownOptions}
       />
-      <p>The table is from here https://www.eclipse.org/membership/documents/membership-prospectus.pdf</p>
       <MembershipFeeTable />
+      </div>
     </>
   );
 };

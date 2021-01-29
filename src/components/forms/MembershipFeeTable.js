@@ -3,7 +3,8 @@ import React from "react";
 const MembershipFeeTable = () => {
 
     return (
-        <div className="vertical-align">
+      <>
+        <div className="vertical-align margin-top-50">
           <table className="table table-stripped" cellSpacing="0">
             <thead>
                 <tr>
@@ -68,6 +69,8 @@ const MembershipFeeTable = () => {
             </tbody>
           </table>
         </div>
+        <p className="text-center">*There is no cost to being a Committer member of the Foundation</p>
+      </>
     )
 }
 

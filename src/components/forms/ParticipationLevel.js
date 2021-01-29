@@ -6,9 +6,9 @@ const ParticipationLevel = ({formField, label, participationLevels}) => {
 
   return (
     <>
-      <h4>What is your intended participation level?</h4>
+      <h4 className="fw-600 margin-top-30">What is your intended participation level?</h4>
       <Select
-        label="Participation Level"
+        label="ParticipationLevel"
         name="participationLevel"
         options={participationLevels}
       />

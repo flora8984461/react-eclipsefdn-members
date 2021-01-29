@@ -13,7 +13,10 @@ const WorkingGroups = ({ formField }) => {
 
   return (
     <>
-      <h4>Which working group would you like to join? </h4>
+    <h2 className="fw-600">Working Group</h2>
+    <p>Please complete the following details for joining a Working Group</p>
+    <div className="align-center margin-top-50 margin-bottom-30">
+      <h3 className="h4 fw-600">Which working group would you like to join? * </h3>
       <CustomSelectWrapper
         label="Working Groups"
         name="workingGroup"
@@ -30,6 +33,11 @@ const WorkingGroups = ({ formField }) => {
         : null
       }
         <WorkingGroupsRepresentative formField={formField} label="Working Group Representative" />
+
+    </div>
+
+    <div className="text-center margin-bottom-20"><button className="btn btn-secondary padding-15" type="button"> Add another working group </button></div>
+    
     </>
   );
 };

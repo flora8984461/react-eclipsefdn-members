@@ -7,7 +7,7 @@ const CustomStepButton = ({step, isSubmitting, setStep, isLastStep}) => {
   }
 
   return (
-    <div>
+    <div className="button-container margin-top-20 margin-bottom-20">
       {step > 0 ? (
           <button
             disabled={isSubmitting}

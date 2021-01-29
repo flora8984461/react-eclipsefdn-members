@@ -5,7 +5,7 @@ const Select = (props) => {
   const { label, name, options, /*...rest*/ } = props
   return (
     <>
-    <label htmlFor={name}>{label}</label>
+    <label sr-only="true" htmlFor={name}>{label}</label>
     <Field name={name}>
       {({
         field, // { name, value, onChange, onBlur }

@@ -20,6 +20,25 @@ export const generateCustomStyles = (metaErr) => {
   }
 }
 
+export const generateCustomWGSelectStyles = (metaErr) => {
+  return {
+    option: (styles, state) => ({
+      ...styles,
+      cursor: "pointer"
+    }),
+    control: (styles, state) => ({
+      ...styles,
+      // border: metaErr ? "1px solid red" : "1px solid hsl(0, 0%, 80%)",
+      '&:hover': { borderColor: metaErr ? 'red' : 'orange' },
+      borderColor: metaErr ? 'red' : 'hsl(0, 0%, 80%)',
+    }),
+    clearIndicator: (styles) => ({
+      ...styles,
+      cursor: "pointer"
+    })
+  }
+}
+
 export const companyCustomStyles = {
     option: (styles, state) => ({
       ...styles,

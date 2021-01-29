@@ -1,77 +1,34 @@
 import React from "react";
-import { Field } from 'formik';
-import SigningAuthorityInfo from './SigningAuthorityInfo';
+import Input from './Inputs/Input';
 
-const SigningAuthority = ({ formField, showHidden, setShowHidden, formDataStates }) => {
-
-  // const { 
-  //   signingAuthority
-  // } = formField
-
-  // console.log("ischanging?" + formDataStates.signingAuthority)
-
-  const handleOnChange = (val) => {
-    if (val === "haveSigningAuthority") {
-        setShowHidden(false)
-    }
-    if (val === "noSigningAuthority") {
-        setShowHidden(true)
-    }
-  }
-
+const SigningAuthority = ({ formField, formDataStates }) => {
+  const {
+    signingAuthorityRepresentative
+    } = formField;
   return (
     <>
-    <h3>Do you have the authority to sign legal agreements on behalf of your organization?</h3>
-    <Field name="signingAuthority">
-    {
-      ({
-        field, // { name, value, onChange, onBlur }
-        form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-        meta,
-      }) => {
-        return (
-          <>
-            <div className="radio-item">
-              <input
-                {...field}
-                id="haveSigningAuthority"
-                value="haveSigningAuthority"
-                checked={field.value === 'haveSigningAuthority'}
-                name="signingAuthority"
-                type="radio"
-                onChange={changeEvent => {
-                    form.setFieldValue(field.name, changeEvent.target.value);
-                    handleOnChange(changeEvent.target.value);
-                  }}
-              />
-              <label htmlFor="haveSigningAuthority">Yes</label>
-            </div>
-            <div className="radio-item">
-              <input
-                {...field}
-                id="noSigningAuthority"
-                value="noSigningAuthority"
-                name="signingAuthority"
-                checked={field.value === 'noSigningAuthority'}
-                type="radio"
-                onChange={changeEvent => {
-                    form.setFieldValue(field.name, changeEvent.target.value);
-                    handleOnChange(changeEvent.target.value);
-                  }}
-              />
-              <label htmlFor="noSigningAuthority">No</label>
-            </div>
-            {meta.touched && meta.error && (
-              <div className="error">{meta.error}</div>
-            )}
-          </>
-        )
-      }
+    <h2 className="fw-600">Signing Authority</h2>
+    <p>Please Indicate the individual who has the signing authority for the agreement</p>
 
-    }
-    </Field>
+    <div className="row">
+      <div className="col-md-12">
+          <Input name={signingAuthorityRepresentative[0].name} labelName={signingAuthorityRepresentative[0].label} placeholder={signingAuthorityRepresentative[0].placeholder} />
+      </div>
+      <div className="col-md-12">
+          <Input name={signingAuthorityRepresentative[1].name} labelName={signingAuthorityRepresentative[1].label} placeholder={signingAuthorityRepresentative[1].placeholder} />
+      </div>
+      <div className="col-md-24">
+          <Input name={signingAuthorityRepresentative[2].name} labelName={signingAuthorityRepresentative[2].label} placeholder={signingAuthorityRepresentative[2].placeholder} />
+      </div>
 
-    { showHidden && <SigningAuthorityInfo formField={formField} /> }
+
+
+        {/* { signingAuthorityRepresentative.map(el => 
+          <div key={el.name} className="col-md-12">
+            <Input name={el.name} labelName={el.label} placeholder={el.placeholder} />
+          </div>
+        ) } */}
+    </div>
     </>
   )
 

@@ -11,7 +11,7 @@ import MembershipContext from "./MembershipContext";
 const MultiStepForm = ({ defineInitialData, step, setStep }) => {
   const {isExistingMember} = useContext(MembershipContext)
   const [formDataStates, setFormDataStates] = useState(defineInitialData)
-  const [showHidden, setShowHidden] = useState(false)
+  // const [showHidden, setShowHidden] = useState(false)
 
   const [addMKTRepre, setAddMKTRepre] = useState(false)
   const [addACCRepre, setAddACCRepre] = useState(false)
@@ -58,8 +58,8 @@ const MultiStepForm = ({ defineInitialData, step, setStep }) => {
 
         <SigningAuthority
           formField={formField}
-          showHidden={showHidden}
-          setShowHidden={setShowHidden}
+          // showHidden={showHidden}
+          // setShowHidden={setShowHidden}
           formDataStates={formDataStates}
           label="Signing Authority" 
         />

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import AsyncCreatable from 'react-select/async-creatable';
 import AsyncSelect from 'react-select/async';
-import { wgCustomStyles, selectTheme, generateCustomStyles } from './customSelectStyle';
+import { generateCustomWGSelectStyles, selectTheme, generateCustomStyles } from './customSelectStyle';
 import { useField } from 'formik';
 
 const CustomAsyncSelect = (props) => {
@@ -153,7 +153,7 @@ const CustomAsyncSelect = (props) => {
         handleSelect(option, action)
       }}
       onBlur={props.form.handleBlur(props.field.name)}
-      styles={wgCustomStyles}
+      styles={generateCustomWGSelectStyles(meta.error)}
       theme={selectTheme}
       className="margin-bottom-10 form-group"
     />
