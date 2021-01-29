@@ -6,25 +6,26 @@ import CustomAsyncSelect from "./Inputs/CustomSelect/CustomAsyncSelect";
 import MembershipContext from "../MembershipContext";
 import Input from './Inputs/Input';
 
-const CompanyInformation = ({ formField, label, skipped, addMKTRepre, setAddMKTRepre, addACCRepre, setAddACCRepre, disableInput, setDisableInput }) => {
+const CompanyInformation = ({ formField, label, skipped, mktSame, setMktSame, accSame, setAccSame, disableInput, setDisableInput }) => {
 
   const { companyRepresentative, marketingRepresentative, accounting } = formField
 
   const { isExistingMember, organiazationData } = useContext(MembershipContext)
 
-  // const toggleMKTRepreContacts = () => {
-  //   setAddMKTRepre(!addMKTRepre)
-  // }
+  const toggleMKTRepreContacts = () => {
+    setMktSame(!mktSame)
+  }
 
-  // const toggleACCRepreContacts = () => {
-  //   setAddACCRepre(!addACCRepre)
-  // }
+  const toggleACCRepreContacts = () => {
+    setAccSame(!accSame)
+  }
 
   return (
     <>
       <h2 className="fw-600">Company Information</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
+      <div className="">
       <h4 className="fw-600"> Organization * </h4>
       <CustomSelectWrapper
         name="organization.legalName"
@@ -103,11 +104,9 @@ const CompanyInformation = ({ formField, label, skipped, addMKTRepre, setAddMKTR
             setDisableInput={setDisableInput}
             organiazationData={organiazationData}
             renderComponent={CountrySelect}
-          />    
+          />
         </>
       } */}
-
-
 
       <h4 className="fw-600">Company Representative Contact</h4>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -117,28 +116,29 @@ const CompanyInformation = ({ formField, label, skipped, addMKTRepre, setAddMKTR
             <Input name={el.name} labelName={el.label} placeholder={el.placeholder} />
           </div>
       ) }
-      </div>
+      </div> 
 
       <h4 className="fw-600">Company Marketing Representative</h4>
-      <span>Same as Company Rep.</span>
+      <label className="verical-center margin-top-20 margin-bottom-20"><input name="same-as-company-rep" type="checkbox" checked={mktSame} onChange={toggleMKTRepreContacts} /><span>Same as Company Rep.</span></label>
       <div className="row">
       { marketingRepresentative.map(el => 
           <div key={el.name} className="col-md-12">
-            <Input name={el.name} labelName={el.label} placeholder={el.placeholder} />
+            <Input name={el.name} labelName={el.label} placeholder={el.placeholder} disableInput={mktSame} />
           </div>
       ) }
       </div>
 
       <h4 className="fw-600">Company Accounting Representative</h4>
-      <span>Same as Company Rep.</span>
+      <label className="verical-center margin-top-20 margin-bottom-20"><input name="same-as-company-rep" type="checkbox" checked={accSame} onChange={toggleACCRepreContacts} /><span>Same as Company Rep.</span></label>
       <div className="row">
-        { accounting.map(el => 
+      { accounting.map(el => 
           <div key={el.name} className="col-md-12">
-            <Input name={el.name} labelName={el.label} placeholder={el.placeholder} />
+            <Input name={el.name} labelName={el.label} placeholder={el.placeholder} disableInput={accSame} />
           </div>
-        ) }
+      ) }
       </div>
 
+      </div>
     </>
   );
 };

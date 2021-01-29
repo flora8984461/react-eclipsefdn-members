@@ -39,3 +39,32 @@ select.form-control {
     margin-left: auto;
     margin-right: auto;
 }
+
+input[type=checkbox] {
+    /* -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; */
+    /* create custom checkbox appearance */
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    /* padding: 6px; */
+    /* background-color only for content */
+    /* background-clip: content-box; */
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 5px;
+    margin-top: 0;
+    margin-right: 15px;
+}
+
+input[type=checkbox]:checked {
+    background-color: orange;
+}
+
+.verical-center {
+    display: flex;
+    align-items: center;
+}
+input[type=checkbox]:focus {
+    outline: none !important;
+} 

@@ -13,8 +13,8 @@ const MultiStepForm = ({ defineInitialData, step, setStep }) => {
   const [formDataStates, setFormDataStates] = useState(defineInitialData)
   // const [showHidden, setShowHidden] = useState(false)
 
-  const [addMKTRepre, setAddMKTRepre] = useState(false)
-  const [addACCRepre, setAddACCRepre] = useState(false)
+  const [mktSame, setMktSame] = useState(false)
+  const [accSame, setAccSame] = useState(false)
 
   const [disableInput, setDisableInput] = useState(false)
 
@@ -37,10 +37,10 @@ const MultiStepForm = ({ defineInitialData, step, setStep }) => {
           formField={formField}
           label="Company Information"
           skipped={isExistingMember ? true : false}
-          addMKTRepre={addMKTRepre}
-          setAddMKTRepre={setAddMKTRepre}
-          addACCRepre={addACCRepre}
-          setAddACCRepre={setAddACCRepre}
+          mktSame={mktSame}
+          setMktSame={setMktSame}
+          accSame={accSame}
+          setAccSame={setAccSame}
           disableInput={disableInput}
           setDisableInput={setDisableInput}
         />
