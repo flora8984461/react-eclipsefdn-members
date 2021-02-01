@@ -26,8 +26,8 @@ const Select = (props) => {
           )
         }
 
-        if (name === "participationLevel") {
-          return (
+
+        return (
             <select {...field} className="form-control">
               <option value="" key="none">Please select</option>
               {options.map(option => 
@@ -38,11 +38,9 @@ const Select = (props) => {
                 )
               )}
             </select>
-          )
-        }
-        return (
-          <></>
         )
+        
+
       }}
     </Field>
       {/* <Field as='select' id={name} name={name} {...rest}>

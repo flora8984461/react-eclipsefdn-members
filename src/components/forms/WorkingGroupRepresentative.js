@@ -1,7 +1,7 @@
 import React from "react";
 import Input from './Inputs/Input';
 
-const WorkingGroupRepresentative = ({ formField }) => {
+const WorkingGroupRepresentative = ({ name, formField }) => {
 
   const {
     wgRepresentative
@@ -13,7 +13,7 @@ const WorkingGroupRepresentative = ({ formField }) => {
       <div className="row">
       { wgRepresentative.map(el => 
           <div key={el.name} className="col-md-12">
-            <Input name={el.name} labelName={el.label} placeholder={el.placeholder} />
+            <Input name={`${name}.${el.name}`} labelName={el.label} placeholder={el.placeholder} />
           </div>
       ) }
       </div>

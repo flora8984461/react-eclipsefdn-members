@@ -43,30 +43,30 @@ export const validationSchema = [
   }),
 
   // Third step - working groups
-  yup.object().shape({
-    workingGroup: yup.object().required(`${requiredErrorMsg}`),
-    participationLevel: yup.string().when("workingGroup", {
-      is: value => !!value?.value,
-      then: yup.string().required(`${requiredErrorMsg}`)
-    }),
-    effectiveDate: yup.date().nullable().when("workingGroup", {
-      is: value => !!value?.value,
-      then: yup.date().required(`${requiredErrorMsg}`)
-    }),
-    wgRepresentative:yup.object().shape({
-      firstName: yup.string().required(`${requiredErrorMsg}`),
-      lastName: yup.string().required(`${requiredErrorMsg}`),
-      jobtitle: yup.string().required(`${requiredErrorMsg}`),
-      email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
-    })
-  }),
+  // yup.object().shape({
+  //   workingGroup: yup.object().required(`${requiredErrorMsg}`),
+  //   participationLevel: yup.string().when("workingGroup", {
+  //     is: value => !!value?.value,
+  //     then: yup.string().required(`${requiredErrorMsg}`)
+  //   }),
+  //   effectiveDate: yup.date().nullable().when("workingGroup", {
+  //     is: value => !!value?.value,
+  //     then: yup.date().required(`${requiredErrorMsg}`)
+  //   }),
+  //   wgRepresentative:yup.object().shape({
+  //     firstName: yup.string().required(`${requiredErrorMsg}`),
+  //     lastName: yup.string().required(`${requiredErrorMsg}`),
+  //     jobtitle: yup.string().required(`${requiredErrorMsg}`),
+  //     email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
+  //   })
+  // }),
 
-  // Forth, signing Authority
-  yup.object().shape({
-    signingAuthorityRepresentative:yup.object().shape({
-      firstName: yup.string().required(`${requiredErrorMsg}`),
-      lastName: yup.string().required(`${requiredErrorMsg}`),
-      email: yup.string().required(`${requiredErrorMsg}`)
-    })
-  })
+  // // Forth, signing Authority
+  // yup.object().shape({
+  //   signingAuthorityRepresentative:yup.object().shape({
+  //     firstName: yup.string().required(`${requiredErrorMsg}`),
+  //     lastName: yup.string().required(`${requiredErrorMsg}`),
+  //     email: yup.string().required(`${requiredErrorMsg}`)
+  //   })
+  // })
 ]

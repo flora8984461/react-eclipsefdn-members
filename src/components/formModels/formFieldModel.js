@@ -1,4 +1,4 @@
-// Probably to be deleted
+// === probably to be deleted
 export const initialValues = {
 
   // Step1: company Info
@@ -42,15 +42,19 @@ export const initialValues = {
   membershipLevel: "",
 
   // Step 3: working groups
-  workingGroup: "",
-  participationLevel: "",
-  effectiveDate: "",
-  wgRepresentative: {
-    firstName: "",
-    lastName: "",
-    jobtitle: "",
-    email: ""
-  },
+  workingGroups: [
+    {
+      workingGroup: "",
+      participationLevel: "",
+      effectiveDate: "",
+      wgRepresentative: {
+        firstName: "",
+        lastName: "",
+        jobtitle: "",
+        email: ""
+      }
+    }
+  ],
 
   signingAuthority: "",
 
@@ -60,16 +64,6 @@ export const initialValues = {
     email: ""
   }
 
-}
-
-// Probably to be deleted
-export function mapField(object) {
-  let arr = []
-  for(const property in object) {
-    arr.push(property)
-  }
-
-  return arr
 }
 
 const firstName = "First Name"
@@ -227,22 +221,22 @@ export const formField = {
 
   wgRepresentative: [
     {
-      name: "wgRepresentative.firstName",
+      name: "firstName",
       label: firstName,
       placeholder: firstName,
     },
     {
-      name: "wgRepresentative.lastName",
+      name: "lastName",
       label: lastName,
       placeholder: lastName,
     },
     {
-      name: "wgRepresentative.jobtitle",
+      name: "jobtitle",
       label: jobtitle,
       placeholder: jobtitle,
     },
     {
-      name: "wgRepresentative.email",
+      name: "email",
       label: email,
       placeholder: email,
     }
@@ -270,47 +264,13 @@ export const formField = {
   ]
 }
 
-// Probably to be deleted
-export function defineExistingInitialValues(initialValues, existingOrganizationData, existingContactData, existingMembershipData) {
-  if(existingOrganizationData && existingOrganizationData.address) {
-    initialValues.organization.address.street = existingOrganizationData.address.street || ""
-    initialValues.organization.address.city = existingOrganizationData.address.city || ""
-    initialValues.organization.address.country = existingOrganizationData.address.country || ""
-    initialValues.organization.address.postalCode = existingOrganizationData.address.postal_code || ""
-    initialValues.organization.address.provinceOrState = existingOrganizationData.address.province_state || ""
-  }
-
-  if(existingOrganizationData && existingOrganizationData.legal_name) {
-    initialValues.organization.legalName =  {
-      value: existingOrganizationData.legal_name,
-      label: existingOrganizationData.legal_name,
-      address: initialValues.organization.address,
-      twitterHandle: initialValues.organization.twitterHandle
-    } || ""
-  }
-
-  if(existingContactData) {
-    initialValues.companyRepresentative.representative.firstName = existingContactData.first_name || ""
-    initialValues.companyRepresentative.representative.lastName = existingContactData.last_name || ""
-    initialValues.companyRepresentative.representative.jobtitle = existingContactData.title || ""
-    initialValues.companyRepresentative.representative.email = existingContactData.email || ""
-  }
-
-  if (existingMembershipData) {
-    initialValues.membershipLevel = existingMembershipData.membership_level || ""
-  }
-
-  return initialValues
-
-}
-
-// Probably keep this one
+// ===
 export function defineExistingInitialValues_II(existingOrganizationData, existingContactData, existingMembershipData) {
 
   let existingCompanyContact = existingContactData.find(el => el.type === "company")
   let existingMarketingContact = existingContactData.find(el => el.type === "marketing")
   let existingAccoutingContact = existingContactData.find(el => el.type === "accounting")
-  let existingWGContact = existingContactData.find(el => el.type === "working_group")
+  //let existingWGContact = existingContactData.find(el => el.type === "working_group")
 
   return {
   // Step1: company Info
@@ -359,16 +319,26 @@ export function defineExistingInitialValues_II(existingOrganizationData, existin
   membershipLevel: existingMembershipData?.membership_level || "",
 
   // Step 3: working groups
-  workingGroup: "",
-  participationLevel: "",
-  effectiveDate: "",
+  workingGroups: [
+    {
+      workingGroup: "",
+      participationLevel: "",
+      effectiveDate: "",
+      workingGroupRepresentative: {
+        firstName: "",
+        lastName: "",
+        jobtitle: "",
+        email: ""
+      }
+    }
+  ],
 
-  wgRepresentative: {
-    firstName: existingWGContact?.first_name || "",
-    lastName: existingWGContact?.last_name || "",
-    jobtitle: existingWGContact?.title || "",
-    email: existingWGContact?.email || ""
-  },
+  // wgRepresentative: {
+  //   firstName: existingWGContact?.first_name || "",
+  //   lastName: existingWGContact?.last_name || "",
+  //   jobtitle: existingWGContact?.title || "",
+  //   email: existingWGContact?.email || ""
+  // },
 
   signingAuthority: "",
 

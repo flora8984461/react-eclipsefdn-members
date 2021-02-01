@@ -15,7 +15,7 @@ const DateInput = (props) => {
           const { value } = field
           return (
             <>
-            <DatePicker 
+            <DatePicker
               id={name}
               {...field}
               {...rest}

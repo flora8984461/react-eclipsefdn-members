@@ -33,7 +33,7 @@ const CustomAsyncSelect = (props) => {
       }
 
       if (props.srcData === "workingGroups") {
-        props.form.setFieldValue("workingGroup", option)
+        props.form.setFieldValue(props.field.name, option)
       }
     }
 
@@ -52,8 +52,8 @@ const CustomAsyncSelect = (props) => {
 
       // Clear when it's for working groups
       if (props.srcData === "workingGroups") {
-        props.form.setFieldValue("workingGroup", "")
-        props.form.setFieldValue("participationLevel", "")
+        props.form.setFieldValue(props.field.name, "")
+        // props.form.setFieldValue("participationLevel", "")
       }
     }
 

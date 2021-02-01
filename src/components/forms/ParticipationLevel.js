@@ -2,14 +2,14 @@ import React from "react";
 // import { Field } from "formik";
 import Select from "./Inputs/Select";
 
-const ParticipationLevel = ({formField, label, participationLevels}) => {
+const ParticipationLevel = ({name, participationLevels}) => {
 
   return (
     <>
       <h4 className="fw-600 margin-top-30">What is your intended participation level?</h4>
       <Select
         label="ParticipationLevel"
-        name="participationLevel"
+        name={name}
         options={participationLevels}
       />
     </>

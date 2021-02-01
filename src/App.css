@@ -26,7 +26,11 @@ label {
     justify-content: center;
 }
 
-label[for="membershipLevel"], label[for="participationLevel"], label[for="effectiveDate"] {
+label[for="membershipLevel"] {
+    display: none;
+}
+
+#working-groups-page label {
     display: none;
 }
 
