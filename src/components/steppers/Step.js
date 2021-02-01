@@ -26,7 +26,7 @@ const Step = (props) => {
     }
 
     return (
-    <div style={styles.index} className="step" onClick={ (completed || stepReached) ? handleClick : ''} >
+    <div style={styles.index} className="step" onClick={ (completed || stepReached) ? handleClick : null} >
       <span className="step-span-index">{index + 1}</span>
       <div className="step-span">
         <div className={ active ? `step-title-container-active` : `step-title-container`}>

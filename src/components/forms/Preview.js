@@ -61,7 +61,6 @@ const Preview = (previewData) => {
         <h3 className="fw-600">Working Group to Join</h3>
         {
           data.workingGroups.map(el => (
-            <>
             <div key={el.workingGroup.label} className="row margin-bottom-10">
               <div className="col-md-8"><label>Working group</label><div className="fake-input">{el.workingGroup.label}</div></div>
               <div className="col-md-8"><label>Intended Participation Level</label><div className="fake-input">{el.participationLevel}</div></div>
@@ -73,7 +72,6 @@ const Preview = (previewData) => {
               <div className="col-md-6"><label>Job Title</label><div className="fake-input">{el.workingGroupRepresentative.jobtitle}</div></div>
               <div className="col-md-6"><label>Job Title</label><div className="fake-input">{el.workingGroupRepresentative.email}</div></div>
             </div>
-            </>
           ))
         }
 
