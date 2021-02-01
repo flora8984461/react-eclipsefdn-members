@@ -1,18 +1,6 @@
 import * as yup from "yup";
 import { requiredErrorMsg } from './formFieldModel';
 
-// const {
-//   organization,
-//   companyRepresentative,
-//   membershipLevel,
-//   workingGroup,
-//   participationLevel,
-//   effectiveDate,
-//   wgRepresentative,
-//   signingAuthority,
-//   signingAuthorityRepresentative
-// } = initialValues;
-
 export const validationSchema = [
   // First step - company Info
   yup.object().shape({
@@ -53,7 +41,7 @@ export const validationSchema = [
   //     is: value => !!value?.value,
   //     then: yup.date().required(`${requiredErrorMsg}`)
   //   }),
-  //   wgRepresentative:yup.object().shape({
+  //   workingGroupRepresentative:yup.object().shape({
   //     firstName: yup.string().required(`${requiredErrorMsg}`),
   //     lastName: yup.string().required(`${requiredErrorMsg}`),
   //     jobtitle: yup.string().required(`${requiredErrorMsg}`),

@@ -47,7 +47,7 @@ export const initialValues = {
       workingGroup: "",
       participationLevel: "",
       effectiveDate: "",
-      wgRepresentative: {
+      workingGroupRepresentative: {
         firstName: "",
         lastName: "",
         jobtitle: "",
@@ -219,7 +219,7 @@ export const formField = {
     requiredErrorMsg: requiredErrorMsg,
   },
 
-  wgRepresentative: [
+  workingGroupRepresentative: [
     {
       name: "firstName",
       label: firstName,
@@ -332,13 +332,6 @@ export function defineExistingInitialValues_II(existingOrganizationData, existin
       }
     }
   ],
-
-  // wgRepresentative: {
-  //   firstName: existingWGContact?.first_name || "",
-  //   lastName: existingWGContact?.last_name || "",
-  //   jobtitle: existingWGContact?.title || "",
-  //   email: existingWGContact?.email || ""
-  // },
 
   signingAuthority: "",
 

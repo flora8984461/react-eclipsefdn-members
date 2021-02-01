@@ -155,7 +155,7 @@ export function getErrorStep(formikErrors) {
     else if (errorField === "membershipLevel") {
       errorStep = 1;
     }
-    else if (errorField === "workingGroup" || errorField === "participationLevel" || errorField === "effectiveDate" || errorField === "wgRepresentative") {
+    else if (errorField === "workingGroup" || errorField === "participationLevel" || errorField === "effectiveDate" || errorField === "workingGroupRepresentative") {
       errorStep = 2;
     }
     else if (errorField === "signingAuthority" || errorField === "signingAuthorityRepresentative") {
