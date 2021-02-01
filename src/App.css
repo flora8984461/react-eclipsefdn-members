@@ -45,16 +45,9 @@ select.form-control {
 }
 
 input[type=checkbox] {
-    /* -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none; */
-    /* create custom checkbox appearance */
     display: inline-block;
     width: 30px;
     height: 30px;
-    /* padding: 6px; */
-    /* background-color only for content */
-    /* background-clip: content-box; */
     border: 1px solid hsl(0, 0%, 80%);
     border-radius: 5px;
     margin-top: 0;
@@ -78,4 +71,75 @@ input[type=checkbox]:focus {
     border: 1px solid hsl(0, 0%, 80%);
     border-radius: 5px;
     background: #fff;
+}
+
+
+/* Stepper */
+.stepper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+
+.step {
+    width: calc(100% / 3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding-top: 30px;
+}
+
+.step-span {
+    width: 50px;
+    height: 50px;
+    background: #f7941e;
+}
+
+.step-span-index {
+    font-size: xx-large;
+    font-weight: 600;
+    padding-left: 15px;
+}
+
+.step-title {
+    padding: 10px;
+    font-weight: 600;
+}
+
+.step-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 60px;
+    min-width: 100px;
+    background-color: #e2e2e2;
+    position: relative;
+    top: 15px;
+    left: 15px;
+}
+
+.step-title-container-active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 60px;
+    min-width: 100px;
+    background: #404040 50% no-repeat;
+    color: white;
+    position: relative;
+    top: 15px;
+    left: 15px;    
+}
+
+@media (min-width: 992px) {
+    .step {
+        width: calc(100% / 6);
+        padding-top: 10px;
+    }
 }

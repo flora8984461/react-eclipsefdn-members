@@ -7,6 +7,7 @@ import SigningAuthority from './forms/SigningAuthority';
 import Preview from "./forms/Preview";
 import { formField } from './formModels/formFieldModel';
 import MembershipContext from "./MembershipContext";
+import SignIn from './forms/SignIn';
 
 const MultiStepForm = ({ defineInitialData, step, setStep }) => {
   const {isExistingMember} = useContext(MembershipContext)
@@ -33,6 +34,8 @@ const MultiStepForm = ({ defineInitialData, step, setStep }) => {
         step={step}
         setStep={setStep}
       >
+        <SignIn label="Sign In" />
+
         <CompanyInformation
           formField={formField}
           label="Company Information"

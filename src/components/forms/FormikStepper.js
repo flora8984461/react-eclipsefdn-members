@@ -45,10 +45,6 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
   }
   ////////////////////////////////////////
 
-  const checkIcon = () => (
-    <i className="fa fa-check" aria-hidden="true"></i>
-  )
-
   return (
     <>
 
@@ -61,7 +57,7 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
         {
           (formik) =>
             <>
-              <Stepper activeStep={step} chidlrenSteps={childrenArray} handleOnClick={setStep} checkIcon={checkIcon()}>
+              <Stepper activeStep={step} chidlrenSteps={childrenArray} handleOnClick={setStep}>
                 {childrenArray.map((child, index) => {
                   return (
                     <Step
@@ -74,7 +70,6 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
                       first={index === 0}
                       isLast={index === childrenArray.length - 1}
                       index={index}
-                      checkIcon={checkIcon()}
                       stepReached={isStepComplete(index - 1) || childrenArray[index - 1]?.props.skipped}
                       formikErrors={formik.errors}
                       currentStep={step}
