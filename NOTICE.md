@@ -82,3 +82,7 @@ The project maintains the following source code repositories:
 ### react-datepicker (^3.2.2)
 
 * License: The MIT License (MIT)
+
+### yup (^0.29.3)
+
+* License: The MIT License (MIT)

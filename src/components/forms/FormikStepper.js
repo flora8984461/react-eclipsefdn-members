@@ -4,7 +4,7 @@ import { validationSchema } from '../formModels/ValidationSchema';
 import Stepper from "../steppers/Stepper";
 import Step from "../steppers/Step";
 import CustomStepButton from "./CustomStepButton";
-import SignInJumbotron from './SignInJumbotron';
+import SignInIntroduction from './SignInIntroduction';
 
 //form.validateForm(); to manually call validate
 
@@ -78,7 +78,7 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
           (formik) =>
             <>
 
-              { step === 0 && <SignInJumbotron /> }
+              { step === 0 && <SignInIntroduction /> }
 
               <Stepper activeStep={step} chidlrenSteps={childrenArray} handleOnClick={setStep}>
                 {childrenArray.map((child, index) => {
