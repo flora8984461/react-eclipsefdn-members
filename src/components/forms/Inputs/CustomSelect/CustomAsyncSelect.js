@@ -26,8 +26,8 @@ const CustomAsyncSelect = (props) => {
         props.form.setFieldValue("organization.address.street", option.address.street)
         props.form.setFieldValue("organization.address.postalCode", option.address.postalCode)
         props.form.setFieldValue("organization.address.city", option.address.city)
-        props.form.setFieldValue("organization.address.provinceOrState", option.address.provinceOrState)
-        props.form.setFieldValue("organization.address.country", option.address.country)
+        // props.form.setFieldValue("organization.address.provinceOrState", option.address.provinceOrState)
+        // props.form.setFieldValue("organization.address.country", option.address.country)
         props.form.setFieldValue('organization.twitterHandle', option.twitterHandle)
         props.setDisableInput(true)
       }
@@ -141,7 +141,7 @@ const CustomAsyncSelect = (props) => {
     )
   }
 
-  else return (
+  return (
     <AsyncSelect
       {...field}
       isClearable

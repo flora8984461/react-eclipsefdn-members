@@ -36,7 +36,7 @@ const CompanyInformation = ({ formField, label, skipped, mktSame, setMktSame, ac
   return (
     <>
       <h2 className="fw-600">Company Information</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Please complete your company information below. This should be the legal name and address of your organization. Committer members do not need to provide this information unless it differs from the information provided with their Individual Committer Agreement.</p>
 
       <div className="align-center">
       <h4 className="fw-600"> Organization <span className="orange-star">*</span> </h4>
@@ -122,7 +122,8 @@ const CompanyInformation = ({ formField, label, skipped, mktSame, setMktSame, ac
       } */}
 
       <h4 className="fw-600">Company Representative Contact</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Please indicate the primary point of contact between your organization and the Eclipse Foundation. As per the Eclipse Bylaws, the Member Representative shall represent your organization in the General Assembly, have the right to cast any votes on behalf of your organization, and shall have the authority to update information provided to Eclipse Foundation.</p>
+      <p>All formal communications from the Eclipse Foundation will be sent to the Member Representative.</p>
       <div className="row">
         { generateContacts(companyRepresentative, 'companyRepresentative-', false) }
       </div> 
