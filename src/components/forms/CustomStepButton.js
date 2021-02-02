@@ -23,7 +23,7 @@ const CustomStepButton = ({step, isSubmitting, setStep, isLastStep}) => {
           disabled={isSubmitting}
           // variant="contained"
           // color="primary"
-          className="btn btn-primary float-right"
+          className={`btn ${isLastStep() ? `btn-secondary` : `btn-primary `}`}
           type="submit"
         >
           {isSubmitting ? 'Submitting' : isLastStep() ? 'Submit' : 'Next'}

@@ -4,6 +4,7 @@ import { validationSchema } from '../formModels/ValidationSchema';
 import Stepper from "../steppers/Stepper";
 import Step from "../steppers/Step";
 import CustomStepButton from "./CustomStepButton";
+import SignInJumbotron from './SignInJumbotron';
 
 //form.validateForm(); to manually call validate
 
@@ -16,6 +17,7 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
   const formRef = useRef()
 
   const [completed, setCompleted] = useState(new Set())
+
   function isLastStep() {
     return step === childrenArray.length - 1
   }
@@ -57,6 +59,9 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
         {
           (formik) =>
             <>
+
+              { step === 0 && <SignInJumbotron /> }
+
               <Stepper activeStep={step} chidlrenSteps={childrenArray} handleOnClick={setStep}>
                 {childrenArray.map((child, index) => {
                   return (
