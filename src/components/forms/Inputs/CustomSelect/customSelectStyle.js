@@ -1,6 +1,6 @@
   // selectorStyles object
 
-export const generateCustomStyles = (metaErr) => {
+export const generateCustomStyles = (isCompany, metaErr) => {
   return {
     option: (styles, state) => ({
       ...styles,
@@ -11,7 +11,7 @@ export const generateCustomStyles = (metaErr) => {
       // border: metaErr ? "1px solid red" : "1px solid hsl(0, 0%, 80%)",
       '&:hover': { borderColor: metaErr ? 'red' : 'orange' },
       borderColor: metaErr ? 'red' : 'hsl(0, 0%, 80%)',
-      cursor: "text"
+      cursor: isCompany ? "text" : "pointer"
     }),
     clearIndicator: (styles) => ({
       ...styles,

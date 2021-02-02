@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { useFormikContext } from 'formik';
-import { selectTheme } from './customSelectStyle';
+import { useFormikContext, useField } from 'formik';
+import { selectTheme, generateCustomStyles } from './customSelectStyle';
 
 const StatesSelect = (props) => {
-  const { values } = useFormikContext()
-  const [stateData, setStateData] = useState([])
+  const { values } = useFormikContext();
+  const [stateData, setStateData] = useState([]);
+  const [, meta] = useField(props.field.name);
 
   useEffect(() => {
       if (values.organization.address.country.value) {
@@ -45,6 +46,7 @@ const StatesSelect = (props) => {
       onBlur={props.form.handleBlur(props.field.name)}
       className="margin-bottom-10 form-group"
       theme={selectTheme}
+      styles={generateCustomStyles(false, meta.error)}
     />
   )
 

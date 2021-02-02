@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { selectTheme } from './customSelectStyle';
+import { selectTheme, generateCustomStyles } from './customSelectStyle';
+import { useField } from 'formik';
 
 const CountrySelect = (props) => {
 
-  const [stateData, setStateData] = useState([])
+  const [stateData, setStateData] = useState([]);
+  const [, meta] = useField(props.field.name);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -47,6 +49,7 @@ const CountrySelect = (props) => {
       }}
       onBlur={props.form.handleBlur(props.field.name)}
       className="margin-bottom-10 form-group"
+      styles={generateCustomStyles(false, meta.error)}
       theme={selectTheme}
     />
   )
