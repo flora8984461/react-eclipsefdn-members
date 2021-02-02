@@ -56,8 +56,6 @@ export const initialValues = {
     }
   ],
 
-  signingAuthority: "",
-
   signingAuthorityRepresentative: {
     firstName: "",
     lastName: "",
@@ -241,10 +239,7 @@ export const formField = {
       placeholder: email,
     }
   ],
-  signingAuthority: {
-    name: "signingAuthority",
-    label: "signing Authority",
-  },
+
   signingAuthorityRepresentative: [
     {
       name: "signingAuthorityRepresentative.firstName",
@@ -332,8 +327,6 @@ export function defineExistingInitialValues_II(existingOrganizationData, existin
       }
     }
   ],
-
-  signingAuthority: "",
 
   signingAuthorityRepresentative: {
     firstName: "",

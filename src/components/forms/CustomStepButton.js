@@ -19,10 +19,7 @@ const CustomStepButton = ({step, isSubmitting, setStep, isLastStep}) => {
           </button>
       ) : null}
         <button
-          // startIcon={isSubmitting ? <CircularProgress size="1rem" /> : null}
           disabled={isSubmitting}
-          // variant="contained"
-          // color="primary"
           className={`btn ${isLastStep() ? `btn-secondary` : `btn-primary `}`}
           type="submit"
         >

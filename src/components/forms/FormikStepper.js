@@ -28,16 +28,34 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
     setCompleted(newCompleted)
   }
 
+  const defaultBehaviour = (values) => {
+    props.setFormDataStates(values);
+    handleComplete();
+    setStep((s) => s + 1);
+  }
+
   const handleOnSubmit = async (values, formikBag) => {
 
-    if (isLastStep()) {
-      await props.onSubmit(values)
-    }
-    else {
-      props.setFormDataStates(values)
-      handleComplete()
-      // actions.setStatus({message: "submitted"})
-      setStep((s) => s + 1)
+    switch(step) {
+      case childrenArray.length - 1:
+        console.log("submit on last step");
+        console.log(values);
+        break;
+
+      case 1: 
+        if(props.mktSame) {
+          Object.assign(values.companyRepresentative.marketingRepresentative, values.companyRepresentative.representative)
+          //await formikBag.setFieldValue('companyRepresentative.marketingRepresentative', values.companyRepresentative.representative)
+        }
+        if (props.accSame) {
+          Object.assign(values.companyRepresentative.accounting, values.companyRepresentative.representative)
+          //await formikBag.setFieldValue('companyRepresentative.accounting', values.companyRepresentative.representative)
+        }
+        defaultBehaviour(values);
+        break;
+
+      default:
+        defaultBehaviour(values);
     }
   }
 

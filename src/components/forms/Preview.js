@@ -6,7 +6,7 @@ const Preview = (previewData) => {
 
   //Check if has signing auth, if has, hide the signing auth info, and remove the info if has when submitting
 
-  console.log(data)
+  // console.log(data)
 
   return (
     <>
@@ -60,8 +60,8 @@ const Preview = (previewData) => {
 
         <h3 className="fw-600">Working Group to Join</h3>
         {
-          data.workingGroups.map(el => (
-            <div key={el.workingGroup.label} className="row margin-bottom-10">
+          data.workingGroups.map((el, index) => (
+            <div key={index} className="row margin-bottom-10">
               <div className="col-md-8"><label>Working group</label><div className="fake-input">{el.workingGroup.label}</div></div>
               <div className="col-md-8"><label>Intended Participation Level</label><div className="fake-input">{el.participationLevel}</div></div>
               <div className="col-md-8"><label>Effective Date</label><div className="fake-input">{new Date(el.effectiveDate).toDateString()}</div></div>

@@ -11,7 +11,7 @@ import SignIn from './forms/SignIn';
 
 const MultiStepForm = ({ defineInitialData, step, setStep }) => {
   const {isExistingMember} = useContext(MembershipContext)
-  const [formDataStates, setFormDataStates] = useState(defineInitialData)
+  const [formDataStates, setFormDataStates] = useState(defineInitialData)  // Do I still need this State?
   // const [showHidden, setShowHidden] = useState(false)
 
   const [mktSame, setMktSame] = useState(false)
@@ -33,6 +33,8 @@ const MultiStepForm = ({ defineInitialData, step, setStep }) => {
         setFormDataStates={setFormDataStates}
         step={step}
         setStep={setStep}
+        mktSame={mktSame}
+        accSame={accSame}
       >
         <SignIn label="Sign In" />
 
