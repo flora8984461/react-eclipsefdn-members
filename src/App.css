@@ -4,6 +4,9 @@
 .eclipseFdn-membership-webform .error {
   color: red;
 }
+.eclipseFdn-membership-webform .orange-star {
+  color: orange;
+}
 .eclipseFdn-membership-webform .form-control {
   border-radius: 5px;
   box-shadow: none;
