@@ -11,12 +11,9 @@ import SignIn from './forms/SignIn';
 const MultiStepForm = ({ defineInitialData, step, setStep }) => {
 
   const [formDataStates, setFormDataStates] = useState(defineInitialData)  // Do I still need this State?
-  // const [showHidden, setShowHidden] = useState(false)
 
   const [mktSame, setMktSame] = useState(false)
   const [accSame, setAccSame] = useState(false)
-
-  const [disableInput, setDisableInput] = useState(false)
 
   const handleSubmit = (values) => {  // This is for final submit, after preview
       console.log(values)
@@ -44,8 +41,6 @@ const MultiStepForm = ({ defineInitialData, step, setStep }) => {
           setMktSame={setMktSame}
           accSame={accSame}
           setAccSame={setAccSame}
-          disableInput={disableInput}
-          setDisableInput={setDisableInput}
         />
 
         <MembershipLevel
@@ -60,8 +55,6 @@ const MultiStepForm = ({ defineInitialData, step, setStep }) => {
 
         <SigningAuthority
           formField={formField}
-          // showHidden={showHidden}
-          // setShowHidden={setShowHidden}
           formDataStates={formDataStates}
           label="Signing Authority" 
         />

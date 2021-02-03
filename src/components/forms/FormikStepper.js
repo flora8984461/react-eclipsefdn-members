@@ -1,10 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Form, Formik } from "formik";
 import { validationSchema } from '../formModels/ValidationSchema';
 import Stepper from "../steppers/Stepper";
 import Step from "../steppers/Step";
 import CustomStepButton from "./CustomStepButton";
 import SignInIntroduction from './SignInIntroduction';
+import { defineDataBodyAndEndpoint, sendData } from '../utils/formFunctionHelpers';
+import MembershipContext from "../MembershipContext";
 
 //form.validateForm(); to manually call validate
 
@@ -18,6 +20,8 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
 
   const [completed, setCompleted] = useState(new Set())
 
+  const { currentFormId } = useContext(MembershipContext);
+
   function isLastStep() {
     return step === childrenArray.length - 1
   }
@@ -28,8 +32,7 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
     setCompleted(newCompleted)
   }
 
-  const defaultBehaviour = (values) => {
-    props.setFormDataStates(values);
+  const defaultBehaviour = () => {
     handleComplete();
     setStep((s) => s + 1);
   }
@@ -45,17 +48,22 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
       case 1: 
         if(props.mktSame) {
           Object.assign(values.companyRepresentative.marketingRepresentative, values.companyRepresentative.representative)
-          //await formikBag.setFieldValue('companyRepresentative.marketingRepresentative', values.companyRepresentative.representative)
         }
         if (props.accSame) {
           Object.assign(values.companyRepresentative.accounting, values.companyRepresentative.representative)
-          //await formikBag.setFieldValue('companyRepresentative.accounting', values.companyRepresentative.representative)
         }
-        defaultBehaviour(values);
+        props.setFormDataStates(values);
+        await sendData('organizations', currentFormId, values.organization);
+        await sendData('contacts', currentFormId, values.companyRepresentative);
+        defaultBehaviour();
         break;
 
       default:
-        defaultBehaviour(values);
+        props.setFormDataStates(values);
+        var {endpoint, dataBody} = defineDataBodyAndEndpoint(step, values);
+        // await sendData(endpoint, currentFormId, dataBody, defaultBehaviour);  I should use this when endpoint is live, but now it stops me to continue
+        await sendData(endpoint, currentFormId, dataBody);
+        defaultBehaviour();
     }
   }
 

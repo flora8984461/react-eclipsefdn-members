@@ -1,4 +1,3 @@
-// === probably to be deleted
 export const initialValues = {
 
   // Step1: company Info
@@ -257,81 +256,4 @@ export const formField = {
       placeholder: email,
     }
   ]
-}
-
-// ===
-export function defineExistingInitialValues_II(existingOrganizationData, existingContactData, existingMembershipData) {
-
-  let existingCompanyContact = existingContactData.find(el => el.type === "company")
-  let existingMarketingContact = existingContactData.find(el => el.type === "marketing")
-  let existingAccoutingContact = existingContactData.find(el => el.type === "accounting")
-  //let existingWGContact = existingContactData.find(el => el.type === "working_group")
-
-  return {
-  // Step1: company Info
-  organization: {
-    legalName: {
-      value: existingOrganizationData?.legal_name || "",
-      label: existingOrganizationData?.legal_name || "",
-      address: existingOrganizationData?.address || "",
-      twitterHandle: existingOrganizationData?.twitterHandle || ""
-    } || "",
-    address: {
-      street: existingOrganizationData?.address.street || "",
-      city: existingOrganizationData?.address.city || "",
-      provinceOrState: existingOrganizationData?.address.province_state || "",
-      country: existingOrganizationData?.address.country || "",
-      postalCode: existingOrganizationData?.address.postal_code || "",
-    },
-    twitterHandle: existingOrganizationData?.twitterHandle || "",  
-  },
-
-  // Step1: Company Representative
-  companyRepresentative: {
-    representative: {
-      firstName: existingCompanyContact?.first_name || "",
-      lastName: existingCompanyContact?.last_name || "",
-      jobtitle: existingCompanyContact?.title || "",
-      email: existingCompanyContact?.email || ""
-    },
-
-    marketingRepresentative: {
-      firstName: existingMarketingContact?.first_name || "",
-      lastName: existingMarketingContact?.last_name || "",
-      jobtitle: existingMarketingContact?.title || "",
-      email: existingMarketingContact?.email || ""
-    },
-
-    accounting: {
-      firstName: existingAccoutingContact?.first_name || "",
-      lastName: existingAccoutingContact?.last_name || "",
-      jobtitle: existingAccoutingContact?.title || "",
-      email: existingAccoutingContact?.email || ""
-    }
-  },
-
-  // Step 2
-  membershipLevel: existingMembershipData?.membership_level || "",
-
-  // Step 3: working groups
-  workingGroups: [
-    {
-      workingGroup: "",
-      participationLevel: "",
-      effectiveDate: "",
-      workingGroupRepresentative: {
-        firstName: "",
-        lastName: "",
-        jobtitle: "",
-        email: ""
-      }
-    }
-  ],
-
-  signingAuthorityRepresentative: {
-    firstName: "",
-    lastName: "",
-    email: ""
-  }
-  }
 }

@@ -7,13 +7,12 @@ import MembershipContext from "../MembershipContext";
 import Input from './Inputs/Input';
 import { matchCompanyFields, matchContactFields } from '../utils/formFunctionHelpers';
 
-const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSame, disableInput, setDisableInput, ...otherProps }) => {
+const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSame, ...otherProps }) => {
   
   const {currentFormId} = useContext(MembershipContext);
 
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
-
     let pool = [fetch('membership_data/organizations.json',{
       headers : {
       'Content-Type': 'application/json',
@@ -36,22 +35,6 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
         otherProps.parentState.formik.setFieldValue('organization.legalName', tempOrg.organization.legalName)
         otherProps.parentState.formik.setFieldValue('companyRepresentative.representative', tempContacts.companyRepresentative.representative)
       })
-
-    // fetch('membership_data/organizations.json',{
-    //   headers : {
-    //   'Content-Type': 'application/json',
-    //   'Accept': 'application/json'
-    //  }})
-    // .then(resp => resp.json())
-    // .then(data => {
-    //   let tempData = matchCompanyFields(data.find(item => item.form_id === currentFormId))
-    //   otherProps.parentState.formik.setFieldValue('organization.legalName', tempData.organization.legalName)
-    //   // otherProps.parentState.formik.setFieldValue('organization.address', tempData.organization.address)
-    //   otherProps.parentState.formik.setFieldValue('organization.address.country', tempData.organization.address.country)
-    //   otherProps.parentState.formik.setFieldValue('organization.address.provinceOrState', tempData.organization.address.provinceOrState)
-    // })
-
-
     // eslint-disable-next-line
   }, [])
 
@@ -91,23 +74,22 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
         name="organization.legalName"
         srcData="companies"
         isExistingMember={isExistingMember}
-        setDisableInput={setDisableInput}
         organiazationData={organiazationData}
         renderComponent={CustomAsyncSelect}
       />
       <div className="row">
         <div className="col-md-8">
-          <Input name="organization.twitterHandle" labelName="Twitter" placeholder="Twitter" disableInput={disableInput} />
+          <Input name="organization.twitterHandle" labelName="Twitter" placeholder="Twitter" />
         </div>
       </div>
 
       <h4 className="fw-600">Address</h4>
       <div className="row">
       <div className="col-md-16">
-        <Input name="organization.address.street" labelName="Street" placeholder="Street" disableInput={disableInput} />
+        <Input name="organization.address.street" labelName="Street" placeholder="Street" />
       </div>
       <div className="col-md-8">
-        <Input name="organization.address.city" labelName="City" placeholder="City" disableInput={disableInput} />
+        <Input name="organization.address.city" labelName="City" placeholder="City" />
       </div>
       </div>
 
@@ -118,7 +100,6 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
             name="organization.address.country"
             srcData="country"
             isExistingMember={isExistingMember}
-            setDisableInput={setDisableInput}
             organiazationData={organiazationData}
             renderComponent={CountrySelect}
           />
@@ -129,13 +110,12 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
             name="organization.address.provinceOrState"
             srcData="provinceOrState"
             isExistingMember={isExistingMember}
-            setDisableInput={setDisableInput}
             organiazationData={organiazationData}
             renderComponent={StatesSelect}
           />
         </div>
         <div className="col-md-8">
-          <Input name="organization.address.postalCode" labelName="Postal Code" placeholder="Postal Code" disableInput={disableInput} />
+          <Input name="organization.address.postalCode" labelName="Postal Code" placeholder="Postal Code" />
         </div>
       </div>
 
