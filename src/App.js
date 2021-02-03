@@ -8,7 +8,7 @@ import FormWrapper from "./components/FormWrapper";
 const App = () => {
 
   return (
-    <div className="App eclipseFdn-membership-webform">
+    <div className="App">
       <AppHeader />
       <MembershipProvider>
         <FormWrapper />

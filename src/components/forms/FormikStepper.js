@@ -89,11 +89,11 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
                       title={child.props.label}
                       onClick={setStep}
                       active={index === step}
-                      completed={isStepComplete(index) || child.props.skipped}
+                      completed={isStepComplete(index)}
                       first={index === 0}
                       isLast={index === childrenArray.length - 1}
                       index={index}
-                      stepReached={isStepComplete(index - 1) || childrenArray[index - 1]?.props.skipped}
+                      stepReached={isStepComplete(index - 1)}
                       formikErrors={formik.errors}
                       currentStep={step}
                       validateForm={formik.validateForm}

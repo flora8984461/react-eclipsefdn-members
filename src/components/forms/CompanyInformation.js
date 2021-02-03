@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CustomSelectWrapper from "./Inputs/CustomSelect/CustomSelectWrapper";
 import StatesSelect from "./Inputs/CustomSelect/StatesSelect";
 import CountrySelect from "./Inputs/CustomSelect/CountrySelect";
@@ -6,7 +6,24 @@ import CustomAsyncSelect from "./Inputs/CustomSelect/CustomAsyncSelect";
 import MembershipContext from "../MembershipContext";
 import Input from './Inputs/Input';
 
-const CompanyInformation = ({ formField, label, skipped, mktSame, setMktSame, accSame, setAccSame, disableInput, setDisableInput }) => {
+const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSame, disableInput, setDisableInput }) => {
+
+  const {currentFormId} = useContext(MembershipContext);
+
+  useEffect(() => {
+
+    fetch('membership_data/organizations.json',{
+      headers : {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+     }})
+    .then(resp => resp.json())
+    .then(data => {
+      console.log(currentFormId)
+      console.log(data.find(item => item.form_id === currentFormId))
+    })
+
+  }, [currentFormId])
 
   const { companyRepresentative, marketingRepresentative, accounting } = formField
 

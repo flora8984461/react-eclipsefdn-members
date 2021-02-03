@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import FormikStepper from './forms/FormikStepper';
 import CompanyInformation from "./forms/CompanyInformation";
 import MembershipLevel from "./forms/MembershipLevel";
@@ -6,11 +6,10 @@ import WorkingGroups from "./forms/WorkingGroups";
 import SigningAuthority from './forms/SigningAuthority';
 import Preview from "./forms/Preview";
 import { formField } from './formModels/formFieldModel';
-import MembershipContext from "./MembershipContext";
 import SignIn from './forms/SignIn';
 
 const MultiStepForm = ({ defineInitialData, step, setStep }) => {
-  const {isExistingMember} = useContext(MembershipContext)
+
   const [formDataStates, setFormDataStates] = useState(defineInitialData)  // Do I still need this State?
   // const [showHidden, setShowHidden] = useState(false)
 
@@ -36,12 +35,11 @@ const MultiStepForm = ({ defineInitialData, step, setStep }) => {
         mktSame={mktSame}
         accSame={accSame}
       >
-        <SignIn label="Sign In" />
+        <SignIn label="Sign In" setStep={setStep} />
 
         <CompanyInformation
           formField={formField}
           label="Company Information"
-          skipped={isExistingMember ? true : false}
           mktSame={mktSame}
           setMktSame={setMktSame}
           accSame={accSame}
@@ -53,7 +51,6 @@ const MultiStepForm = ({ defineInitialData, step, setStep }) => {
         <MembershipLevel
           formField={formField}
           label="Membership Level"
-          skipped={isExistingMember ? true : false}
         />
 
         <WorkingGroups

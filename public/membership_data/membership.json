@@ -2,17 +2,17 @@
     {
         "effective_date": "1970-01-19T14:24:34Z",
         "id": "402880987649273c0176492a6c6200fd",
-        "form_id": "402880987648e2ad017648e2e3cf0000",
+        "form_id": "form_1",
         "membership_level": "contributing",
         "participation_level": "platinum",
         "signing_authority": true,
-        "user_id": "16211",
+        "user_id": "fake_user_1",
         "working_group": "internet-things-iot"
     },
     {
         "effective_date": "1970-01-19T14:20:31Z",
         "id": "402880987649273c0176492a6c6300fe",
-        "form_id": "402880987648e2ad017648e2e3f00001",
+        "form_id": "form_2",
         "membership_level": "strategic",
         "participation_level": "associate",
         "signing_authority": false,
