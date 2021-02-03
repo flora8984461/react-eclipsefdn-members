@@ -5,25 +5,55 @@ import CountrySelect from "./Inputs/CustomSelect/CountrySelect";
 import CustomAsyncSelect from "./Inputs/CustomSelect/CustomAsyncSelect";
 import MembershipContext from "../MembershipContext";
 import Input from './Inputs/Input';
+import { matchCompanyFields, matchContactFields } from '../utils/formFunctionHelpers';
 
-const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSame, disableInput, setDisableInput }) => {
-
+const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSame, disableInput, setDisableInput, ...otherProps }) => {
+  
   const {currentFormId} = useContext(MembershipContext);
 
+  // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
 
-    fetch('membership_data/organizations.json',{
+    let pool = [fetch('membership_data/organizations.json',{
       headers : {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
-     }})
-    .then(resp => resp.json())
-    .then(data => {
-      console.log(currentFormId)
-      console.log(data.find(item => item.form_id === currentFormId))
-    })
+     }}), fetch('membership_data/contacts.json',{
+      headers : {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+     }})]
 
-  }, [currentFormId])
+    Promise.all(pool)
+      .then((res) => 
+        Promise.all(res.map(r => r.json()))
+      )
+      .then(([organizations, contacts]) => {
+        // Matching the field data
+        let tempOrg = matchCompanyFields(organizations.find(item => item.form_id === currentFormId))
+        let tempContacts = matchContactFields(contacts.filter(el => el.form_id === currentFormId))
+        // Prefill Data
+        otherProps.parentState.formik.setFieldValue('organization.legalName', tempOrg.organization.legalName)
+        otherProps.parentState.formik.setFieldValue('companyRepresentative.representative', tempContacts.companyRepresentative.representative)
+      })
+
+    // fetch('membership_data/organizations.json',{
+    //   headers : {
+    //   'Content-Type': 'application/json',
+    //   'Accept': 'application/json'
+    //  }})
+    // .then(resp => resp.json())
+    // .then(data => {
+    //   let tempData = matchCompanyFields(data.find(item => item.form_id === currentFormId))
+    //   otherProps.parentState.formik.setFieldValue('organization.legalName', tempData.organization.legalName)
+    //   // otherProps.parentState.formik.setFieldValue('organization.address', tempData.organization.address)
+    //   otherProps.parentState.formik.setFieldValue('organization.address.country', tempData.organization.address.country)
+    //   otherProps.parentState.formik.setFieldValue('organization.address.provinceOrState', tempData.organization.address.provinceOrState)
+    // })
+
+
+    // eslint-disable-next-line
+  }, [])
 
   const { companyRepresentative, marketingRepresentative, accounting } = formField
 
@@ -109,35 +139,6 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
         </div>
       </div>
 
-      {/* {
-        disableInput ? 
-        <>
-          <Input name="organization.address.provinceOrState" labelName="Province Or State" placeholder="province Or State" disableInput={disableInput} />
-          <Input name="organization.address.country" labelName="Country" placeholder="Country" disableInput={disableInput} />
-        </>
-        : 
-        <>
-          <label htmlFor="organization.address.provinceOrState">Province / State</label>
-          <CustomSelectWrapper
-            name="organization.address.provinceOrState"
-            srcData="provinceOrState"
-            isExistingMember={isExistingMember}
-            setDisableInput={setDisableInput}
-            organiazationData={organiazationData}
-            renderComponent={StatesSelect}
-          />
-          <label htmlFor="organization.address.country">Country</label>
-          <CustomSelectWrapper
-            name="organization.address.country"
-            srcData="country"
-            isExistingMember={isExistingMember}
-            setDisableInput={setDisableInput}
-            organiazationData={organiazationData}
-            renderComponent={CountrySelect}
-          />
-        </>
-      } */}
-
       <h4 className="fw-600">Company Representative Contact</h4>
       <p>Please indicate the primary point of contact between your organization and the Eclipse Foundation. As per the Eclipse Bylaws, the Member Representative shall represent your organization in the General Assembly, have the right to cast any votes on behalf of your organization, and shall have the authority to update information provided to Eclipse Foundation.</p>
       <p>All formal communications from the Eclipse Foundation will be sent to the Member Representative.</p>
@@ -148,16 +149,13 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
       <h4 className="fw-600">Company Marketing Representative</h4>
       <label className="verical-center margin-top-20 margin-bottom-20"><input name="same-as-company-rep" type="checkbox" checked={mktSame} onChange={toggleMKTRepreContacts} /><span>Same as Company Rep.</span></label>
       <div className="row">
-
         { mktSame && generateContacts(companyRepresentative, 'marketingRepresentative-', mktSame) }
         { !mktSame && generateContacts(marketingRepresentative, 'marketingRepresentative-', mktSame) }
-
       </div>
 
       <h4 className="fw-600">Company Accounting Representative</h4>
       <label className="verical-center margin-top-20 margin-bottom-20"><input name="same-as-company-rep" type="checkbox" checked={accSame} onChange={toggleACCRepreContacts} /><span>Same as Company Rep.</span></label>
       <div className="row">
-
         { accSame && generateContacts(companyRepresentative, 'accounting-', accSame) }
         { !accSame && generateContacts(accounting, 'accounting-', accSame) }
       </div>

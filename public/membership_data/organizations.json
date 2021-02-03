@@ -3,9 +3,11 @@
         "address": {
             "city": "Ottawa",
             "country": "Canada",
+            "country_id": 38,
             "id": "402880987648e2ad017648e2e6fb001a",
             "postal_code": "K1S5J6",
             "province_state": "Ontario",
+            "province_state_id": "671", 
             "street": "169 Lees Ave."
         },
         "form_id": "form_1",
@@ -15,10 +17,12 @@
     {
         "address": {
             "city": "rdGirnZDR",
-            "country": "CJTMGg",
+            "country": "US",
+            "country_id": 231,
             "id": "402880987648e2ad017648e2e701001c",
             "postal_code": "pSQt",
-            "province_state": "fQ",
+            "province_state": "Alabama",
+            "province_state_id": "3919",
             "street": "laZXK"
         },
         "form_id": "form_2",

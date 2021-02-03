@@ -5,7 +5,6 @@
         "form_id": "form_1",
         "membership_level": "contributing",
         "participation_level": "platinum",
-        "signing_authority": true,
         "user_id": "fake_user_1",
         "working_group": "internet-things-iot"
     },
@@ -15,7 +14,6 @@
         "form_id": "form_2",
         "membership_level": "strategic",
         "participation_level": "associate",
-        "signing_authority": false,
         "user_id": "25632",
         "working_group": "internet-things-iot"
     },
@@ -25,7 +23,6 @@
         "form_id": "402880987648e2ad017648e2e3f20002",
         "membership_level": "associate",
         "participation_level": "gold",
-        "signing_authority": true,
         "user_id": "78186",
         "working_group": "jakarta-ee"
     },
@@ -35,7 +32,6 @@
         "form_id": "402880987648e2ad017648e2e3f30003",
         "membership_level": "strategic",
         "participation_level": "silver",
-        "signing_authority": true,
         "user_id": "18180",
         "working_group": "cloud-tools-development"
     },
@@ -45,7 +41,6 @@
         "form_id": "402880987648e2ad017648e2e4060004",
         "membership_level": "committer",
         "participation_level": "silver",
-        "signing_authority": false,
         "user_id": "80658",
         "working_group": "cloud-tools-development"
     },
@@ -55,7 +50,7 @@
         "form_id": "402880987648e2ad017648e2e4170005",
         "membership_level": "strategic",
         "participation_level": "silver",
-        "signing_authority": true,
+        
         "user_id": "97602",
         "working_group": "cloud-tools-development"
     },
@@ -65,7 +60,6 @@
         "form_id": "402880987648e2ad017648e2e41b0006",
         "membership_level": "strategic",
         "participation_level": "gold",
-        "signing_authority": false,
         "user_id": "51303",
         "working_group": "jakarta-ee"
     },
@@ -75,7 +69,6 @@
         "form_id": "402880987648e2ad017648e2e41d0007",
         "membership_level": "strategic",
         "participation_level": "silver",
-        "signing_authority": false,
         "user_id": "82959",
         "working_group": "internet-things-iot"
     },
@@ -85,7 +78,6 @@
         "form_id": "402880987648e2ad017648e2e42d0008",
         "membership_level": "contributing",
         "participation_level": "silver",
-        "signing_authority": false,
         "user_id": "38189",
         "working_group": "jakarta-ee"
     },
@@ -95,7 +87,6 @@
         "form_id": "402880987648e2ad017648e2e4320009",
         "membership_level": "associate",
         "participation_level": "associate",
-        "signing_authority": true,
         "user_id": "59577",
         "working_group": "cloud-tools-development"
     }

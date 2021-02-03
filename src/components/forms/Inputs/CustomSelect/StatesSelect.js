@@ -39,7 +39,8 @@ const StatesSelect = (props) => {
     <Select
       isSearchable
       options={stateData}
-      defaultValue={props.field?.value || ""}
+      value={props.field?.value || ""}
+      // defaultValue={props.field?.value || ""}
       onChange={(option, action) => {
         handleSelect(option, action)
       }}

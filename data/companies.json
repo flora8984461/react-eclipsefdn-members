@@ -6,7 +6,9 @@
                 "street": "111 Abc Street",
                 "city": "Ottawa",
                 "provinceOrState": "Ontario",
+                "province_state_id": "671",
                 "country": "Canada",
+                "country_id": 38,
                 "postalCode": "K1S 6N5"
             },
             "twitter": "@companyA"
@@ -17,7 +19,9 @@
                 "street": "222 ZXE Street",
                 "city": "Montreal",
                 "provinceOrState": "Quebec",
+                "province_state_id": "673",
                 "country": "Canada",
+                "country_id": 38,
                 "postalCode": "K1S 6KK"
             },
             "twitter": "@companyB"
@@ -28,7 +32,9 @@
                 "street": "666 TGS Street",
                 "city": "New York",
                 "provinceOrState": "New York",
-                "country": "US",
+                "province_state_id": "3956",
+                "country": "United States",
+                "country_id": 231,
                 "postalCode": "Q12 Y77"
             },
             "twitter": "@companyC"

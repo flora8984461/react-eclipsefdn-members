@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import AsyncCreatable from 'react-select/async-creatable';
 import AsyncSelect from 'react-select/async';
 import { generateCustomWGSelectStyles, selectTheme, generateCustomStyles } from './customSelectStyle';
@@ -8,14 +8,12 @@ const CustomAsyncSelect = (props) => {
 
   const [field, meta] = useField(props.field.name);  //// or props.field, must contain name key
 
-  // console.log(props)
-
-  useEffect(() => {
-    // When has initial data and has not been changed, show prefilled address data and disable input
-    if (props.isExistingMember && props.organiazationData && props.field.value && props.field.value.value === props.organiazationData.legal_name) {
-      props.setDisableInput(true)
-    }
-  }, [props])
+  // useEffect(() => {
+  //   // When has initial data and has not been changed, show prefilled address data and disable input
+  //   if (props.isExistingMember && props.organiazationData && props.field.value && props.field.value.value === props.organiazationData.legal_name) {
+  //     props.setDisableInput(true)
+  //   }
+  // }, [props])
 
   const handleSelect = (option, action) => {
 
@@ -26,10 +24,13 @@ const CustomAsyncSelect = (props) => {
         props.form.setFieldValue("organization.address.street", option.address.street)
         props.form.setFieldValue("organization.address.postalCode", option.address.postalCode)
         props.form.setFieldValue("organization.address.city", option.address.city)
+        props.form.setFieldValue('organization.twitterHandle', option.twitterHandle)
+
+        // Prefill Country Province Selector Or make it as disabled input, like Linux Foundation, decide later
         // props.form.setFieldValue("organization.address.provinceOrState", option.address.provinceOrState)
         // props.form.setFieldValue("organization.address.country", option.address.country)
-        props.form.setFieldValue('organization.twitterHandle', option.twitterHandle)
-        props.setDisableInput(true)
+
+        // props.setDisableInput(true)
       }
 
       if (props.srcData === "workingGroups") {
@@ -47,20 +48,19 @@ const CustomAsyncSelect = (props) => {
         props.form.setFieldValue("organization.address.country", "")
         props.form.setFieldValue("organization.address.postalCode", "")
         props.form.setFieldValue('organization.twitterHandle', "")
-        props.setDisableInput(false)
+        // props.setDisableInput(false)
       }
 
       // Clear when it's for working groups
       if (props.srcData === "workingGroups") {
         props.form.setFieldValue(props.field.name, "")
-        // props.form.setFieldValue("participationLevel", "")
       }
     }
 
     if (option && option.__isNew__) {
       // When create new organization that are not in our data
       props.form.setFieldValue("organization.legalName", option)
-      props.setDisableInput(false)
+      // props.setDisableInput(false)
     }
   }
 
