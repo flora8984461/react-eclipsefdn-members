@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Select from './Inputs/Select';
 import MembershipFeeTable from './MembershipFeeTable';
+import MembershipContext from "../MembershipContext";
 
-const MembershipLevel = ({ formField }) => {
+const MembershipLevel = ({ formField, ...otherProps }) => {
+
+  const { currentFormId } = useContext(MembershipContext);
+
+  // Fetch data only once and prefill data, behaves as componentDidMount
+  useEffect(() => {
+      fetch('membership_data/membership.json',{
+        headers : {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }})
+      .then(resp => resp.json())
+      .then(data => {
+        let temp = data.find(el => el.form_id === currentFormId);
+        otherProps.parentState.formik.setFieldValue('membershipLevel', temp.membership_level)
+      })
+    // eslint-disable-next-line
+  }, [])
+  
 
   const dropdownOptions = [
     { name: 'Select a level', value: '' },

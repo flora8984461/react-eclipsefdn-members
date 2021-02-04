@@ -15,7 +15,7 @@ const Select = (props) => {
         if (name === "membershipLevel") {
           return (
             <select {...field} className="form-control">
-              {options.map(option => 
+              {options?.map(option => 
                 (
                   <option key={option.value} value={option.value}>
                     {option.name}
@@ -30,7 +30,7 @@ const Select = (props) => {
         return (
             <select {...field} className="form-control">
               <option value="" key="none">Please select</option>
-              {options.map(option => 
+              {options?.map(option => 
                 (
                   <option key={option} value={option}>
                     {option}

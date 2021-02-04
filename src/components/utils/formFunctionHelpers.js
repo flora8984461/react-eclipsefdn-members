@@ -93,6 +93,39 @@ export function matchContactFields(existingContactData) {
 
 }
 
+export function matchWorkingGroupFields(existingMembershipData) {
+  // return {
+  //   workingGroup: {
+  //     value: existingMembershipData?.working_group || "",
+  //     label: existingMembershipData?.working_group_name || "",
+  //     participation_levels: [existingMembershipData?.participation_levels] || ""
+  //   } || "",
+  //   participationLevel: existingMembershipData.participation_level || "",
+  //   effectiveDate: existingMembershipData.effective_date || "",
+  //   workingGroupRepresentative: {
+  //     firstName: "",
+  //     lastName: "",
+  //     jobtitle: "",
+  //     email: ""
+  //   }
+  // }
+
+  return {
+    workingGroup: {
+      value: "ascii_doc" || "",
+      label: "AsciiDoc" || "",
+      participation_levels: ["AsciiDoc_level_a", "AsciiDoc_level_b", "AsciiDoc_level_c"] || ""
+    } || "",
+    participationLevel: "AsciiDoc_level_a" || "",
+    effectiveDate: existingMembershipData.effective_date || "",
+    workingGroupRepresentative: {
+      firstName: "test",
+      lastName: "test_2",
+      jobtitle: "test_job",
+      email: "test@test.com"
+    }
+  }
+}
 
 // Transform data from my form model to POST for backend
 

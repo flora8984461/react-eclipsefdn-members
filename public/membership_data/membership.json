@@ -4,18 +4,20 @@
         "id": "402880987649273c0176492a6c6200fd",
         "form_id": "form_1",
         "membership_level": "contributing",
-        "participation_level": "platinum",
+        "participation_level": "AsciiDoc_level_a",
         "user_id": "fake_user_1",
-        "working_group": "internet-things-iot"
+        "working_group": "ascii_doc",
+        "working_group_name": "AsciiDoc"
     },
     {
         "effective_date": "1970-01-19T14:20:31Z",
         "id": "402880987649273c0176492a6c6300fe",
         "form_id": "form_2",
         "membership_level": "strategic",
-        "participation_level": "associate",
+        "participation_level": "OpenGENESIS_level_c",
         "user_id": "25632",
-        "working_group": "internet-things-iot"
+        "working_group": "opengenesis",
+        "working_group_name": "OpenGENESIS"
     },
     {
         "effective_date": "1970-01-19T14:21:08Z",

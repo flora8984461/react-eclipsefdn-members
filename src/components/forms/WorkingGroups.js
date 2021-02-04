@@ -8,9 +8,9 @@ import EffectiveDate from './EffectiveDate';
 import WorkingGroupsRepresentative from './WorkingGroupRepresentative';
 import { FieldArray } from 'formik';
 
-const WorkingGroups = ({ formField }) => {
-  const { values } = useFormikContext()
-  const {isExistingMember} = useContext(MembershipContext)
+const WorkingGroups = ({ formField, ...otherProps }) => {
+  const { values } = useFormikContext();
+  const { isExistingMember } = useContext(MembershipContext);
 
   const each_workingGroupField = {
       workingGroup: "",

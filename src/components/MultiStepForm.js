@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import FormikStepper from './forms/FormikStepper';
 import CompanyInformation from "./forms/CompanyInformation";
 import MembershipLevel from "./forms/MembershipLevel";
-import WorkingGroups from "./forms/WorkingGroups";
+// import WorkingGroups from "./forms/WorkingGroups";
+import WorkingGroupsWrapper from "./forms/WorkingGroupsWrapper";
 import SigningAuthority from './forms/SigningAuthority';
 import Preview from "./forms/Preview";
 import { formField } from './formModels/formFieldModel';
@@ -48,7 +49,7 @@ const MultiStepForm = ({ defineInitialData, step, setStep }) => {
           label="Membership Level"
         />
 
-        <WorkingGroups
+        <WorkingGroupsWrapper
           formField={formField}
           label="Working Groups"
         />
