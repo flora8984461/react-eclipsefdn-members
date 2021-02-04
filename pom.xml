@@ -33,12 +33,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipsefoundation</groupId>
-			<artifactId>eclipsefdn-java-sdk-core</artifactId>
+			<artifactId>quarkus-core</artifactId>
 			<version>${eclipse-api-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipsefoundation</groupId>
-			<artifactId>eclipsefdn-java-sdk-persistence</artifactId>
+			<artifactId>quarkus-persistence</artifactId>
 			<version>${eclipse-api-version}</version>
 		</dependency>
 		<dependency>
