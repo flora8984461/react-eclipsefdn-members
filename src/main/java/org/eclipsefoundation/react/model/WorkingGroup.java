@@ -1,5 +1,7 @@
 package org.eclipsefoundation.react.model;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.json.bind.annotation.JsonbTransient;
@@ -24,17 +26,21 @@ import org.eclipsefoundation.persistence.model.ParameterizedSQLStatementBuilder;
 import org.eclipsefoundation.react.namespace.MembershipFormAPIParameterNames;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Table
 @Entity
-public class Organization extends BareNode {
-    public static final DtoTable TABLE = new DtoTable(Organization.class, "o");
+public class WorkingGroup extends BareNode {
+    public static final DtoTable TABLE = new DtoTable(WorkingGroup.class, "wg");
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
-    private String legalName;
-    private String twitterHandle;
+    @JsonProperty("working_group")
+    private String workingGroupID;
+    private String participationLevel;
+    private Date effectiveDate;
 
     // form entity
     @JsonbTransient
@@ -43,28 +49,24 @@ public class Organization extends BareNode {
     private MembershipForm form;
     @Column(name = "form_id", updatable = false, insertable = false)
     private String formID;
-
+    
     @OneToOne(cascade = CascadeType.ALL)
-    private Address address;
+    @JoinColumn(referencedColumnName = "id")
+    private Contact contact;
 
+    /**
+     * @return the id
+     */
     @Override
     public String getId() {
         return id;
     }
 
-    /** @param id the id to set */
+    /**
+     * @param id the id to set
+     */
     public void setId(String id) {
         this.id = id;
-    }
-
-    /** @return the formID */
-    public String getFormID() {
-        return formID;
-    }
-
-    /** @param formID the formID to set */
-    public void setFormID(String formID) {
-        this.formID = formID;
     }
 
     /**
@@ -81,42 +83,78 @@ public class Organization extends BareNode {
         this.form = form;
     }
 
-    /** @return the legalName */
-    public String getLegalName() {
-        return legalName;
-    }
-
-    /** @param legalName the legalName to set */
-    public void setLegalName(String legalName) {
-        this.legalName = legalName;
+    /**
+     * @return the formID
+     */
+    public String getFormID() {
+        return formID;
     }
 
     /**
-     * @return the twitterHandle
+     * @param formID the formID to set
      */
-    public String getTwitterHandle() {
-        return twitterHandle;
+    public void setFormID(String formID) {
+        this.formID = formID;
     }
 
     /**
-     * @param twitterHandle the twitterHandle to set
+     * @return the workingGroupID
      */
-    public void setTwitterHandle(String twitterHandle) {
-        this.twitterHandle = twitterHandle;
+    public String getWorkingGroupID() {
+        return workingGroupID;
     }
 
-    /** @return the address */
-    public Address getAddress() {
-        return address;
+    /**
+     * @param workingGroupID the workingGroupID to set
+     */
+    public void setWorkingGroupID(String workingGroupID) {
+        this.workingGroupID = workingGroupID;
     }
 
-    /** @param address the address to set */
-    public void setAddress(Address address) {
-        this.address = address;
+    /**
+     * @return the participationLevel
+     */
+    public String getParticipationLevel() {
+        return participationLevel;
+    }
+
+    /**
+     * @param participationLevel the participationLevel to set
+     */
+    public void setParticipationLevel(String participationLevel) {
+        this.participationLevel = participationLevel;
+    }
+
+    /**
+     * @return the effectiveDate
+     */
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    /**
+     * @param effectiveDate the effectiveDate to set
+     */
+    public void setEffectiveDate(Date effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+    /**
+     * @return the contact
+     */
+    public Contact getContact() {
+        return contact;
+    }
+
+    /**
+     * @param contact the contact to set
+     */
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
     @Singleton
-    public static class OrganizationFilter implements DtoFilter<Organization> {
+    public static class WorkingGroupFilter implements DtoFilter<WorkingGroup> {
         @Inject
         ParameterizedSQLStatementBuilder builder;
 
@@ -141,8 +179,8 @@ public class Organization extends BareNode {
         }
 
         @Override
-        public Class<Organization> getType() {
-            return Organization.class;
+        public Class<WorkingGroup> getType() {
+            return WorkingGroup.class;
         }
     }
 }
