@@ -11,6 +11,8 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
 
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
+
+    if(currentFormId) {
       fetch('membership_data/membership.json',{
         headers : {
         'Content-Type': 'application/json',
@@ -24,8 +26,10 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
         // }
         // If have an array, I'll use iterate it
         otherProps.parentState.formik.setFieldValue('workingGroups.0', matchWorkingGroupFields(temp.membership_level))
-        otherProps.parentState.formik.setFieldValue('workingGroups.1', matchWorkingGroupFields(temp.membership_level))
+        //otherProps.parentState.formik.setFieldValue('workingGroups.1', matchWorkingGroupFields(temp.membership_level))
       })
+    }
+
     // eslint-disable-next-line
   }, [])
 

@@ -45,6 +45,10 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
         console.log(values);
         break;
 
+      case 0:
+        defaultBehaviour();
+        break;
+
       case 1: 
         if(props.mktSame) {
           Object.assign(values.companyRepresentative.marketingRepresentative, values.companyRepresentative.representative)

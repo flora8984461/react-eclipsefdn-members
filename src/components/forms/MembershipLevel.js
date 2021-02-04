@@ -9,6 +9,8 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
 
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
+
+    if (currentFormId) {
       fetch('membership_data/membership.json',{
         headers : {
         'Content-Type': 'application/json',
@@ -19,6 +21,8 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
         let temp = data.find(el => el.form_id === currentFormId);
         otherProps.parentState.formik.setFieldValue('membershipLevel', temp.membership_level)
       })
+    }
+
     // eslint-disable-next-line
   }, [])
   

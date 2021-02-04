@@ -13,28 +13,32 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
 
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
-    let pool = [fetch('membership_data/organizations.json',{
-      headers : {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-     }}), fetch('membership_data/contacts.json',{
-      headers : {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-     }})]
 
-    Promise.all(pool)
-      .then((res) => 
-        Promise.all(res.map(r => r.json()))
-      )
-      .then(([organizations, contacts]) => {
-        // Matching the field data
-        let tempOrg = matchCompanyFields(organizations.find(item => item.form_id === currentFormId))
-        let tempContacts = matchContactFields(contacts.filter(el => el.form_id === currentFormId))
-        // Prefill Data
-        otherProps.parentState.formik.setFieldValue('organization.legalName', tempOrg.organization.legalName)
-        otherProps.parentState.formik.setFieldValue('companyRepresentative.representative', tempContacts.companyRepresentative.representative)
-      })
+    if (currentFormId) {
+      let pool = [fetch('membership_data/organizations.json',{
+        headers : {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }}), fetch('membership_data/contacts.json',{
+        headers : {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }})]
+  
+      Promise.all(pool)
+        .then((res) => 
+          Promise.all(res.map(r => r.json()))
+        )
+        .then(([organizations, contacts]) => {
+          // Matching the field data
+          let tempOrg = matchCompanyFields(organizations.find(item => item.form_id === currentFormId))
+          let tempContacts = matchContactFields(contacts.filter(el => el.form_id === currentFormId))
+          // Prefill Data
+          otherProps.parentState.formik.setFieldValue('organization.legalName', tempOrg.organization.legalName)
+          otherProps.parentState.formik.setFieldValue('companyRepresentative.representative', tempContacts.companyRepresentative.representative)
+        })
+    }
+
     // eslint-disable-next-line
   }, [])
 
