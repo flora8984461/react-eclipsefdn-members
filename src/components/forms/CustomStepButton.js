@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import MembershipContext from "../MembershipContext";
 
 const CustomStepButton = ({step, isSubmitting, setStep, isLastStep}) => {
-
+  const {currentUser} = useContext(MembershipContext);
   const handleClick = () => {
     setStep((s) => s - 1)
   }
 
   return (
-    <div className="button-container margin-top-20 margin-bottom-20">
+    <>
+    { currentUser && <div className="button-container margin-top-20 margin-bottom-20">
       {step > 0 ? (
           <button
             disabled={isSubmitting}
@@ -25,7 +27,8 @@ const CustomStepButton = ({step, isSubmitting, setStep, isLastStep}) => {
         >
           {isSubmitting ? 'Submitting' : isLastStep() ? 'Submit' : 'Next'}
         </button> 
-    </div>
+    </div>}
+    </>
   )
 };
 

@@ -35,6 +35,7 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
           let tempContacts = matchContactFields(contacts.filter(el => el.form_id === currentFormId))
           // Prefill Data
           otherProps.parentState.formik.setFieldValue('organization.legalName', tempOrg.organization.legalName)
+          otherProps.parentState.formik.setFieldValue('organization.address', tempOrg.organization.address)
           otherProps.parentState.formik.setFieldValue('companyRepresentative.representative', tempContacts.companyRepresentative.representative)
 
           // Store Organization_Id and contact_id for my POST later
