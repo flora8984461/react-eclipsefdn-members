@@ -7,6 +7,7 @@ import CustomStepButton from "./CustomStepButton";
 import SignInIntroduction from './SignInIntroduction';
 import { executeSendDataByStep } from '../utils/formFunctionHelpers';
 import MembershipContext from "../MembershipContext";
+import SubmitSuccess from '../SubmitSuccess';
 
 //form.validateForm(); to manually call validate
 
@@ -44,6 +45,7 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
       case childrenArray.length - 1:
         console.log("submit on last step");
         console.log(values);
+        defaultBehaviour();
         break;
 
       case 0:
@@ -74,6 +76,10 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
     return completed.has(step)
   }
   ////////////////////////////////////////
+
+  if (step === childrenArray.length) {
+    return <SubmitSuccess />
+  }
 
   return (
     <>
