@@ -8,20 +8,22 @@ const Step = (props) => {
   const styles = getStyles(props)
 
     const handleClick = e => {
-      // console.log(props.formikErrors)
-      if (index > currentStep) {
-        if (formRef.current) {
-          formRef.current.handleSubmit()
-          // if (formRef.current.isValid) {
-          //   onClick(index)
-          // }
+
+      // If go back to sign in page, reset the form
+      // if (index === 0) {
+      //   onClick(index);
+      //   formRef.current.resetForm();
+      // }
+
+      // else {
+        if (index > currentStep) {
+          if (formRef.current) {
+            formRef.current.handleSubmit()
+          }
         }
-      }
-      else if(index < currentStep) {
-        onClick(index)
-      }
-      // if (Object.keys(props.formikErrors).length === 0) {
-      //   onClick(index)
+        else if(index < currentStep) {
+          onClick(index)
+        }
       // }
     }
 
