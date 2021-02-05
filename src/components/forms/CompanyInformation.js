@@ -36,6 +36,10 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
           // Prefill Data
           otherProps.parentState.formik.setFieldValue('organization.legalName', tempOrg.organization.legalName)
           otherProps.parentState.formik.setFieldValue('companyRepresentative.representative', tempContacts.companyRepresentative.representative)
+
+          // Store Organization_Id and contact_id for my POST later
+          otherProps.parentState.formik.setFieldValue('organization.id', tempOrg.organization.id)
+          otherProps.parentState.formik.setFieldValue('companyRepresentative.representative.id', tempContacts.companyRepresentative.representative.id)
         })
     }
 

@@ -2,6 +2,7 @@ export const initialValues = {
 
   // Step1: company Info
   organization: {
+    id: "",
     legalName: "",
     address: {
       street: "",
@@ -10,12 +11,13 @@ export const initialValues = {
       country: "",
       postalCode: ""
     },
-    twitterHandle: "",  
+    twitterHandle: "",
   },
 
   // Step1: Company Representative
   companyRepresentative: {
     representative: {
+      id: "",
       firstName: "",
       lastName: "",
       jobtitle: "",
@@ -23,6 +25,7 @@ export const initialValues = {
     },
 
     marketingRepresentative: {
+      id: "",
       firstName: "",
       lastName: "",
       jobtitle: "",
@@ -30,6 +33,7 @@ export const initialValues = {
     },
 
     accounting: {
+      id: "",
       firstName: "",
       lastName: "",
       jobtitle: "",
@@ -43,6 +47,7 @@ export const initialValues = {
   // Step 3: working groups
   workingGroups: [
     {
+      id: "",
       workingGroup: "",
       participationLevel: "",
       effectiveDate: "",
@@ -50,7 +55,8 @@ export const initialValues = {
         firstName: "",
         lastName: "",
         jobtitle: "",
-        email: ""
+        email: "",
+        id: ""
       }
     }
   ],
@@ -58,7 +64,8 @@ export const initialValues = {
   signingAuthorityRepresentative: {
     firstName: "",
     lastName: "",
-    email: ""
+    email: "",
+    id: ""
   }
 
 }

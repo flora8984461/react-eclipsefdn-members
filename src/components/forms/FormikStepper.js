@@ -5,7 +5,7 @@ import Stepper from "../steppers/Stepper";
 import Step from "../steppers/Step";
 import CustomStepButton from "./CustomStepButton";
 import SignInIntroduction from './SignInIntroduction';
-import { defineDataBodyAndEndpoint, sendData } from '../utils/formFunctionHelpers';
+import { executeSendDataByStep } from '../utils/formFunctionHelpers';
 import MembershipContext from "../MembershipContext";
 
 //form.validateForm(); to manually call validate
@@ -21,6 +21,7 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
   const [completed, setCompleted] = useState(new Set())
 
   const { currentFormId } = useContext(MembershipContext);
+  const { currentUser } = useContext(MembershipContext);
 
   function isLastStep() {
     return step === childrenArray.length - 1
@@ -57,16 +58,13 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
           Object.assign(values.companyRepresentative.accounting, values.companyRepresentative.representative)
         }
         props.setFormDataStates(values);
-        await sendData('organizations', currentFormId, values.organization);
-        await sendData('contacts', currentFormId, values.companyRepresentative);
+        await executeSendDataByStep(step, values, currentFormId, currentUser.user_id);
         defaultBehaviour();
         break;
 
       default:
         props.setFormDataStates(values);
-        var {endpoint, dataBody} = defineDataBodyAndEndpoint(step, values);
-        // await sendData(endpoint, currentFormId, dataBody, defaultBehaviour);  I should use this when endpoint is live, but now it stops me to continue
-        await sendData(endpoint, currentFormId, dataBody);
+        await executeSendDataByStep(step, values, currentFormId, currentUser.user_id);
         defaultBehaviour();
     }
   }

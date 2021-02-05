@@ -9,7 +9,7 @@ const CustomAsyncSelect = (props) => {
   const [field, meta] = useField(props.field.name);  //// or props.field, must contain name key
 
   // useEffect(() => {
-  //   // When has initial data and has not been changed, show prefilled address data and disable input
+  //   // When has initial data and has not been changed, show prefilled address data and disable input, like Linux Foundation, decide later
   //   if (props.isExistingMember && props.organiazationData && props.field.value && props.field.value.value === props.organiazationData.legal_name) {
   //     props.setDisableInput(true)
   //   }
@@ -125,6 +125,7 @@ const CustomAsyncSelect = (props) => {
       <AsyncCreatable
         {...field}
         isClearable
+        isSearchable
         cacheOptions
         defaultOptions
         loadOptions={promiseOptions}
@@ -145,6 +146,7 @@ const CustomAsyncSelect = (props) => {
     <AsyncSelect
       {...field}
       isClearable
+      isSearchable
       cacheOptions
       defaultOptions
       loadOptions={promiseOptions}

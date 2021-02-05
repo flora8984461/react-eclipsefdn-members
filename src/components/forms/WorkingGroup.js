@@ -12,6 +12,7 @@ const WorkingGroup = ({ formField, arrayHelpers, formikProps }) => {
   const { isExistingMember } = useContext(MembershipContext);
 
   const each_workingGroupField = {
+      id: "",
       workingGroup: "",
       participationLevel: "",
       effectiveDate: "",
@@ -19,10 +20,10 @@ const WorkingGroup = ({ formField, arrayHelpers, formikProps }) => {
         firstName: "",
         lastName: "",
         jobtitle: "",
-        email: ""
+        email: "",
+        id: ""
       }
   }
-
 
   return (
     <>
