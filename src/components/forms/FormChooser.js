@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useHistory } from 'react-router-dom';
 import MembershipContext from "../MembershipContext";
 
 const styles = {
@@ -15,15 +16,22 @@ const style_root = {
     display: "inline-block"
 }
 
-const FormChooser = ({currentUser, setStep}) => {
+const FormChooser = ({currentUser}) => {
 
+    const history = useHistory();
 
     const {setCurrentFormId} = useContext(MembershipContext);
 
     const handleOnClick = (el) => {
-        console.log(el)
+        console.log(el);
         setCurrentFormId(el);
-        setStep(s => s + 1);
+        history.push('/form');
+        // setStep(s => s + 1);
+    }
+
+    const createNewForm = () => {
+        // setCurrentFormId("new_id");
+        history.push('/form');
     }
 
     return (
@@ -36,6 +44,9 @@ const FormChooser = ({currentUser, setStep}) => {
         </div>
         )  }
 
+        <h2>Create New Form</h2>
+        <h3>Click on the Next Button to pretend starting a new form</h3>
+        <button type="button" onClick={createNewForm} className="btn btn-primary"> Create new form </button>
         </>
 
     )

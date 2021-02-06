@@ -31,19 +31,24 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
         )
         .then(([organizations, contacts]) => {
           // Matching the field data
-          let tempOrg = matchCompanyFields(organizations.find(item => item.form_id === currentFormId))
-          let tempContacts = matchContactFields(contacts.filter(el => el.form_id === currentFormId))
-          // Prefill Data
-          otherProps.parentState.formik.setFieldValue('organization.legalName', tempOrg.organization.legalName)
-          otherProps.parentState.formik.setFieldValue('organization.address', tempOrg.organization.address)
-          otherProps.parentState.formik.setFieldValue('companyRepresentative.representative', tempContacts.companyRepresentative.representative)
-
-          // Store Organization_Id and contact_id for my POST later
-          otherProps.parentState.formik.setFieldValue('organization.id', tempOrg.organization.id)
-          otherProps.parentState.formik.setFieldValue('companyRepresentative.representative.id', tempContacts.companyRepresentative.representative.id)
+          let existingOrgData = organizations.find(item => item.form_id === currentFormId)
+          let existingContactsData = contacts.filter(item => item.form_id === currentFormId)
+          if (existingOrgData) {
+            let tempOrg = matchCompanyFields(existingOrgData)
+            otherProps.parentState.formik.setFieldValue('organization.legalName', tempOrg.organization.legalName)
+            otherProps.parentState.formik.setFieldValue('organization.address', tempOrg.organization.address)
+            // Store Organization_Id for my PUT later
+            otherProps.parentState.formik.setFieldValue('organization.id', tempOrg.organization.id)
+          }
+          if(existingContactsData) {
+            let tempContacts = matchContactFields(existingContactsData)
+            // Prefill Data
+            otherProps.parentState.formik.setFieldValue('companyRepresentative.representative', tempContacts.companyRepresentative.representative)
+            // Store contact_id for my PUT later
+            otherProps.parentState.formik.setFieldValue('companyRepresentative.representative.id', tempContacts.companyRepresentative.representative.id)
+          }
         })
     }
-
     // eslint-disable-next-line
   }, [])
 

@@ -1,10 +1,8 @@
 import React, { useState, useRef, useContext } from "react";
 import { Form, Formik } from "formik";
 import { validationSchema } from '../formModels/ValidationSchema';
-import Stepper from "../steppers/Stepper";
-import Step from "../steppers/Step";
+import StepperComponent from "../steppers/StepperComponent";
 import CustomStepButton from "./CustomStepButton";
-import SignInIntroduction from './SignInIntroduction';
 import { executeSendDataByStep } from '../utils/formFunctionHelpers';
 import MembershipContext from "../MembershipContext";
 import SubmitSuccess from '../SubmitSuccess';
@@ -13,15 +11,14 @@ import SubmitSuccess from '../SubmitSuccess';
 
 const FormikStepper = ({ step, setStep, children, ...props }) => {
 
+  const [completed, setCompleted] = useState(new Set());
   const childrenArray = React.Children.toArray(children)
   const currentChild = childrenArray[step]
   const currentValidationSchema = validationSchema[step]
 
-  const formRef = useRef()
+  const formRef = useRef();
 
-  const [completed, setCompleted] = useState(new Set())
-
-  const { currentFormId } = useContext(MembershipContext);
+  const { currentFormId, setCurrentFormId } = useContext(MembershipContext);
   const { currentUser } = useContext(MembershipContext);
 
   function isLastStep() {
@@ -29,10 +26,10 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
   }
 
   const handleComplete = () => {
-    const newCompleted = new Set(completed)
-    newCompleted.add(step)
-    setCompleted(newCompleted)
-  }
+      const newCompleted = new Set(completed)
+      newCompleted.add(step)
+      setCompleted(newCompleted)
+    }
 
   const defaultBehaviour = () => {
     handleComplete();
@@ -71,67 +68,38 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
     }
   }
 
-  ///////////////////////////////////
-  function isStepComplete(step) {
-    return completed.has(step)
-  }
-  ////////////////////////////////////////
-
   if (step === childrenArray.length) {
     return <SubmitSuccess />
   }
 
   return (
     <>
+    <StepperComponent step={step} setStep={setStep} childrenArray={childrenArray} completed={completed} formRef={formRef} currentFormId={currentFormId} setCurrentFormId={setCurrentFormId} />
 
-      <Formik
-        {...props}
-        onSubmit={handleOnSubmit}
-        validationSchema={currentValidationSchema}
-        innerRef={formRef}
-      >
-        {
-          (formik) =>
-            <>
-
-              { step === 0 && <SignInIntroduction /> }
-
-              <Stepper activeStep={step} chidlrenSteps={childrenArray} handleOnClick={setStep}>
-                {childrenArray.map((child, index) => {
-                  return (
-                    <Step
-                      key={index}
-                      width={100 / childrenArray.length}
-                      title={child.props.label}
-                      onClick={setStep}
-                      active={index === step}
-                      completed={isStepComplete(index)}
-                      first={index === 0}
-                      isLast={index === childrenArray.length - 1}
-                      index={index}
-                      stepReached={isStepComplete(index - 1)}
-                      formikErrors={formik.errors}
-                      currentStep={step}
-                      validateForm={formik.validateForm}
-                      formRef={formRef}
-                    />
-                  )
-                })}
-              </Stepper>
-              <Form>
-                {React.cloneElement(currentChild, { parentState: { formik, ...props } })}
-                <CustomStepButton
-                  values={formik.values}
-                  step={step}
-                  isSubmitting={formik.isSubmitting}
-                  setStep={setStep}
-                  isLastStep={isLastStep}
-                  formikSubmit={formik.submitForm}
-                />
-              </Form>
-            </>
-        }
-      </Formik>
+    <Formik
+      {...props}
+      // enableReinitialize
+      onSubmit={handleOnSubmit}
+      validationSchema={currentValidationSchema}
+      innerRef={formRef}
+    >
+      {
+        (formik) =>
+          <>
+            <Form>
+              {React.cloneElement(currentChild, { parentState: { formik, ...props } })}
+              <CustomStepButton
+                values={formik.values}
+                step={step}
+                isSubmitting={formik.isSubmitting}
+                setStep={setStep}
+                isLastStep={isLastStep}
+                formikSubmit={formik.submitForm}
+              />
+            </Form>
+          </>
+      }
+    </Formik>
     </>
   )
 }

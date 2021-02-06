@@ -9,6 +9,10 @@ const Step = (props) => {
 
     const handleClick = e => {
 
+      if (index === 0) {
+        onClick();
+      }
+
       // If go back to sign in page, reset the form
       // if (index === 0) {
       //   onClick(index);
@@ -16,13 +20,13 @@ const Step = (props) => {
       // }
 
       // else {
-        if (index > currentStep) {
+        if (index-1 > currentStep) {
           if (formRef.current) {
             formRef.current.handleSubmit()
           }
         }
-        else if(index < currentStep) {
-          onClick(index)
+        else if(index-1 < currentStep) {
+          onClick(index-1)
         }
       // }
     }

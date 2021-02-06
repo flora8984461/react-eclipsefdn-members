@@ -1,15 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 import MultiStepForm from './MultiStepForm';
+import MembershipContext from "./MembershipContext";
 import { initialValues } from './formModels/formFieldModel';
+import SignIn from './forms/SignIn';
 
 const FormWrapper = () => {
-    const [step, setStep] = useState(0)
-
+  const {currentUser} = useContext(MembershipContext);
     return (
+    <Router>
       <div className="container eclipseFdn-membership-webform">
-        <MultiStepForm defineInitialData={initialValues} step={step} setStep={setStep} />
+      <Switch>
+        <Route exact path="/">
+          <SignIn />
+        </Route>
+        <Route path="/form">
+          { !currentUser ? <Redirect to="/" /> : <MultiStepForm defineInitialData={initialValues} /> }
+        </Route>
+      </Switch>
       </div>
-
+    </Router>
     )
 }
 

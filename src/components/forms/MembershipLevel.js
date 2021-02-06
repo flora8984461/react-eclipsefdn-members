@@ -19,7 +19,9 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
       .then(resp => resp.json())
       .then(data => {
         let temp = data.find(el => el.form_id === currentFormId);
-        otherProps.parentState.formik.setFieldValue('membershipLevel', temp.membership_level)
+        if(temp) {
+          otherProps.parentState.formik.setFieldValue('membershipLevel', temp.membership_level)
+        }
       })
     }
 

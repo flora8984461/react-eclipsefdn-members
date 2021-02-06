@@ -33,7 +33,7 @@
 ///////////////////////////////////////////////////////////
 //== Transform data from backend to match my form model
 
-export function matchCompanyFields(existingOrganizationData) {
+export function matchCompanyFields(existingOrganizationData, existingFormStateData) {
 
   return {
     // Step1: company Info
@@ -64,7 +64,7 @@ export function matchCompanyFields(existingOrganizationData) {
 
 }
 
-export function matchContactFields(existingContactData) {
+export function matchContactFields(existingContactData, existingFormStateData) {
 
   let existingCompanyContact = existingContactData.find(el => el.type === "company")
   let existingMarketingContact = existingContactData.find(el => el.type === "marketing")
@@ -99,7 +99,7 @@ export function matchContactFields(existingContactData) {
 
 }
 
-export function matchWorkingGroupFields(existingMembershipData) {
+export function matchWorkingGroupFields(existingMembershipData, existingFormStateData) {
   // return {
   //   workingGroup: {
   //     value: existingMembershipData?.working_group || "",
@@ -124,7 +124,7 @@ export function matchWorkingGroupFields(existingMembershipData) {
       participation_levels: ["AsciiDoc_level_a", "AsciiDoc_level_b", "AsciiDoc_level_c"] || ""
     } || "",
     participationLevel: "AsciiDoc_level_a" || "",
-    effectiveDate: existingMembershipData.effective_date || "",
+    effectiveDate: existingMembershipData?.effective_date || "",
     workingGroupRepresentative: {
       firstName: "test",
       lastName: "test_2",

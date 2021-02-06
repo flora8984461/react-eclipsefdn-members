@@ -20,12 +20,15 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
        }})
       .then(resp => resp.json())
       .then(data => {
+
         let temp = data.find(el => el.form_id === currentFormId);
         // if(boundArrayHelpers) {
         //     boundArrayHelpers.push(matchWorkingGroupFields(temp.membership_level));
         // }
         // If have an array, I'll use iterate it
-        otherProps.parentState.formik.setFieldValue('workingGroups.0', matchWorkingGroupFields(temp.membership_level))
+        if(temp) {
+          otherProps.parentState.formik.setFieldValue('workingGroups.0', matchWorkingGroupFields(temp.membership_level))
+        }
         //otherProps.parentState.formik.setFieldValue('workingGroups.1', matchWorkingGroupFields(temp.membership_level))
       })
     }

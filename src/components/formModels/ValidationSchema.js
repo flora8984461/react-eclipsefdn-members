@@ -3,10 +3,6 @@ import { requiredErrorMsg } from './formFieldModel';
 
 export const validationSchema = [
 
-  yup.object().shape({
-    
-  }),
-
   // First step - company Info
   yup.object().shape({
     organization: yup.object().shape({

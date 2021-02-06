@@ -1,10 +1,18 @@
 import React, { useContext } from "react";
 import MembershipContext from "../MembershipContext";
 import FormChooser from './FormChooser';
+import SignInIntroduction from './SignInIntroduction';
+import StepperComponent from '../steppers/StepperComponent';
 
 const SignIn = ({setStep}) => {
 
     const {currentUser, setCurrentUser} = useContext(MembershipContext);
+
+    // useEffect(() => {
+    //     otherProps.parentState.formik.resetForm()
+    // }, [])
+
+    const fakeChildrenArray = [{props: {label: "Company Information"}}, {props: {label: "Membership Level"}},{props: {label: "Working Groups"}},{props: {label: "Signing Authority"}},{props: {label: "Preview"}}]
 
     const getFakeUser = () => {
         fetch('membership_data/fake_user.json',{
@@ -23,12 +31,11 @@ const SignIn = ({setStep}) => {
 
         return (
             <>
+            <SignInIntroduction />
+            <StepperComponent step={-1} childrenArray={fakeChildrenArray} />
             <h1>Form chooser</h1>
             <h2>Select an existing form</h2>
             <FormChooser currentUser={currentUser} setStep={setStep} />
-
-            <h2>Create New Form</h2>
-            <h3>Click on the Next Button to start a new form</h3>
             </>
         )
 
@@ -37,6 +44,8 @@ const SignIn = ({setStep}) => {
     
     return(
         <>
+        <SignInIntroduction />
+        <StepperComponent step={-1} childrenArray={fakeChildrenArray} />
             <div className="text-center margin-bottom-20">
                 <button type="button" onClick={getFakeUser} className="btn btn-secondary">Sign In</button>
                 <a href="https://accounts.eclipse.org/" className="btn btn-secondary">Create an account</a>

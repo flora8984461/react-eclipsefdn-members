@@ -7,12 +7,11 @@ import WorkingGroupsWrapper from "./forms/WorkingGroupsWrapper";
 import SigningAuthority from './forms/SigningAuthority';
 import Preview from "./forms/Preview";
 import { formField } from './formModels/formFieldModel';
-import SignIn from './forms/SignIn';
 
-const MultiStepForm = ({ defineInitialData, step, setStep }) => {
+const MultiStepForm = ({ defineInitialData }) => {
 
   const [formDataStates, setFormDataStates] = useState(defineInitialData)  // Do I still need this State?
-
+  const [step, setStep] = useState(0)
   const [mktSame, setMktSame] = useState(false)
   const [accSame, setAccSame] = useState(false)
 
@@ -33,8 +32,6 @@ const MultiStepForm = ({ defineInitialData, step, setStep }) => {
         mktSame={mktSame}
         accSame={accSame}
       >
-        <SignIn label="Sign In" setStep={setStep} />
-
         <CompanyInformation
           formField={formField}
           label="Company Information"
