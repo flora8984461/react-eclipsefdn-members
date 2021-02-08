@@ -6,7 +6,7 @@ export function matchCompanyFields(existingOrganizationData, existingFormStateDa
   return {
     // Step1: company Info
     organization: {
-      id: existingOrganizationData?.id || "",
+      id: existingOrganizationData?.organization_id || "",
       legalName: {
         value: existingOrganizationData?.legal_name || "",
         label: existingOrganizationData?.legal_name || "",
@@ -17,10 +17,7 @@ export function matchCompanyFields(existingOrganizationData, existingFormStateDa
         street: existingOrganizationData?.address.street || "",
         city: existingOrganizationData?.address.city || "",
         provinceOrState: existingOrganizationData?.address.province_state || "",
-        country: {
-          value: existingOrganizationData?.address.country || "",
-          label: existingOrganizationData?.address.country || ""
-        } || "",
+        country: existingOrganizationData?.address.country || "",
         postalCode: existingOrganizationData?.address.postal_code || "",
       },
       twitterHandle: existingOrganizationData?.twitterHandle || "",  
@@ -82,21 +79,21 @@ export function matchWorkingGroupFields(existingMembershipData, existingFormStat
 }
 
 ///////////////////////////////////////////////////////////
-//== Transform data from my form model to POST for backend
+//== Transform data from my form model to PUT or POST for backend
 export function matchCompanyFieldsToBackend(organizationData, formId) {
 
-  console.log(organizationData)
+  // if new, organization_id not exists, remove organization_id
 
   return {
     address: {
       city: organizationData.address.city,
-      country: organizationData.address.country.label, // or should be value? to be decide
+      country: organizationData.address.country,
       postal_code: organizationData.address.postalCode,
-      province_state: organizationData.address.provinceOrState, // or should be value? to be decide
+      province_state: organizationData.address.provinceOrState,
       street: organizationData.address.street
     },
   form_id: formId,
-  id: organizationData.id,
+  organization_id: organizationData.id,
   legal_name: organizationData.legalName.label
   }
 }
@@ -106,7 +103,8 @@ export function matchMembershipLevelFieldsToBackend(membershipLevel, formId, use
   return {
     id: formId,
     user_id: userId,
-    membership_level: membershipLevel
+    membership_level: membershipLevel,
+    // signing_authority: tbd
   }
 
 }
@@ -181,7 +179,11 @@ export function sendData(endpoint, dataBody) {
   //   }
   // })
 
-  console.log("You send request to: " + endpoint + "; and with the entityId: " + dataBody.id)
+  if (dataBody.organization_id) {
+    console.log("You send request to: " + endpoint + "; and with the orgId: " + dataBody.organization_id)
+  } else {
+    console.log("You send request to: " + endpoint + "; and with the entityId: " + dataBody.id)
+  }
   console.log("You data body is: " + JSON.stringify(dataBody))
 
 }
