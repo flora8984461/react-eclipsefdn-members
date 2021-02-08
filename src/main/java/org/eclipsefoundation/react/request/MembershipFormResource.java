@@ -135,9 +135,10 @@ public class MembershipFormResource extends AbstractRESTResource {
     }
 
     @PUT
-    @Path("{id}/working_groups")
-    public List<WorkingGroup> updateWorkingGroup(@PathParam("id") String transactionID, WorkingGroup wg) {
+    @Path("{id}/working_groups/{wgID}")
+    public List<WorkingGroup> updateWorkingGroup(@PathParam("id") String transactionID, WorkingGroup wg, @PathParam("id") String wgID) {
         wg.setForm(dao.getReference(transactionID, MembershipForm.class));
+        wg.setId(wgID);
         return dao.add(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class)), Arrays.asList(wg));
     }
 

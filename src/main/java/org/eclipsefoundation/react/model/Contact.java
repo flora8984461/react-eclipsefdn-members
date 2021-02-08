@@ -6,6 +6,8 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,6 +22,7 @@ import org.eclipsefoundation.persistence.dto.filter.DtoFilter;
 import org.eclipsefoundation.persistence.model.DtoTable;
 import org.eclipsefoundation.persistence.model.ParameterizedSQLStatement;
 import org.eclipsefoundation.persistence.model.ParameterizedSQLStatementBuilder;
+import org.eclipsefoundation.react.namespace.ContactTypes;
 import org.eclipsefoundation.react.namespace.MembershipFormAPIParameterNames;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -48,7 +51,8 @@ public class Contact extends BareNode {
     private String email;
     @JsonbProperty(value = "job_title")
     private String title;
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private ContactTypes type;
 
     @Override
     public String getId() {
@@ -125,12 +129,12 @@ public class Contact extends BareNode {
     }
 
     /** @return the type */
-    public String getType() {
+    public ContactTypes getType() {
         return type;
     }
 
     /** @param type the type to set */
-    public void setType(String type) {
+    public void setType(ContactTypes type) {
         this.type = type;
     }
 
