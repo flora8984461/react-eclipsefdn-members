@@ -1,35 +1,3 @@
-// this func might not needed
-// export function generateSelectMatch(data, stateOrCountry) {
-
-//   var tempState;
-//   var tempCountry;
-
-//   if (data.provinceOrState && data.province_state_id) {
-//     tempState.id = data.province_state_id;
-//     tempState.name = data.provinceOrState;
-//   }
-
-//   if (data.country && data.country_id) {
-//     tempCountry.id = data.country_id;
-//     tempCountry.name = data.country;
-//   }
-
-//   if (stateOrCountry === "state") {
-//     return {
-//       value: tempState?.id || "",
-//       label: tempState?.name || ""
-//     }
-//   }
-
-//   if (stateOrCountry === "country") {
-//     return {
-//       value: tempCountry?.id || "",
-//       label: tempCountry?.name || ""
-//     }
-//   }
-// }
-
-
 ///////////////////////////////////////////////////////////
 //== Transform data from backend to match my form model
 
