@@ -1,8 +1,30 @@
-import React from "react";
-// import { Field } from "formik";
+import React, { useState, useEffect } from "react";
 import Select from "../Inputs/Select";
 
-const ParticipationLevel = ({name, participationLevels}) => {
+const ParticipationLevel = ({name, workingGroup}) => {
+
+  const [participationLevels, setParticipationLevels] = useState([])
+
+  useEffect(() => {
+    let isSubscribed = true;
+
+    fetch("workingGroups.json", {
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (isSubscribed) {
+          let temp = data.working_groups?.find(item => workingGroup === item.id)
+          setParticipationLevels(temp?.participation_levels)
+        }
+      })
+
+    // cancel subscription to useEffect
+    return () => (isSubscribed = false)
+  }, [workingGroup])
 
   return (
     <>

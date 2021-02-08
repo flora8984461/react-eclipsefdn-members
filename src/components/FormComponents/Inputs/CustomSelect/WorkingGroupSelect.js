@@ -54,6 +54,7 @@ const WorkingGroupSelect = (props) => {
       {...field}
       isClearable
       isSearchable
+      isLoading={loading}
       options={workingGroupsData}
       value={getValue(workingGroupsData, props.field.value) || ""}
       onChange={(option, action) => {

@@ -67,7 +67,7 @@ export function matchWorkingGroupFields(existingMembershipData, existingFormStat
     id: existingMembershipData?.id || "",
     workingGroup: existingMembershipData?.working_group || "",
     participationLevel: existingMembershipData?.participation_level || "",
-    effectiveDate: existingMembershipData?.effective_date || "",
+    effectiveDate: new Date(existingMembershipData?.effective_date).toLocaleDateString() || "",
     workingGroupRepresentative: {
       firstName: existingMembershipData?.contact.first_name || "",
       lastName: existingMembershipData?.contact.last_name || "",

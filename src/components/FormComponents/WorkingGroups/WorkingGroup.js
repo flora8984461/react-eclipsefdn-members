@@ -40,7 +40,7 @@ const WorkingGroup = ({ formField, arrayHelpers, formikProps }) => {
 
           { workingGroup.workingGroup ? 
             <>
-              <ParticipationLevel name={`workingGroups.${index}.participationLevel`} participationLevels={workingGroup.workingGroup.participation_levels} />
+              <ParticipationLevel name={`workingGroups.${index}.participationLevel`} workingGroup={workingGroup.workingGroup} />
               <EffectiveDate name={`workingGroups.${index}.effectiveDate`} label="Effective Date" />
             </>
             : null
