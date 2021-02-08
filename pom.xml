@@ -6,7 +6,7 @@
 	<artifactId>react-container</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<properties>
-    <eclipse-api-version>0.1-BETA</eclipse-api-version>
+		<eclipse-api-version>0.1-BETA</eclipse-api-version>
 		<surefire-plugin.version>2.22.1</surefire-plugin.version>
 		<maven.compiler.target>11</maven.compiler.target>
 		<quarkus.platform.version>1.9.1.Final</quarkus.platform.version>
@@ -19,6 +19,12 @@
 		<compiler-plugin.version>3.8.1</compiler-plugin.version>
 		<quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
 	</properties>
+	<repositories>
+		<repository>
+			<id>eclipsefdn-releases</id>
+			<url>https://repo.eclipse.org/content/repositories/eclipsefdn-releases/</url>
+		</repository>
+	</repositories>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
