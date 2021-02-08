@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import CustomSelectWrapper from "./Inputs/CustomSelect/CustomSelectWrapper";
-import StatesSelect from "./Inputs/CustomSelect/StatesSelect";
+// import StatesSelect from "./Inputs/CustomSelect/StatesSelect";
 import CountrySelect from "./Inputs/CustomSelect/CountrySelect";
 import CustomAsyncSelect from "./Inputs/CustomSelect/CustomAsyncSelect";
 import MembershipContext from "../MembershipContext";
@@ -119,14 +119,7 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
           />
         </div>
         <div className="col-md-8">
-          <label htmlFor="organization.address.provinceOrState">Province / State</label>
-          <CustomSelectWrapper
-            name="organization.address.provinceOrState"
-            srcData="provinceOrState"
-            isExistingMember={isExistingMember}
-            organiazationData={organiazationData}
-            renderComponent={StatesSelect}
-          />
+          <Input name="organization.address.provinceOrState" labelName="Province or State" placeholder="Province or State" />
         </div>
         <div className="col-md-8">
           <Input name="organization.address.postalCode" labelName="Postal Code" placeholder="Postal Code" />

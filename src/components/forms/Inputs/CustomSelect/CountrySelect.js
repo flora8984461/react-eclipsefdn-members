@@ -1,32 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import { selectTheme, generateCustomStyles } from './customSelectStyle';
 import { useField } from 'formik';
 
 const CountrySelect = (props) => {
 
-  const [stateData, setStateData] = useState([]);
+  const countryList = require('country-list').getNames().map(item => ({ label: item, value: item }));
+
   const [, meta] = useField(props.field.name);
-
-  useEffect(() => {
-    let isSubscribed = true;
-
-    fetch("countries_states/countries.json", {
-        headers : { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (isSubscribed) {
-          setStateData(data.countries?.map(item => ({ value: item.id, label: item.name })))
-        }
-      })
-
-    // cancel subscription to useEffect
-    return () => (isSubscribed = false)
-  }, [])
 
   const handleSelect = (option, action) => {
 
@@ -42,7 +23,7 @@ const CountrySelect = (props) => {
   return (
     <Select
       isSearchable
-      options={stateData}
+      options={countryList}
       value={props.field?.value || ""}
       // defaultValue={props.field?.value || ""}
       onChange={(option, action) => {

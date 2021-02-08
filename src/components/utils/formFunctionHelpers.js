@@ -48,12 +48,9 @@ export function matchCompanyFields(existingOrganizationData, existingFormStateDa
       address: {
         street: existingOrganizationData?.address.street || "",
         city: existingOrganizationData?.address.city || "",
-        provinceOrState: {
-          value: existingOrganizationData?.address.province_state_id || "",
-          label: existingOrganizationData?.address.province_state || ""
-        } || "",
+        provinceOrState: existingOrganizationData?.address.province_state || "",
         country: {
-          value: existingOrganizationData?.address.country_id || "",
+          value: existingOrganizationData?.address.country || "",
           label: existingOrganizationData?.address.country || ""
         } || "",
         postalCode: existingOrganizationData?.address.postal_code || "",
