@@ -1,6 +1,4 @@
-///////////////////////////////////////////////////////////
 //== Transform data from backend to match my form model
-
 export function matchCompanyFields(existingOrganizationData, existingFormStateData) {
 
   return {
@@ -78,7 +76,6 @@ export function matchWorkingGroupFields(existingMembershipData, existingFormStat
   }
 }
 
-///////////////////////////////////////////////////////////
 //== Transform data from my form model to PUT or POST for backend
 export function matchCompanyFieldsToBackend(organizationData, formId) {
 
@@ -125,7 +122,7 @@ export function matchContactFieldsToBackend(contactData, contactType, formId) {
 
 export function matchWGFieldsToBackend(eachWorkingGroupData, formId) {
 
-  var wg_contact = matchContactFieldsToBackend(eachWorkingGroupData.workingGroupRepresentative, "workingGroup", formId);
+  var wg_contact = matchContactFieldsToBackend(eachWorkingGroupData.workingGroupRepresentative, "working_group", formId);
 
   return {
     id: eachWorkingGroupData.id,
@@ -138,24 +135,24 @@ export function matchWGFieldsToBackend(eachWorkingGroupData, formId) {
   }
 }
 
-// post function
+// EXECUTE Send Data function
 export async function executeSendDataByStep(step, formData, formId, userId) {
 
   switch(step) {
     case 0:
-      sendData('organizations', matchCompanyFieldsToBackend(formData.organization, formId))
-      sendData("contacts", matchContactFieldsToBackend(formData.companyRepresentative.representative, 'company', formId))
-      sendData('contacts', matchContactFieldsToBackend(formData.companyRepresentative.marketingRepresentative, 'marketing', formId))
-      sendData('contacts', matchContactFieldsToBackend(formData.companyRepresentative.accounting, 'accounting', formId))
+      sendData(`/form/${formId}/organizations`, matchCompanyFieldsToBackend(formData.organization, formId), "organizations")
+      sendData(`/form/${formId}contacts`, matchContactFieldsToBackend(formData.companyRepresentative.representative, 'company', formId))
+      sendData(`/form/${formId}contacts`, matchContactFieldsToBackend(formData.companyRepresentative.marketingRepresentative, 'marketing', formId))
+      sendData(`/form/${formId}contacts`, matchContactFieldsToBackend(formData.companyRepresentative.accounting, 'accounting', formId))
       break;
 
     case 1:
-      sendData('form', matchMembershipLevelFieldsToBackend(formData.membershipLevel, formId, userId))
+      sendData(`/form/${formId}`, matchMembershipLevelFieldsToBackend(formData.membershipLevel, formId, userId))
       break;
 
     case 2:
       formData.workingGroups.forEach(item => {
-        sendData(`form/${formId}/working_groups`, matchWGFieldsToBackend(item, formId))
+        sendData(`/form/${formId}/working_groups`, matchWGFieldsToBackend(item, formId))
       });
       break;
 
@@ -167,7 +164,8 @@ export async function executeSendDataByStep(step, formData, formId, userId) {
   }
 }
 
-export function sendData(endpoint, dataBody) {
+// PUT or POST function
+export function sendData(endpoint, dataBody, type) {
   // fetch(`${endpoint}/${formId}`, {
   //   method: 'PUT',
   //   body: dataBody
@@ -179,11 +177,26 @@ export function sendData(endpoint, dataBody) {
   //   }
   // })
 
-  if (dataBody.organization_id) {
-    console.log("You send request to: " + endpoint + "; and with the orgId: " + dataBody.organization_id)
-  } else {
-    console.log("You send request to: " + endpoint + "; and with the entityId: " + dataBody.id)
-  }
-  console.log("You data body is: " + JSON.stringify(dataBody))
+  switch(type) {
+    case "organizations":
+      if (!dataBody.organization_id) {
+        console.log("You send request to: " + endpoint + "By method POST")
+        delete dataBody.organization_id
+        console.log("You data body is: " + JSON.stringify(dataBody));
+      } else {
+        console.log("You send request to:" + endpoint + dataBody.organization_id + "; By method PUT")
+        console.log("You data body is: " + JSON.stringify(dataBody));
+      }
+      break;
 
+    default:
+      if (!dataBody.id) {
+        console.log("You send request to: " + endpoint + "By method POST")
+        delete dataBody.id
+        console.log("You data body is: " + JSON.stringify(dataBody));
+      } else {
+        console.log("You send request to:" + endpoint + dataBody.id + "; By method PUT")
+        console.log("You data body is: " + JSON.stringify(dataBody));
+      }
+  }
 }
