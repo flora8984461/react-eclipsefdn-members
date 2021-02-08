@@ -24,8 +24,8 @@ const Preview = (previewData) => {
         <div className="row margin-bottom-10">
           <div className="col-md-8"><label>Street</label><div className="fake-input">{data.organization.address.street}</div></div>
           <div className="col-md-4"><label>City</label><div className="fake-input">{data.organization.address.city}</div></div>
-          <div className="col-md-4"><label>province/State</label><div className="fake-input">{data.organization.address.provinceOrState.label}</div></div>
-          <div className="col-md-4"><label>Country</label><div className="fake-input">{data.organization.address.country.label}</div></div>
+          <div className="col-md-4"><label>province/State</label><div className="fake-input">{data.organization.address.provinceOrState}</div></div>
+          <div className="col-md-4"><label>Country</label><div className="fake-input">{data.organization.address.country}</div></div>
           <div className="col-md-4"><label>PostalCode</label><div className="fake-input">{data.organization.address.postalCode}</div></div>
         </div>
 
@@ -62,9 +62,9 @@ const Preview = (previewData) => {
         {
           data.workingGroups.map((el, index) => (
             <div key={index} className="row margin-bottom-10">
-              <div className="col-md-8"><label>Working group</label><div className="fake-input">{el.workingGroup.label}</div></div>
+              <div className="col-md-8"><label>Working group</label><div className="fake-input">{el.workingGroup}</div></div>
               <div className="col-md-8"><label>Intended Participation Level</label><div className="fake-input">{el.participationLevel}</div></div>
-              <div className="col-md-8"><label>Effective Date</label><div className="fake-input">{new Date(el.effectiveDate).toDateString()}</div></div>
+              <div className="col-md-8"><label>Effective Date</label><div className="fake-input">{new Date(el.effectiveDate).toLocaleDateString()}</div></div>
 
               <h4 className="fw-600 margin-left-15 margin-top-25">The working Group Representative</h4>
               <div className="col-md-6"><label>First Name</label><div className="fake-input">{el.workingGroupRepresentative.firstName}</div></div>

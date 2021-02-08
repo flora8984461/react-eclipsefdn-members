@@ -25,6 +25,15 @@ const WorkingGroup = ({ formField, arrayHelpers, formikProps }) => {
       }
   }
 
+  const removeWorkingGroupCall = (arrayHelpersRemove, index, id) => {
+
+    // Call API to remove
+    console.log("you called DELETE method with id: " + id)
+
+    // Remove from frontend
+    arrayHelpersRemove(index);
+  }
+
   return (
     <>
       { values.workingGroups && values.workingGroups.length > 0 && values.workingGroups.map((workingGroup, index) => (
@@ -49,7 +58,7 @@ const WorkingGroup = ({ formField, arrayHelpers, formikProps }) => {
             
             { values.workingGroups.length > 1 &&
             <div className="text-center margin-bottom-20">
-              <button className="btn btn-secondary padding-15" type="button" onClick={() => arrayHelpers.remove(index)}>
+              <button className="btn btn-secondary padding-15" type="button" onClick={() => removeWorkingGroupCall(arrayHelpers.remove, index, values.workingGroups[index].id)}>
                 Remove this group
               </button>
             </div>

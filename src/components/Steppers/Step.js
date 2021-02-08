@@ -22,10 +22,15 @@ const Step = (props) => {
       // else {
         if (index-1 > currentStep) {
           if (formRef.current) {
-            formRef.current.handleSubmit()
+            // formRef.current.handleSubmit()
+            // onClick(index-2)
+            formRef.current.validateForm()
+            if (Object.keys(formRef.current.errors).length === 0) {
+              onClick(index-1)
+            }
           }
         }
-        else if(index-1 < currentStep) {
+        else if(index-1 <= currentStep) {
           onClick(index-1)
         }
       // }
