@@ -1,7 +1,6 @@
 import React from 'react';
 import AsyncCreatable from 'react-select/async-creatable';
-import AsyncSelect from 'react-select/async';
-import { generateCustomWGSelectStyles, selectTheme, generateCustomStyles } from './customSelectStyle';
+import { selectTheme, generateCustomStyles } from './customSelectStyle';
 import { useField } from 'formik';
 
 const CustomAsyncSelect = (props) => {
@@ -32,10 +31,6 @@ const CustomAsyncSelect = (props) => {
 
         // props.setDisableInput(true)
       }
-
-      if (props.srcData === "workingGroups") {
-        props.form.setFieldValue(props.field.name, option)
-      }
     }
 
     if (action.action === "clear") {
@@ -49,11 +44,6 @@ const CustomAsyncSelect = (props) => {
         props.form.setFieldValue("organization.address.postalCode", "")
         props.form.setFieldValue('organization.twitterHandle', "")
         // props.setDisableInput(false)
-      }
-
-      // Clear when it's for working groups
-      if (props.srcData === "workingGroups") {
-        props.form.setFieldValue(props.field.name, "")
       }
     }
 
@@ -93,34 +83,11 @@ const CustomAsyncSelect = (props) => {
           }
           else return []
 
-        case "workingGroups":
-          src_data = "workingGroups.json"
-          return fetch(src_data, {
-            headers : { 
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-             }
-          })
-            .then(resp => resp.json())
-            .then((data) => {
-              if (data.working_groups) {
-                if (props.isExistingMember) {
-                  return data.working_groups.map(item => ({ value: item.id, label: item.name, participation_levels: item.participation_levels}));
-                }
-                else {
-                  let tempData = data.working_groups.map(item => ({ value: item.id, label: item.name, participation_levels: item.participation_levels }))
-                  tempData.push({ label: 'I do not want to join a working group at this time', value: '' })
-                  return tempData
-                }
-              }
-            })
-
         default:
           return []
       }
   }
 
-  if (props.srcData === "companies") {
     return (
       <AsyncCreatable
         {...field}
@@ -140,26 +107,6 @@ const CustomAsyncSelect = (props) => {
         className="margin-bottom-10 form-group"
       />
     )
-  }
-
-  return (
-    <AsyncSelect
-      {...field}
-      isClearable
-      isSearchable
-      cacheOptions
-      defaultOptions
-      loadOptions={promiseOptions}
-      defaultValue={props.field.value}
-      onChange={(option, action) => {
-        handleSelect(option, action)
-      }}
-      onBlur={props.form.handleBlur(props.field.name)}
-      styles={generateCustomWGSelectStyles(meta.error)}
-      theme={selectTheme}
-      className="margin-bottom-10 form-group"
-    />
-  )
 
 }
 

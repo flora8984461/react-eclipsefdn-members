@@ -1,16 +1,12 @@
 import React, { useContext } from "react";
-import MembershipContext from "../MembershipContext";
-import FormChooser from './FormChooser';
+import MembershipContext from "../../Context/MembershipContext";
+import FormChooser from '../FormPreprocess/FormChooser';
 import SignInIntroduction from './SignInIntroduction';
-import StepperComponent from '../steppers/StepperComponent';
+import StepperComponent from '../Steppers/StepperComponent';
 
 const SignIn = ({setStep}) => {
 
     const {currentUser, setCurrentUser} = useContext(MembershipContext);
-
-    // useEffect(() => {
-    //     otherProps.parentState.formik.resetForm()
-    // }, [])
 
     const fakeChildrenArray = [{props: {label: "Company Information"}}, {props: {label: "Membership Level"}},{props: {label: "Working Groups"}},{props: {label: "Signing Authority"}},{props: {label: "Preview"}}]
 

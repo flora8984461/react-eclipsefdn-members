@@ -1,6 +1,6 @@
 import React from "react";
 // import { Field } from "formik";
-import Select from "./Inputs/Select";
+import Select from "../Inputs/Select";
 
 const ParticipationLevel = ({name, participationLevels}) => {
 

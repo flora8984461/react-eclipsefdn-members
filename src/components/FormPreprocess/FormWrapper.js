@@ -5,10 +5,10 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import MultiStepForm from './MultiStepForm';
-import MembershipContext from "./MembershipContext";
-import { initialValues } from './formModels/formFieldModel';
-import SignIn from './forms/SignIn';
+import MultiStepForm from '../FormComponents/MultiStepForm';
+import MembershipContext from "../../Context/MembershipContext";
+import { initialValues } from '../FormComponents/formModels/formFieldModel';
+import SignIn from '../SignIn/SignIn';
 
 const FormWrapper = () => {
   const {currentUser} = useContext(MembershipContext);

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
-import Select from './Inputs/Select';
+import Select from '../Inputs/Select';
 import MembershipFeeTable from './MembershipFeeTable';
-import MembershipContext from "../MembershipContext";
+import MembershipContext from "../../../Context/MembershipContext";
 
 const MembershipLevel = ({ formField, ...otherProps }) => {
 
@@ -11,16 +11,15 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
   useEffect(() => {
 
     if (currentFormId) {
-      fetch('membership_data/membership.json',{
+      fetch(`membership_data/${currentFormId}/membership.json`,{
         headers : {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
        }})
       .then(resp => resp.json())
       .then(data => {
-        let temp = data.find(el => el.form_id === currentFormId);
-        if(temp) {
-          otherProps.parentState.formik.setFieldValue('membershipLevel', temp.membership_level)
+        if(data) {
+          otherProps.parentState.formik.setFieldValue('membershipLevel', data.membership_level)
         }
       })
     }

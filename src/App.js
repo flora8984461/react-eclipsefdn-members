@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import AppFooter from './components/layout/AppFooter';
 import AppHeader from './components/layout/AppHeader';
-import MembershipProvider from "./components/MembershipProvider";
-import FormWrapper from "./components/FormWrapper";
+import MembershipProvider from "./Context/MembershipProvider";
+import FormWrapper from "./components/FormPreprocess/FormWrapper";
 
 const App = () => {
 

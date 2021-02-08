@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import CustomSelectWrapper from "./Inputs/CustomSelect/CustomSelectWrapper";
-// import StatesSelect from "./Inputs/CustomSelect/StatesSelect";
-import CountrySelect from "./Inputs/CustomSelect/CountrySelect";
-import CustomAsyncSelect from "./Inputs/CustomSelect/CustomAsyncSelect";
-import MembershipContext from "../MembershipContext";
-import Input from './Inputs/Input';
-import { matchCompanyFields, matchContactFields } from '../utils/formFunctionHelpers';
+import CustomSelectWrapper from "../Inputs/CustomSelect/CustomSelectWrapper";
+import CountrySelect from "../Inputs/CustomSelect/CountrySelect";
+import CustomAsyncSelect from "../Inputs/CustomSelect/CustomAsyncSelect";
+import MembershipContext from "../../../Context/MembershipContext";
+import Input from '../Inputs/Input';
+import { matchCompanyFields, matchContactFields } from '../../../Utils/formFunctionHelpers';
 
 const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSame, ...otherProps }) => {
   
@@ -15,11 +14,11 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
   useEffect(() => {
 
     if (currentFormId) {
-      let pool = [fetch('membership_data/organizations.json',{
+      let pool = [fetch(`membership_data/${currentFormId}/organizations.json`,{
         headers : {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
-       }}), fetch('membership_data/contacts.json',{
+       }}), fetch(`membership_data/${currentFormId}/contacts.json`,{
         headers : {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -31,17 +30,15 @@ const CompanyInformation = ({ formField, mktSame, setMktSame, accSame, setAccSam
         )
         .then(([organizations, contacts]) => {
           // Matching the field data
-          let existingOrgData = organizations.find(item => item.form_id === currentFormId)
-          let existingContactsData = contacts.filter(item => item.form_id === currentFormId)
-          if (existingOrgData) {
-            let tempOrg = matchCompanyFields(existingOrgData)
+          if (organizations[0]) {
+            let tempOrg = matchCompanyFields(organizations[0])
             otherProps.parentState.formik.setFieldValue('organization.legalName', tempOrg.organization.legalName)
             otherProps.parentState.formik.setFieldValue('organization.address', tempOrg.organization.address)
             // Store Organization_Id for my PUT later
             otherProps.parentState.formik.setFieldValue('organization.id', tempOrg.organization.id)
           }
-          if(existingContactsData) {
-            let tempContacts = matchContactFields(existingContactsData)
+          if(contacts.length) {
+            let tempContacts = matchContactFields(contacts)
             // Prefill Data
             otherProps.parentState.formik.setFieldValue('companyRepresentative.representative', tempContacts.companyRepresentative.representative)
             // Store contact_id for my PUT later

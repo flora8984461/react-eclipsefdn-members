@@ -1,10 +1,10 @@
 import React, { useState, useRef, useContext } from "react";
 import { Form, Formik } from "formik";
 import { validationSchema } from '../formModels/ValidationSchema';
-import StepperComponent from "../steppers/StepperComponent";
-import CustomStepButton from "./CustomStepButton";
-import { executeSendDataByStep } from '../utils/formFunctionHelpers';
-import MembershipContext from "../MembershipContext";
+import StepperComponent from "../../Steppers/StepperComponent";
+import CustomStepButton from "../CustomStepButton";
+import { executeSendDataByStep } from '../../../Utils/formFunctionHelpers';
+import MembershipContext from "../../../Context/MembershipContext";
 import SubmitSuccess from '../SubmitSuccess';
 
 //form.validateForm(); to manually call validate
@@ -45,11 +45,7 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
         defaultBehaviour();
         break;
 
-      case 0:
-        defaultBehaviour();
-        break;
-
-      case 1: 
+      case 0: 
         if(props.mktSame) {
           Object.assign(values.companyRepresentative.marketingRepresentative, values.companyRepresentative.representative)
         }

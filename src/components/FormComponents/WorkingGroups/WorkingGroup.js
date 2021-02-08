@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { useFormikContext } from 'formik';
-import MembershipContext from "../MembershipContext";
-import CustomSelectWrapper from "./Inputs/CustomSelect/CustomSelectWrapper";
-import CustomAsyncSelect from "./Inputs/CustomSelect/CustomAsyncSelect";
+import MembershipContext from "../../../Context/MembershipContext";
+import CustomSelectWrapper from "../Inputs/CustomSelect/CustomSelectWrapper";
+import WorkingGroupSelect from "../Inputs/CustomSelect/WorkingGroupSelect";
 import ParticipationLevel from './ParticipationLevel';
 import EffectiveDate from './EffectiveDate';
 import WorkingGroupsRepresentative from './WorkingGroupRepresentative';
@@ -35,7 +35,7 @@ const WorkingGroup = ({ formField, arrayHelpers, formikProps }) => {
             name={`workingGroups.${index}.workingGroup`}
             srcData="workingGroups"
             isExistingMember={isExistingMember}
-            renderComponent={CustomAsyncSelect}
+            renderComponent={WorkingGroupSelect}
           />
 
           { workingGroup.workingGroup ? 

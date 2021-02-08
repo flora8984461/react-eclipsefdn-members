@@ -1,45 +1,33 @@
 import React, { useContext, useEffect } from "react";
-import MembershipContext from "../MembershipContext";
+import MembershipContext from "../../../Context/MembershipContext";
 import { FieldArray } from 'formik';
 import WorkingGroup from './WorkingGroup';
-import { matchWorkingGroupFields } from '../utils/formFunctionHelpers';
+import { matchWorkingGroupFields } from '../../../Utils/formFunctionHelpers';
 
 const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext);
-
-  // let boundArrayHelpers;
 
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
 
     if(currentFormId) {
-      fetch('membership_data/membership.json',{
+      fetch(`membership_data/${currentFormId}/workingGroups.json`,{
         headers : {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
        }})
       .then(resp => resp.json())
       .then(data => {
-
-        let temp = data.find(el => el.form_id === currentFormId);
-        // if(boundArrayHelpers) {
-        //     boundArrayHelpers.push(matchWorkingGroupFields(temp.membership_level));
-        // }
         // If have an array, I'll use iterate it
-        if(temp) {
-          otherProps.parentState.formik.setFieldValue('workingGroups.0', matchWorkingGroupFields(temp.membership_level))
+        if(data.length) {
+          data.forEach((item, index) => {
+            otherProps.parentState.formik.setFieldValue(`workingGroups.${index}`, matchWorkingGroupFields(item))
+          })
         }
-        //otherProps.parentState.formik.setFieldValue('workingGroups.1', matchWorkingGroupFields(temp.membership_level))
       })
     }
-
     // eslint-disable-next-line
   }, [])
-
-
-  // const bindArrayHelpers = (arrayHelpers) => {
-  //   boundArrayHelpers = arrayHelpers;
-  // }
 
   return (
     <>
@@ -49,7 +37,6 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
     <FieldArray
       name="workingGroups"
       render={arrayHelpers => {
-        // bindArrayHelpers(arrayHelpers);
         return(
             <WorkingGroup formField={formField} arrayHelpers={arrayHelpers} formikProps={otherProps.parentState.formik} />
         )

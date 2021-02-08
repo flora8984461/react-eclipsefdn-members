@@ -97,37 +97,18 @@ export function matchContactFields(existingContactData, existingFormStateData) {
 }
 
 export function matchWorkingGroupFields(existingMembershipData, existingFormStateData) {
-  // return {
-  //   workingGroup: {
-  //     value: existingMembershipData?.working_group || "",
-  //     label: existingMembershipData?.working_group_name || "",
-  //     participation_levels: [existingMembershipData?.participation_levels] || ""
-  //   } || "",
-  //   participationLevel: existingMembershipData.participation_level || "",
-  //   effectiveDate: existingMembershipData.effective_date || "",
-  //   workingGroupRepresentative: {
-  //     firstName: "",
-  //     lastName: "",
-  //     jobtitle: "",
-  //     email: ""
-  //   }
-  // }
 
   return {
-    id: "test_wg_id",
-    workingGroup: {
-      value: "ascii_doc" || "",
-      label: "AsciiDoc" || "",
-      participation_levels: ["AsciiDoc_level_a", "AsciiDoc_level_b", "AsciiDoc_level_c"] || ""
-    } || "",
-    participationLevel: "AsciiDoc_level_a" || "",
+    id: existingMembershipData?.id || "",
+    workingGroup: existingMembershipData?.working_group || "",
+    participationLevel: existingMembershipData?.participation_level || "",
     effectiveDate: existingMembershipData?.effective_date || "",
     workingGroupRepresentative: {
-      firstName: "test",
-      lastName: "test_2",
-      jobtitle: "test_job",
-      email: "test@test.com",
-      id: "test_wg_rep_id"
+      firstName: existingMembershipData?.contact.first_name || "",
+      lastName: existingMembershipData?.contact.last_name || "",
+      jobtitle: existingMembershipData?.contact.job_title || "",
+      email: existingMembershipData?.contact.email || "",
+      id: existingMembershipData?.contact.id || ""
     }
   }
 }
@@ -143,7 +124,7 @@ export function matchCompanyFieldsToBackend(organizationData, formId) {
       city: organizationData.address.city,
       country: organizationData.address.country.label, // or should be value? to be decide
       postal_code: organizationData.address.postalCode,
-      province_state: organizationData.address.provinceOrState.label, // or should be value? to be decide
+      province_state: organizationData.address.provinceOrState, // or should be value? to be decide
       street: organizationData.address.street
     },
   form_id: formId,
@@ -195,24 +176,24 @@ export function matchWGFieldsToBackend(eachWorkingGroupData, formId) {
 export async function executeSendDataByStep(step, formData, formId, userId) {
 
   switch(step) {
-    case 1:
+    case 0:
       sendData('organizations', matchCompanyFieldsToBackend(formData.organization, formId))
       sendData("contacts", matchContactFieldsToBackend(formData.companyRepresentative.representative, 'company', formId))
       sendData('contacts', matchContactFieldsToBackend(formData.companyRepresentative.marketingRepresentative, 'marketing', formId))
       sendData('contacts', matchContactFieldsToBackend(formData.companyRepresentative.accounting, 'accounting', formId))
       break;
 
-    case 2:
+    case 1:
       sendData('form', matchMembershipLevelFieldsToBackend(formData.membershipLevel, formId, userId))
       break;
 
-    case 3:
+    case 2:
       formData.workingGroups.forEach(item => {
         sendData(`form/${formId}/working_groups`, matchWGFieldsToBackend(item, formId))
       });
       break;
 
-    case 4:
+    case 3:
       return;
 
     default:

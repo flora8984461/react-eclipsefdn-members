@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useHistory } from 'react-router-dom';
-import MembershipContext from "../MembershipContext";
+import MembershipContext from "../../Context/MembershipContext";
 
 const styles = {
     height: '200px',

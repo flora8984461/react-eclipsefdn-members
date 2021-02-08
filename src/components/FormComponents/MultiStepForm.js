@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import FormikStepper from './forms/FormikStepper';
-import CompanyInformation from "./forms/CompanyInformation";
-import MembershipLevel from "./forms/MembershipLevel";
-// import WorkingGroups from "./forms/WorkingGroups";
-import WorkingGroupsWrapper from "./forms/WorkingGroupsWrapper";
-import SigningAuthority from './forms/SigningAuthority';
-import Preview from "./forms/Preview";
+import FormikStepper from './FormikStepper/FormikStepper';
+import CompanyInformation from "./CompanyInformation/CompanyInformation";
+import MembershipLevel from "./MembershipLevel/MembershipLevel";
+import WorkingGroupsWrapper from "./WorkingGroups/WorkingGroupsWrapper";
+import SigningAuthority from './SigningAuthority/SigningAuthority';
+import Preview from "./Preview/Preview";
 import { formField } from './formModels/formFieldModel';
 
 const MultiStepForm = ({ defineInitialData }) => {
