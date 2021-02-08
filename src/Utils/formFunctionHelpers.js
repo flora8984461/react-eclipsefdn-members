@@ -181,21 +181,21 @@ export function sendData(endpoint, dataBody, type) {
     case "organizations":
       if (!dataBody.organization_id) {
         console.log("You send request to: " + endpoint + "By method POST")
-        delete dataBody.organization_id
+        delete dataBody.organization_id;
         console.log("You data body is: " + JSON.stringify(dataBody));
       } else {
-        console.log("You send request to:" + endpoint + dataBody.organization_id + "; By method PUT")
+        console.log("You send request to:" + endpoint + "/" + dataBody.organization_id + "; By method PUT")
         console.log("You data body is: " + JSON.stringify(dataBody));
       }
       break;
 
     default:
       if (!dataBody.id) {
-        console.log("You send request to: " + endpoint + "By method POST")
-        delete dataBody.id
+        console.log("You send request to: " + endpoint + "; By method POST")
+        delete dataBody.id;
         console.log("You data body is: " + JSON.stringify(dataBody));
       } else {
-        console.log("You send request to:" + endpoint + dataBody.id + "; By method PUT")
+        console.log("You send request to:" + endpoint + "/" + dataBody.id + "; By method PUT")
         console.log("You data body is: " + JSON.stringify(dataBody));
       }
   }
