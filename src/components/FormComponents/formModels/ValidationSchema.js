@@ -6,23 +6,35 @@ export const validationSchema = [
   // First step - company Info
   yup.object().shape({
     organization: yup.object().shape({
-        legalName: yup.mixed().required(`${requiredErrorMsg}`),
-        address: yup.object().shape({
-            street: yup.string().required(`${requiredErrorMsg}`),
-            city: yup.string().required(`${requiredErrorMsg}`),
-            provinceOrState: yup.mixed().required(`${requiredErrorMsg}`),
-            country: yup.mixed().required(`${requiredErrorMsg}`),
-            postalCode: yup.string().required(`${requiredErrorMsg}`),
-        })
-      }),
+      legalName: yup.mixed().required(`${requiredErrorMsg}`),
+      address: yup.object().shape({
+        street: yup.string().required(`${requiredErrorMsg}`),
+        city: yup.string().required(`${requiredErrorMsg}`),
+        provinceOrState: yup.mixed().required(`${requiredErrorMsg}`),
+        country: yup.mixed().required(`${requiredErrorMsg}`),
+        postalCode: yup.string().required(`${requiredErrorMsg}`),
+      })
+    }),
 
     companyRepresentative: yup.object().shape({
-        representative: yup.object().shape({
-            firstName: yup.string().required(`${requiredErrorMsg}`),
-            lastName: yup.string().required(`${requiredErrorMsg}`),
-            jobtitle: yup.string().required(`${requiredErrorMsg}`),
-            email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
-        })
+      representative: yup.object().shape({
+          firstName: yup.string().required(`${requiredErrorMsg}`),
+          lastName: yup.string().required(`${requiredErrorMsg}`),
+          jobtitle: yup.string().required(`${requiredErrorMsg}`),
+          email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
+      }),
+      // marketingRepresentative: yup.object().shape({
+      //   firstName: yup.string().required(`${requiredErrorMsg}`),
+      //   lastName: yup.string().required(`${requiredErrorMsg}`),
+      //   jobtitle: yup.string().required(`${requiredErrorMsg}`),
+      //   email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
+      // }),
+      // accounting: yup.object().shape({
+      //   firstName: yup.string().required(`${requiredErrorMsg}`),
+      //   lastName: yup.string().required(`${requiredErrorMsg}`),
+      //   jobtitle: yup.string().required(`${requiredErrorMsg}`),
+      //   email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
+      // })
     }),
   }),
 
@@ -32,30 +44,34 @@ export const validationSchema = [
   }),
 
   // Third step - working groups
-  // yup.object().shape({
-  //   workingGroup: yup.object().required(`${requiredErrorMsg}`),
-  //   participationLevel: yup.string().when("workingGroup", {
-  //     is: value => !!value?.value,
-  //     then: yup.string().required(`${requiredErrorMsg}`)
-  //   }),
-  //   effectiveDate: yup.date().nullable().when("workingGroup", {
-  //     is: value => !!value?.value,
-  //     then: yup.date().required(`${requiredErrorMsg}`)
-  //   }),
-  //   workingGroupRepresentative:yup.object().shape({
-  //     firstName: yup.string().required(`${requiredErrorMsg}`),
-  //     lastName: yup.string().required(`${requiredErrorMsg}`),
-  //     jobtitle: yup.string().required(`${requiredErrorMsg}`),
-  //     email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
-  //   })
-  // }),
+  yup.object().shape({
+    workingGroups: yup.array().of(
+      yup.object().shape({
+        workingGroup: yup.string().required(`${requiredErrorMsg}`),
+        participationLevel: yup.string().when("workingGroup", {
+          is: value => !!value?.value,
+          then: yup.string().required(`${requiredErrorMsg}`)
+        }),
+        effectiveDate: yup.string().when("workingGroup", {
+          is: value => !!value?.value,
+          then: yup.mixed().required(`${requiredErrorMsg}`)
+        }),
+        workingGroupRepresentative:yup.object().shape({
+          firstName: yup.string().required(`${requiredErrorMsg}`),
+          lastName: yup.string().required(`${requiredErrorMsg}`),
+          jobtitle: yup.string().required(`${requiredErrorMsg}`),
+          email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
+        })
+      })
+    )
+  }),
 
   // // Forth, signing Authority
-  // yup.object().shape({
-  //   signingAuthorityRepresentative:yup.object().shape({
-  //     firstName: yup.string().required(`${requiredErrorMsg}`),
-  //     lastName: yup.string().required(`${requiredErrorMsg}`),
-  //     email: yup.string().required(`${requiredErrorMsg}`)
-  //   })
-  // })
+  yup.object().shape({
+    signingAuthorityRepresentative:yup.object().shape({
+      firstName: yup.string().required(`${requiredErrorMsg}`),
+      lastName: yup.string().required(`${requiredErrorMsg}`),
+      email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address')
+    })
+  })
 ]

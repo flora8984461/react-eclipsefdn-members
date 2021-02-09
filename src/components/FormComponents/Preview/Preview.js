@@ -66,7 +66,7 @@ const Preview = (previewData) => {
               <div className="col-md-8"><label>Intended Participation Level</label><div className="fake-input">{el.participationLevel}</div></div>
               <div className="col-md-8"><label>Effective Date</label><div className="fake-input">{new Date(el.effectiveDate).toLocaleDateString()}</div></div>
 
-              <h4 className="fw-600 margin-left-15 margin-top-25">The working Group Representative</h4>
+              <div className="col-md-24"><p className="h4 fw-600 margin-top-25">The working Group Representative</p></div>
               <div className="col-md-6"><label>First Name</label><div className="fake-input">{el.workingGroupRepresentative.firstName}</div></div>
               <div className="col-md-6"><label>Last Name</label><div className="fake-input">{el.workingGroupRepresentative.lastName}</div></div>
               <div className="col-md-6"><label>Job Title</label><div className="fake-input">{el.workingGroupRepresentative.jobtitle}</div></div>
@@ -83,10 +83,6 @@ const Preview = (previewData) => {
         </div>
 
       </div>
-
-      {/* <pre>
-      { JSON.stringify(data, null, 2) }
-      </pre> */}
     </>
   );
 };

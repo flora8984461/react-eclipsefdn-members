@@ -10,6 +10,7 @@
 .eclipseFdn-membership-webform .form-control {
   border-radius: 5px;
   box-shadow: none;
+  height: 36px;
 }
 .eclipseFdn-membership-webform label {
   font-weight: unset;
@@ -64,6 +65,7 @@
   border: 1px solid hsl(0, 0%, 80%);
   border-radius: 5px;
   background: #fff;
+  min-height: 32px;
 }
 .eclipseFdn-membership-webform .stepper {
   display: flex;

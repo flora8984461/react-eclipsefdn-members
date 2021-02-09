@@ -47,7 +47,7 @@ const WorkingGroup = ({ formField, arrayHelpers, formikProps }) => {
             renderComponent={WorkingGroupSelect}
           />
 
-          { workingGroup.workingGroup ? 
+          { workingGroup.workingGroup && workingGroup.workingGroup !== "not now" ? 
             <>
               <ParticipationLevel name={`workingGroups.${index}.participationLevel`} workingGroup={workingGroup.workingGroup} />
               <EffectiveDate name={`workingGroups.${index}.effectiveDate`} label="Effective Date" />

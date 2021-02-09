@@ -29,7 +29,7 @@ const Select = (props) => {
 
         return (
             <select {...field} className="form-control">
-              <option value="" key="none">Please select</option>
+              {/* <option value="" key="none">Please select</option> */}
               {options?.map(option => 
                 (
                   <option key={option} value={option}>

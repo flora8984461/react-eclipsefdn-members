@@ -19,7 +19,7 @@ const WorkingGroupSelect = (props) => {
        .then(data => {
          let options = data.working_groups.map(item => ({ label: item.name, value: item.id, participation_levels: item.participation_levels }))
          if (!props.isExistingMember) {
-          options.push({ label: 'I do not want to join a working group at this time', value: '' })
+          options.push({ label: 'I do not want to join a working group at this time', value: 'not now' })
          }
         setWorkingGroupsData(options)
         setLoading(false)
