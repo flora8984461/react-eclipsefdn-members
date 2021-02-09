@@ -2,6 +2,7 @@ package org.eclipsefoundation.react.model;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -37,6 +38,7 @@ public class MembershipForm extends BareNode {
     }
 
     /** @param id the id to set */
+    @JsonbTransient
     public void setId(String id) {
         this.id = id;
     }
@@ -47,6 +49,7 @@ public class MembershipForm extends BareNode {
     }
 
     /** @param userID the userId to set */
+    @JsonbTransient
     public void setUserID(String userID) {
         this.userID = userID;
     }
