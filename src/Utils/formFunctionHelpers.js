@@ -1,3 +1,10 @@
+export function assignContactData(currentContact, companyContact) {
+  currentContact.firstName = companyContact.firstName;
+  currentContact.lastName = companyContact.lastName;
+  currentContact.jobtitle = companyContact.jobtitle;
+  currentContact.email = companyContact.email;
+}
+
 //== Transform data from backend to match my form model
 export function matchCompanyFields(existingOrganizationData, existingFormStateData) {
 

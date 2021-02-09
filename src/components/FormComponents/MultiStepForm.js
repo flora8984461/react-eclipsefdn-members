@@ -11,8 +11,6 @@ const MultiStepForm = ({ defineInitialData }) => {
 
   const [formDataStates, setFormDataStates] = useState(defineInitialData)  // Do I still need this State?
   const [step, setStep] = useState(0)
-  const [mktSame, setMktSame] = useState(false)
-  const [accSame, setAccSame] = useState(false)
 
   const handleSubmit = (values) => {  // This is for final submit, after preview
       console.log(values)
@@ -28,16 +26,10 @@ const MultiStepForm = ({ defineInitialData }) => {
         setFormDataStates={setFormDataStates}
         step={step}
         setStep={setStep}
-        mktSame={mktSame}
-        accSame={accSame}
       >
         <CompanyInformation
           formField={formField}
           label="Company Information"
-          mktSame={mktSame}
-          setMktSame={setMktSame}
-          accSame={accSame}
-          setAccSame={setAccSame}
         />
 
         <MembershipLevel

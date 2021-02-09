@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import { validationSchema } from '../formModels/ValidationSchema';
 import StepperComponent from "../../Steppers/StepperComponent";
 import CustomStepButton from "../CustomStepButton";
-import { executeSendDataByStep } from '../../../Utils/formFunctionHelpers';
+import { executeSendDataByStep, assignContactData } from '../../../Utils/formFunctionHelpers';
 import MembershipContext from "../../../Context/MembershipContext";
 import SubmitSuccess from '../SubmitSuccess';
 
@@ -46,11 +46,11 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
         break;
 
       case 0: 
-        if(props.mktSame) {
-          Object.assign(values.companyRepresentative.marketingRepresentative, values.companyRepresentative.representative)
+        if(values.companyRepresentative.marketingRepresentative.sameAsCompany) {
+          assignContactData(values.companyRepresentative.marketingRepresentative, values.companyRepresentative.representative)
         }
-        if (props.accSame) {
-          Object.assign(values.companyRepresentative.accounting, values.companyRepresentative.representative)
+        if (values.companyRepresentative.accounting.sameAsCompany) {
+          assignContactData(values.companyRepresentative.accounting, values.companyRepresentative.representative)
         }
         props.setFormDataStates(values);
         await executeSendDataByStep(step, values, currentFormId, currentUser.user_id);

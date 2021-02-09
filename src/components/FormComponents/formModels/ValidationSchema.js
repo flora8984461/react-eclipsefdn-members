@@ -16,6 +16,7 @@ export const validationSchema = [
       })
     }),
 
+    // First step - representative contacts
     companyRepresentative: yup.object().shape({
       representative: yup.object().shape({
           firstName: yup.string().required(`${requiredErrorMsg}`),
@@ -23,18 +24,44 @@ export const validationSchema = [
           jobtitle: yup.string().required(`${requiredErrorMsg}`),
           email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
       }),
-      // marketingRepresentative: yup.object().shape({
-      //   firstName: yup.string().required(`${requiredErrorMsg}`),
-      //   lastName: yup.string().required(`${requiredErrorMsg}`),
-      //   jobtitle: yup.string().required(`${requiredErrorMsg}`),
-      //   email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
-      // }),
-      // accounting: yup.object().shape({
-      //   firstName: yup.string().required(`${requiredErrorMsg}`),
-      //   lastName: yup.string().required(`${requiredErrorMsg}`),
-      //   jobtitle: yup.string().required(`${requiredErrorMsg}`),
-      //   email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
-      // })
+      marketingRepresentative: yup.object().shape({
+        sameAsCompany: yup.boolean(),
+        firstName: yup.string().when("sameAsCompany", {
+          is: false,
+          then: yup.string().required(`${requiredErrorMsg}`)
+        }),
+        lastName: yup.string().when("sameAsCompany", {
+          is: false,
+          then: yup.string().required(`${requiredErrorMsg}`)
+        }),
+        jobtitle: yup.string().when("sameAsCompany", {
+          is: false,
+          then: yup.string().required(`${requiredErrorMsg}`)
+        }),
+        email: yup.string().when("sameAsCompany", {
+          is: false,
+          then: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address')
+        })
+      }),
+      accounting: yup.object().shape({
+        sameAsCompany: yup.boolean(),
+        firstName: yup.string().when("sameAsCompany", {
+          is: false,
+          then: yup.string().required(`${requiredErrorMsg}`)
+        }),
+        lastName: yup.string().when("sameAsCompany", {
+          is: false,
+          then: yup.string().required(`${requiredErrorMsg}`)
+        }),
+        jobtitle: yup.string().when("sameAsCompany", {
+          is: false,
+          then: yup.string().required(`${requiredErrorMsg}`)
+        }),
+        email: yup.string().when("sameAsCompany", {
+          is: false,
+          then: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address')
+        })
+      })
     }),
   }),
 
@@ -49,11 +76,11 @@ export const validationSchema = [
       yup.object().shape({
         workingGroup: yup.string().required(`${requiredErrorMsg}`),
         participationLevel: yup.string().when("workingGroup", {
-          is: value => !!value?.value,
+          is: value => !!value,
           then: yup.string().required(`${requiredErrorMsg}`)
         }),
         effectiveDate: yup.string().when("workingGroup", {
-          is: value => !!value?.value,
+          is: value => !!value,
           then: yup.mixed().required(`${requiredErrorMsg}`)
         }),
         workingGroupRepresentative:yup.object().shape({
@@ -66,7 +93,7 @@ export const validationSchema = [
     )
   }),
 
-  // // Forth, signing Authority
+  // Forth, signing Authority
   yup.object().shape({
     signingAuthorityRepresentative:yup.object().shape({
       firstName: yup.string().required(`${requiredErrorMsg}`),

@@ -25,6 +25,7 @@ export const initialValues = {
     },
 
     marketingRepresentative: {
+      sameAsCompany: false,
       id: "",
       firstName: "",
       lastName: "",
@@ -33,6 +34,7 @@ export const initialValues = {
     },
 
     accounting: {
+      sameAsCompany: false,
       id: "",
       firstName: "",
       lastName: "",

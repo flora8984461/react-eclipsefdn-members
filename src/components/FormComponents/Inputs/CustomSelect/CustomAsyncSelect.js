@@ -7,22 +7,14 @@ const CustomAsyncSelect = (props) => {
 
   const [field, meta] = useField(props.field.name);  //// or props.field, must contain name key
 
-  // useEffect(() => {
-  //   // When has initial data and has not been changed, show prefilled address data and disable input, like Linux Foundation, decide later
-  //   if (props.isExistingMember && props.organiazationData && props.field.value && props.field.value.value === props.organiazationData.legal_name) {
-  //     props.setDisableInput(true)
-  //   }
-  // }, [props])
-
   const handleSelect = (option, action) => {
 
     if (option && !option.__isNew__ && action !== "clear") {
       if (props.srcData === "companies") {
         // Prefill existing data to selected companies
         props.form.setFieldValue("organization.legalName", option)
-        props.form.setFieldValue("organization.address.street", option.address.street)
-        props.form.setFieldValue("organization.address.postalCode", option.address.postalCode)
-        props.form.setFieldValue("organization.address.city", option.address.city)
+        props.form.setFieldValue("organization.address", option.address)
+        props.form.setFieldValue("organization.address.country", option.address.country)
         props.form.setFieldValue('organization.twitterHandle', option.twitterHandle)
 
         // Prefill Country Province Selector Or make it as disabled input, like Linux Foundation, decide later
