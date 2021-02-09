@@ -53,6 +53,7 @@ public class Organization extends BareNode {
     }
 
     /** @param id the id to set */
+    @JsonbTransient
     public void setId(String id) {
         this.id = id;
     }
@@ -63,6 +64,7 @@ public class Organization extends BareNode {
     }
 
     /** @param formID the formID to set */
+    @JsonbTransient
     public void setFormID(String formID) {
         this.formID = formID;
     }

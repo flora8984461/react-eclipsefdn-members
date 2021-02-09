@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -61,34 +62,42 @@ public class MembershipFormResource extends AbstractRESTResource {
 
     @GET
     @Path("{id}")
-    public Response get(@PathParam("id") String transactionID,
-            @HeaderParam(value = CSRFHelper.CSRF_HEADER_NAME) String csrf) {
+    public Response get(@PathParam("id") String formID, @HeaderParam(value = CSRFHelper.CSRF_HEADER_NAME) String csrf) {
         // ensure csrf
         csrfHelper.compareCSRF(aud, csrf);
         // create parameter map
         MultivaluedMap<String, String> params = new MultivaluedMapImpl<>();
-        params.add(DefaultUrlParameterNames.ID.getName(), transactionID);
+        params.add(DefaultUrlParameterNames.ID.getName(), formID);
 
         // retrieve the possible cached object
-        Optional<List<MembershipForm>> cachedResults = cache.get(transactionID, params, MembershipForm.class,
+        Optional<List<MembershipForm>> cachedResults = cache.get(formID, params, MembershipForm.class,
                 () -> dao.get(new RDBMSQuery<>(wrap, filters.get(MembershipForm.class), params)));
         if (!cachedResults.isPresent()) {
             return Response.serverError().build();
         }
         // return the results as a response
-        return responseBuider.build(transactionID, wrap, params, cachedResults.get(), MembershipForm.class);
+        return responseBuider.build(formID, wrap, params, cachedResults.get(), MembershipForm.class);
     }
 
+    @POST
+    public List<MembershipForm> create(MembershipForm mem) {
+        mem.setUserID(ident.getPrincipal().getName());
+        return dao.add(new RDBMSQuery<>(wrap, filters.get(MembershipForm.class)), Arrays.asList(mem));
+    }
+    
     @PUT
-    public List<MembershipForm> update(MembershipForm mem) {
+    @Path("{id}")
+    public List<MembershipForm> update(@PathParam("id") String formID, MembershipForm mem) {
+        mem.setId(formID);
+        mem.setUserID(ident.getPrincipal().getName());
         return dao.add(new RDBMSQuery<>(wrap, filters.get(MembershipForm.class)), Arrays.asList(mem));
     }
 
     @DELETE
     @Path("{id}")
-    public Response delete(@PathParam("id") String transactionID) {
+    public Response delete(@PathParam("id") String formID) {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl<>();
-        params.add(DefaultUrlParameterNames.ID.getName(), transactionID);
+        params.add(DefaultUrlParameterNames.ID.getName(), formID);
         params.add(MembershipFormAPIParameterNames.USER_ID.getName(), ident.getPrincipal().getName());
 
         dao.delete(new RDBMSQuery<>(wrap, filters.get(MembershipForm.class), params));
@@ -97,13 +106,13 @@ public class MembershipFormResource extends AbstractRESTResource {
 
     @GET
     @Path("{id}/working_groups")
-    public Response getWorkingGroups(@PathParam("id") String transactionID,
+    public Response getWorkingGroups(@PathParam("id") String formID,
             @HeaderParam(value = CSRFHelper.CSRF_HEADER_NAME) String csrf) {
         // ensure csrf
         csrfHelper.compareCSRF(aud, csrf);
         // create parameter map
         MultivaluedMap<String, String> params = new MultivaluedMapImpl<>();
-        params.add(MembershipFormAPIParameterNames.FORM_ID.getName(), transactionID);
+        params.add(MembershipFormAPIParameterNames.FORM_ID.getName(), formID);
         // retrieve the possible cached object
         Optional<List<WorkingGroup>> cachedResults = cache.get(ALL_CACHE_PLACEHOLDER, params, WorkingGroup.class,
                 () -> dao.get(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class), params)));
@@ -114,16 +123,23 @@ public class MembershipFormResource extends AbstractRESTResource {
         return responseBuider.build(ALL_CACHE_PLACEHOLDER, wrap, params, cachedResults.get(), WorkingGroup.class);
     }
 
+    @POST
+    @Path("{id}/working_groups")
+    public List<WorkingGroup> createWorkingGroup(@PathParam("id") String formID, WorkingGroup wg) {
+        wg.setForm(dao.getReference(formID, MembershipForm.class));
+        return dao.add(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class)), Arrays.asList(wg));
+    }
+
     @GET
     @Path("{id}/working_groups/{wgID}")
-    public Response getWorkingGroup(@PathParam("id") String transactionID, @PathParam("wgID") String wgID,
+    public Response getWorkingGroup(@PathParam("id") String formID, @PathParam("wgID") String wgID,
             @HeaderParam(value = CSRFHelper.CSRF_HEADER_NAME) String csrf) {
         // ensure csrf
         csrfHelper.compareCSRF(aud, csrf);
         // create parameter map
         MultivaluedMap<String, String> params = new MultivaluedMapImpl<>();
         params.add(DefaultUrlParameterNames.ID.getName(), wgID);
-        params.add(MembershipFormAPIParameterNames.FORM_ID.getName(), transactionID);
+        params.add(MembershipFormAPIParameterNames.FORM_ID.getName(), formID);
         // retrieve the possible cached object
         Optional<List<WorkingGroup>> cachedResults = cache.get(wgID, params, WorkingGroup.class,
                 () -> dao.get(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class), params)));
@@ -136,17 +152,18 @@ public class MembershipFormResource extends AbstractRESTResource {
 
     @PUT
     @Path("{id}/working_groups/{wgID}")
-    public List<WorkingGroup> updateWorkingGroup(@PathParam("id") String transactionID, WorkingGroup wg, @PathParam("id") String wgID) {
-        wg.setForm(dao.getReference(transactionID, MembershipForm.class));
+    public List<WorkingGroup> updateWorkingGroup(@PathParam("id") String formID, WorkingGroup wg,
+            @PathParam("id") String wgID) {
+        wg.setForm(dao.getReference(formID, MembershipForm.class));
         wg.setId(wgID);
         return dao.add(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class)), Arrays.asList(wg));
     }
 
     @DELETE
     @Path("{id}/working_groups/{wgID}")
-    public Response deleteWorkingGroup(@PathParam("id") String transactionID) {
+    public Response deleteWorkingGroup(@PathParam("id") String formID) {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl<>();
-        params.add(DefaultUrlParameterNames.ID.getName(), transactionID);
+        params.add(DefaultUrlParameterNames.ID.getName(), formID);
         params.add(MembershipFormAPIParameterNames.USER_ID.getName(), ident.getPrincipal().getName());
 
         dao.delete(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class), params));
