@@ -79,7 +79,7 @@ export const validationSchema = [
           is: value => !!value,
           then: yup.string().required(`${requiredErrorMsg}`)
         }),
-        effectiveDate: yup.string().when("workingGroup", {
+        effectiveDate: yup.mixed().when("workingGroup", {
           is: value => !!value,
           then: yup.mixed().required(`${requiredErrorMsg}`)
         }),
