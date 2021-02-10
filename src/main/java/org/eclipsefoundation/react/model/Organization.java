@@ -1,5 +1,7 @@
 package org.eclipsefoundation.react.model;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.json.bind.annotation.JsonbTransient;
@@ -115,6 +117,47 @@ public class Organization extends BareNode {
     /** @param address the address to set */
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(address, form, formID, id, legalName, twitterHandle);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Organization other = (Organization) obj;
+        return Objects.equals(address, other.address) && Objects.equals(form, other.form)
+                && Objects.equals(formID, other.formID) && Objects.equals(id, other.id)
+                && Objects.equals(legalName, other.legalName) && Objects.equals(twitterHandle, other.twitterHandle);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Organization [id=");
+        builder.append(id);
+        builder.append(", legalName=");
+        builder.append(legalName);
+        builder.append(", twitterHandle=");
+        builder.append(twitterHandle);
+        builder.append(", form=");
+        builder.append(form);
+        builder.append(", formID=");
+        builder.append(formID);
+        builder.append(", address=");
+        builder.append(address);
+        builder.append("]");
+        return builder.toString();
     }
 
     @Singleton

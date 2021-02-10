@@ -1,5 +1,7 @@
 package org.eclipsefoundation.react.model;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.Entity;
@@ -16,6 +18,12 @@ import org.eclipsefoundation.persistence.model.ParameterizedSQLStatement;
 import org.eclipsefoundation.persistence.model.ParameterizedSQLStatementBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * The address for an organization entity being defined in a form.
+ * 
+ * @author Martin Lowe
+ *
+ */
 @Table
 @Entity
 public class Address {
@@ -105,6 +113,31 @@ public class Address {
         this.postalCode = postalCode;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(city, country, id, organizationID, postalCode, provinceState, street);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Address other = (Address) obj;
+        return Objects.equals(city, other.city) && Objects.equals(country, other.country)
+                && Objects.equals(id, other.id) && Objects.equals(organizationID, other.organizationID)
+                && Objects.equals(postalCode, other.postalCode) && Objects.equals(provinceState, other.provinceState)
+                && Objects.equals(street, other.street);
+    }
+
+    /**
+     * Filter for selecting the address within the database.
+     * 
+     * @author Martin Lowe
+     */
     @Singleton
     public static class AddressFilter implements DtoFilter<Address> {
         @Inject

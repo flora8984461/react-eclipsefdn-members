@@ -1,5 +1,7 @@
 package org.eclipsefoundation.react.model;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.json.bind.annotation.JsonbTransient;
@@ -72,6 +74,27 @@ public class MembershipForm extends BareNode {
     /** @param signingAuthority the signingAuthority to set */
     public void setSigningAuthority(boolean signingAuthority) {
         this.signingAuthority = signingAuthority;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(id, membershipLevel, signingAuthority, userID);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        MembershipForm other = (MembershipForm) obj;
+        return Objects.equals(id, other.id) && Objects.equals(membershipLevel, other.membershipLevel)
+                && signingAuthority == other.signingAuthority && Objects.equals(userID, other.userID);
     }
 
     @Override

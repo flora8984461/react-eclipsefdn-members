@@ -53,6 +53,12 @@ public class DataLoader {
     // used for random picking, not cryptographic
     private Random r = new Random();
 
+    /**
+     * After loading, this bean will generate a number of forms in the database for the given application if it is in
+     * one of the applicable application profiles (dev and staging by default).
+     * 
+     * @param ev startup event, injected by CDI 
+     */
     @PostConstruct
     public void init(@Observes StartupEvent ev) {
         // if running in dev mode, preload a bunch of data using dao

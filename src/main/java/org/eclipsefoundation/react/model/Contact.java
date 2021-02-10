@@ -1,5 +1,7 @@
 package org.eclipsefoundation.react.model;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.json.bind.annotation.JsonbProperty;
@@ -26,6 +28,11 @@ import org.eclipsefoundation.react.namespace.ContactTypes;
 import org.eclipsefoundation.react.namespace.MembershipFormAPIParameterNames;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * A contact entity, representing a contact for an organization or working group.
+ * 
+ * @author Martin Lowe
+ */
 @Table
 @Entity
 public class Contact extends BareNode {
@@ -36,7 +43,7 @@ public class Contact extends BareNode {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    // form entity
+    // form entity for FK relation
     @JsonbTransient
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "form_id", referencedColumnName = "id")
@@ -136,6 +143,29 @@ public class Contact extends BareNode {
     /** @param type the type to set */
     public void setType(ContactTypes type) {
         this.type = type;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(email, fName, form, formID, id, lName, title, type);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Contact other = (Contact) obj;
+        return Objects.equals(email, other.email) && Objects.equals(fName, other.fName)
+                && Objects.equals(form, other.form) && Objects.equals(formID, other.formID)
+                && Objects.equals(id, other.id) && Objects.equals(lName, other.lName)
+                && Objects.equals(title, other.title) && type == other.type;
     }
 
     @Singleton
