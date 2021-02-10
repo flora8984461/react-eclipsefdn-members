@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import MembershipContext from "../../../Context/MembershipContext";
 import { FieldArray } from 'formik';
 import WorkingGroup from './WorkingGroup';
@@ -6,6 +6,8 @@ import { matchWorkingGroupFields } from '../../../Utils/formFunctionHelpers';
 
 const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext);
+
+  const [loading, setLoading] = useState(true);
 
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
@@ -24,10 +26,16 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
             otherProps.parentState.formik.setFieldValue(`workingGroups.${index}`, matchWorkingGroupFields(item))
           })
         }
+
+        setLoading(false);
       })
     }
     // eslint-disable-next-line
   }, [])
+
+  if(loading) {
+    return "Loading..."
+  }
 
   return (
     <>
