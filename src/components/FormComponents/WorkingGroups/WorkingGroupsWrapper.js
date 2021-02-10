@@ -29,6 +29,8 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
 
         setLoading(false);
       })
+    } else {
+      setLoading(false);
     }
     // eslint-disable-next-line
   }, [])
