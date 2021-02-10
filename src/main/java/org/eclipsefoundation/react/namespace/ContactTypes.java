@@ -1,18 +1,11 @@
 package org.eclipsefoundation.react.namespace;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
+/**
+ * Defined types of contacts that can be added within a form.
+ * 
+ * @author Martin Lowe
+ *
+ */
 public enum ContactTypes {
-    WORKING_GROUP("working_group"), COMPANY("company"), MARKETING("marketing"), ACCOUNTING("accounting");
-
-    private String dbValue;
-
-    private ContactTypes(String dbValue) {
-        this.dbValue = dbValue;
-    }
-
-    @JsonValue
-    public String getValue() {
-        return dbValue;
-    }
+    WORKING_GROUP, COMPANY, MARKETING, ACCOUNTING;
 }

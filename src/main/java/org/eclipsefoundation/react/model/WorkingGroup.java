@@ -1,6 +1,7 @@
 package org.eclipsefoundation.react.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -28,6 +29,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Represents a prospective Working Group relationship with the current organization (based on the form)
+ * 
+ * @author Martin Lowe
+ */
 @Table
 @Entity
 public class WorkingGroup extends BareNode {
@@ -49,7 +55,7 @@ public class WorkingGroup extends BareNode {
     private MembershipForm form;
     @Column(name = "form_id", updatable = false, insertable = false)
     private String formID;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "id")
     private Contact contact;
@@ -151,6 +157,51 @@ public class WorkingGroup extends BareNode {
      */
     public void setContact(Contact contact) {
         this.contact = contact;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result
+                + Objects.hash(contact, effectiveDate, form, formID, id, participationLevel, workingGroupID);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        WorkingGroup other = (WorkingGroup) obj;
+        return Objects.equals(contact, other.contact) && Objects.equals(effectiveDate, other.effectiveDate)
+                && Objects.equals(form, other.form) && Objects.equals(formID, other.formID)
+                && Objects.equals(id, other.id) && Objects.equals(participationLevel, other.participationLevel)
+                && Objects.equals(workingGroupID, other.workingGroupID);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("WorkingGroup [id=");
+        builder.append(id);
+        builder.append(", workingGroupID=");
+        builder.append(workingGroupID);
+        builder.append(", participationLevel=");
+        builder.append(participationLevel);
+        builder.append(", effectiveDate=");
+        builder.append(effectiveDate);
+        builder.append(", form=");
+        builder.append(form);
+        builder.append(", formID=");
+        builder.append(formID);
+        builder.append(", contact=");
+        builder.append(contact);
+        builder.append("]");
+        return builder.toString();
     }
 
     @Singleton
