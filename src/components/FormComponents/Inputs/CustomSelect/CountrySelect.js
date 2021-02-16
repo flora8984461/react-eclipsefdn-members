@@ -29,7 +29,6 @@ const CountrySelect = (props) => {
       isSearchable
       options={countryList}
       value={getValue(countryList, props.field.value) || ""}
-      // defaultValue={props.field?.value || ""}
       onChange={(option, action) => {
         handleSelect(option, action)
       }}

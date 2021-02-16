@@ -3,6 +3,7 @@ import Select from '../Inputs/Select';
 import MembershipFeeTable from './MembershipFeeTable';
 import MembershipContext from "../../../Context/MembershipContext";
 import Loading from '../../Loading/Loading';
+import { FETCH_HEADER, membership_levels } from '../../../Constants/Constants';
 
 const MembershipLevel = ({ formField, ...otherProps }) => {
 
@@ -14,11 +15,7 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
   useEffect(() => {
 
     if (currentFormId) {
-      fetch(`membership_data/${currentFormId}/membership.json`,{
-        headers : {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }})
+      fetch(`membership_data/${currentFormId}/membership.json`,{ headers : FETCH_HEADER })
       .then(resp => resp.json())
       .then(data => {
         if(data) {
@@ -26,6 +23,8 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
         }
         setLoading(false);
       })
+    } else {
+      setLoading(false);
     }
 
     // eslint-disable-next-line
@@ -34,14 +33,6 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
   if (loading) {
     return <Loading />
   }
-
-  const dropdownOptions = [
-    { name: 'Select a level', value: '' },
-    { name: 'Strategic Members', value: 'strategic' },
-    { name: 'Contributing Members (formerly referred to as Solutions Members)', value: 'contributing' },
-    { name: 'Associate Members', value: 'associate' },
-    { name: 'Committer Members', value: 'committer' }
-  ]
 
   return (
     <>
@@ -52,7 +43,7 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
       <Select
         label="membershipLevel"
         name="membershipLevel"
-        options={dropdownOptions}
+        options={membership_levels}
       />
       <MembershipFeeTable />
       </div>

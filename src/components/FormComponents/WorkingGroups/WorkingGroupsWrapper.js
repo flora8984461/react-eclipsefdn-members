@@ -4,6 +4,7 @@ import { FieldArray } from 'formik';
 import WorkingGroup from './WorkingGroup';
 import { matchWorkingGroupFields } from '../../../Utils/formFunctionHelpers';
 import Loading from '../../Loading/Loading';
+import { FETCH_HEADER } from '../../../Constants/Constants';
 
 const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext);
@@ -14,18 +15,13 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   useEffect(() => {
 
     if(currentFormId) {
-      fetch(`membership_data/${currentFormId}/workingGroups.json`,{
-        headers : {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }})
+      fetch(`membership_data/${currentFormId}/workingGroups.json`,{headers: FETCH_HEADER})
       .then(resp => resp.json())
       .then(data => {
         // If have an array, I'll use iterate it
         if(data.length) {
           otherProps.parentState.formik.setFieldValue(`workingGroups`, matchWorkingGroupFields(data))
         }
-
         setLoading(false);
       })
     } else {

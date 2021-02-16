@@ -1,3 +1,17 @@
+const firstName = "First Name"
+const lastName = "Last Name"
+const email = "Email Address"
+const orgName = "Organization Name"
+const twitter = "Twitter"
+const street = "Street"
+const city = "City"
+const provinceOrState = "Province Or State"
+const postalCode = "Postal Code"
+const country = "Country"
+const jobtitle = "Job Title"
+
+export const requiredErrorMsg = "is required"
+
 export const initialValues = {
 
   // Step1: company Info
@@ -72,16 +86,9 @@ export const initialValues = {
 
 }
 
-const firstName = "First Name"
-const lastName = "Last Name"
-const email = "Email Address"
-const orgName = "Organization Name"
-const jobtitle = "Job Title"
-export const requiredErrorMsg = "is required"
-
 export const formField = {
   organizationName: {
-    name: 'organization.name',
+    name: 'organization.legalName',
     label: orgName,
     placeholder: orgName,
     requiredErrorMsg: requiredErrorMsg
@@ -89,40 +96,39 @@ export const formField = {
   organizationAddress: [
     {
       name: 'organization.address.street',
-      label: 'Street',
-      placeholder: "Street",
+      label: street,
+      placeholder: street,
       requiredErrorMsg: requiredErrorMsg
     },
     {
       name: 'organization.address.city',
-      label: 'City',
-      placeholder: "City",
+      label: city,
+      placeholder: city,
       requiredErrorMsg: requiredErrorMsg
     },
     {
       name: 'organization.address.provinceOrState',
-      label: 'Province or State',
-      placeholder: "Province or State",
+      label: provinceOrState,
+      placeholder: provinceOrState,
       requiredErrorMsg: requiredErrorMsg
     },
     {
       name: 'organization.address.country',
-      label: 'Country',
-      placeholder: "Country",
+      label: country,
+      placeholder: country,
       requiredErrorMsg: requiredErrorMsg
     },
     {
       name: 'organization.address.postalCode',
-      label: 'PostalCode',
-      placeholder: "PostalCode",
-      requiredErrorMsg: requiredErrorMsg,
-      invalidErrorMsg: 'PostalCode is not valid (e.g. K1N 6N5)'
+      label: postalCode,
+      placeholder: postalCode,
+      requiredErrorMsg: requiredErrorMsg
     }
   ],
   companyTwitter: {
     name: 'organization.twitterHandle',
-    label: 'Twitter',
-    placeholder: "Twitter",
+    label: twitter,
+    placeholder: twitter,
   },
   companyRepresentative: [
     {

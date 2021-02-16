@@ -2,6 +2,7 @@ import React from 'react';
 import AsyncCreatable from 'react-select/async-creatable';
 import { selectTheme, generateCustomStyles } from './customSelectStyle';
 import { useField } from 'formik';
+import { FETCH_HEADER } from '../../../../Constants/Constants';
 
 const CustomAsyncSelect = (props) => {
 
@@ -14,14 +15,7 @@ const CustomAsyncSelect = (props) => {
         // Prefill existing data to selected companies
         props.form.setFieldValue("organization.legalName", option)
         props.form.setFieldValue("organization.address", option.address)
-        props.form.setFieldValue("organization.address.country", option.address.country)
         props.form.setFieldValue('organization.twitterHandle', option.twitterHandle)
-
-        // Prefill Country Province Selector Or make it as disabled input, like Linux Foundation, decide later
-        // props.form.setFieldValue("organization.address.provinceOrState", option.address.provinceOrState)
-        // props.form.setFieldValue("organization.address.country", option.address.country)
-
-        // props.setDisableInput(true)
       }
     }
 
@@ -35,14 +29,14 @@ const CustomAsyncSelect = (props) => {
         props.form.setFieldValue("organization.address.country", "")
         props.form.setFieldValue("organization.address.postalCode", "")
         props.form.setFieldValue('organization.twitterHandle', "")
-        // props.setDisableInput(false)
+
       }
     }
 
     if (option && option.__isNew__) {
       // When create new organization that are not in our data
       props.form.setFieldValue("organization.legalName", option)
-      // props.setDisableInput(false)
+
     }
   }
 
@@ -60,12 +54,7 @@ const CustomAsyncSelect = (props) => {
         case "companies":
           src_data = "companies.json"
           if (inputValue) {
-            return fetch(src_data, {
-              headers : { 
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-               }
-            })
+            return fetch(src_data, { headers: FETCH_HEADER })
               .then(resp => resp.json())
               .then((data) => {
                 if (data.companies) {

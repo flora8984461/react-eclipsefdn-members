@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "../Inputs/Select";
+import { FETCH_HEADER } from '../../../Constants/Constants';
 
 const ParticipationLevel = ({name, workingGroup}) => {
 
@@ -8,12 +9,7 @@ const ParticipationLevel = ({name, workingGroup}) => {
   useEffect(() => {
     let isSubscribed = true;
 
-    fetch("workingGroups.json", {
-        headers : { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      })
+    fetch("workingGroups.json", { headers : FETCH_HEADER })
       .then(res => res.json())
       .then(data => {
         if (isSubscribed) {

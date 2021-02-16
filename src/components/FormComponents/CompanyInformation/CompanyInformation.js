@@ -4,6 +4,7 @@ import { matchCompanyFields, matchContactFields } from '../../../Utils/formFunct
 import Company from './Company';
 import Contacts from './Contacts';
 import Loading from '../../Loading/Loading';
+import { FETCH_HEADER } from '../../../Constants/Constants';
 
 const CompanyInformation = ({ formField, ...otherProps }) => {
   
@@ -15,15 +16,10 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
   useEffect(() => {
 
     if (currentFormId) {
-      let pool = [fetch(`membership_data/${currentFormId}/organizations.json`,{
-        headers : {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }}), fetch(`membership_data/${currentFormId}/contacts.json`,{
-        headers : {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }})]
+      let pool = [
+        fetch(`membership_data/${currentFormId}/organizations.json`,{headers : FETCH_HEADER}), 
+        fetch(`membership_data/${currentFormId}/contacts.json`,{headers : FETCH_HEADER})
+      ]
   
       Promise.all(pool)
         .then((res) => 
@@ -41,13 +37,14 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
           if(contacts.length) {
             let tempContacts = matchContactFields(contacts)
             // Prefill Data
-            otherProps.parentState.formik.setFieldValue('companyRepresentative.representative', tempContacts.companyRepresentative.representative)
-            // Store contact_id for my PUT later
-            otherProps.parentState.formik.setFieldValue('companyRepresentative.representative.id', tempContacts.companyRepresentative.representative.id)
+            otherProps.parentState.formik.setFieldValue('companyRepresentative', tempContacts.companyRepresentative)
           }
 
           setLoading(false);
         })
+    }
+    else {
+      setLoading(false);
     }
     // eslint-disable-next-line
   }, [])

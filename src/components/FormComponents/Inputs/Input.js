@@ -12,8 +12,6 @@ const Input = ({ name, labelName, placeholder, disableInput }) => {
         form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
         meta,
       }) => {
-        
-        // console.log(field.value)
         return (
         <>
           <input {...field} className={`form-control margin-bottom-10 ${meta.touched && meta.error ? "form-border-error" : ""}`} type="text" placeholder={placeholder} disabled={disableInput} />
