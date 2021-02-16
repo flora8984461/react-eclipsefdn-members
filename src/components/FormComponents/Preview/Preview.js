@@ -5,8 +5,6 @@ const Preview = () => {
 
   const { values } = useFormikContext()
 
-  console.log(values)
-
   //Check if has signing auth, if has, hide the signing auth info, and remove the info if has when submitting
 
   return (

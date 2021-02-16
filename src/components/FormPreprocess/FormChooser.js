@@ -23,14 +23,11 @@ const FormChooser = ({currentUser}) => {
     const {setCurrentFormId} = useContext(MembershipContext);
 
     const handleOnClick = (el) => {
-        console.log(el);
         setCurrentFormId(el);
         history.push('/form');
-        // setStep(s => s + 1);
     }
 
     const createNewForm = () => {
-        // setCurrentFormId("new_id");
         history.push('/form');
     }
 

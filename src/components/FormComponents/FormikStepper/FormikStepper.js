@@ -40,8 +40,6 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
 
     switch(step) {
       case childrenArray.length - 1:
-        console.log("submit on last step");
-        console.log(values);
         defaultBehaviour();
         break;
 
