@@ -6,11 +6,12 @@ import WorkingGroupsWrapper from "./WorkingGroups/WorkingGroupsWrapper";
 import SigningAuthority from './SigningAuthority/SigningAuthority';
 import Preview from "./Preview/Preview";
 import { formField } from './formModels/formFieldModel';
+import {initialValues} from '../FormComponents/formModels/formFieldModel';
 
-const MultiStepForm = ({ defineInitialData }) => {
+const MultiStepForm = () => {
 
-  const [formDataStates, setFormDataStates] = useState(defineInitialData)  // Do I still need this State?
   const [step, setStep] = useState(0)
+  const [ initials, setInitials ] = useState(initialValues)
 
   const handleSubmit = (values) => {  // This is for final submit, after preview
       console.log(values)
@@ -20,35 +21,37 @@ const MultiStepForm = ({ defineInitialData }) => {
     <>
       <FormikStepper
         enableReinitialize
-        initialValues={formDataStates}
+        initialValues={initials}
         onSubmit={handleSubmit}
-        formDataStates={formDataStates}
-        setFormDataStates={setFormDataStates}
         step={step}
         setStep={setStep}
+        setInitials={setInitials}
       >
         <CompanyInformation
           formField={formField}
+          setInitials={setInitials}
           label="Company Information"
         />
 
         <MembershipLevel
           formField={formField}
+          setInitials={setInitials}
           label="Membership Level"
         />
 
         <WorkingGroupsWrapper
           formField={formField}
+          setInitials={setInitials}
           label="Working Groups"
         />
 
         <SigningAuthority
           formField={formField}
-          formDataStates={formDataStates}
+          setInitials={setInitials}
           label="Signing Authority" 
         />
         
-        <Preview formField={formField} previewData={formDataStates} label="Preview" />
+        <Preview formField={formField} label="Preview" />
 
       </FormikStepper>
     </>

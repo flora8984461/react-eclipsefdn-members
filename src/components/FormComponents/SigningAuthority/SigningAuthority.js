@@ -1,7 +1,7 @@
 import React from "react";
 import Input from '../Inputs/Input';
 
-const SigningAuthority = ({ formField, formDataStates }) => {
+const SigningAuthority = ({ formField }) => {
   const {
     signingAuthorityRepresentative
     } = formField;

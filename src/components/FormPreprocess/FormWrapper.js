@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import MultiStepForm from '../FormComponents/MultiStepForm';
 import MembershipContext from "../../Context/MembershipContext";
-import { initialValues } from '../FormComponents/formModels/formFieldModel';
 import SignIn from '../SignIn/SignIn';
 
 const FormWrapper = () => {
@@ -20,7 +19,7 @@ const FormWrapper = () => {
           <SignIn />
         </Route>
         <Route path="/form">
-          { !currentUser ? <Redirect to="/" /> : <MultiStepForm defineInitialData={initialValues} /> }
+          { !currentUser ? <Redirect to="/" /> : <MultiStepForm /> }
         </Route>
       </Switch>
       </div>

@@ -67,20 +67,28 @@ export function matchContactFields(existingContactData, existingFormStateData) {
 }
 
 export function matchWorkingGroupFields(existingMembershipData, existingFormStateData) {
+  var res = [];
+  // Array
+  existingMembershipData.forEach((item, index) => {
 
-  return {
-    id: existingMembershipData?.id || "",
-    workingGroup: existingMembershipData?.working_group || "",
-    participationLevel: existingMembershipData?.participation_level || "",
-    effectiveDate: new Date(existingMembershipData?.effective_date).toLocaleDateString() || "",
-    workingGroupRepresentative: {
-      firstName: existingMembershipData?.contact.first_name || "",
-      lastName: existingMembershipData?.contact.last_name || "",
-      jobtitle: existingMembershipData?.contact.job_title || "",
-      email: existingMembershipData?.contact.email || "",
-      id: existingMembershipData?.contact.id || ""
-    }
-  }
+    res.push(
+      {
+        id: item?.id || "",
+        workingGroup: item?.working_group || "",
+        participationLevel: item?.participation_level || "",
+        effectiveDate: new Date(item?.effective_date).toLocaleDateString() || "",
+        workingGroupRepresentative: {
+          firstName: item?.contact.first_name || "",
+          lastName: item?.contact.last_name || "",
+          jobtitle: item?.contact.job_title || "",
+          email: item?.contact.email || "",
+          id: item?.contact.id || ""
+        }
+      }
+    )
+  })
+
+  return res;
 }
 
 //== Transform data from my form model to PUT or POST for backend

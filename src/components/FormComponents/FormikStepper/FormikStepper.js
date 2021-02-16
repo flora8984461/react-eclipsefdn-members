@@ -52,13 +52,11 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
         if (values.companyRepresentative.accounting.sameAsCompany) {
           assignContactData(values.companyRepresentative.accounting, values.companyRepresentative.representative)
         }
-        props.setFormDataStates(values);
         await executeSendDataByStep(step, values, currentFormId, currentUser.user_id);
         defaultBehaviour();
         break;
 
       default:
-        props.setFormDataStates(values);
         await executeSendDataByStep(step, values, currentFormId, currentUser.user_id);
         defaultBehaviour();
     }
@@ -74,7 +72,6 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
 
     <Formik
       {...props}
-      // enableReinitialize
       onSubmit={handleOnSubmit}
       validationSchema={currentValidationSchema}
       innerRef={formRef}
