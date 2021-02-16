@@ -1,11 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Select from '../Inputs/Select';
 import MembershipFeeTable from './MembershipFeeTable';
 import MembershipContext from "../../../Context/MembershipContext";
+import Loading from '../../Loading/Loading';
 
 const MembershipLevel = ({ formField, ...otherProps }) => {
 
   const { currentFormId } = useContext(MembershipContext);
+
+  const [ loading, setLoading ] = useState(true);
 
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
@@ -19,14 +22,18 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
       .then(resp => resp.json())
       .then(data => {
         if(data) {
-          otherProps.parentState.formik.setFieldValue('membershipLevel', data.membership_level)
+          otherProps.parentState.formik.setFieldValue('membershipLevel', data.membership_level);
         }
+        setLoading(false);
       })
     }
 
     // eslint-disable-next-line
   }, [])
   
+  if (loading) {
+    return <Loading />
+  }
 
   const dropdownOptions = [
     { name: 'Select a level', value: '' },

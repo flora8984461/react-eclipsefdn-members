@@ -3,9 +3,9 @@ import MembershipContext from "../../../Context/MembershipContext";
 import { FieldArray } from 'formik';
 import WorkingGroup from './WorkingGroup';
 import { matchWorkingGroupFields } from '../../../Utils/formFunctionHelpers';
-import { initialValues } from '../../FormComponents/formModels/formFieldModel';
+import Loading from '../../Loading/Loading';
 
-const WorkingGroupsWrapper = ({ formField, setInitials, ...otherProps }) => {
+const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext);
 
   const [loading, setLoading] = useState(true);
@@ -23,7 +23,7 @@ const WorkingGroupsWrapper = ({ formField, setInitials, ...otherProps }) => {
       .then(data => {
         // If have an array, I'll use iterate it
         if(data.length) {
-          setInitials({...initialValues, workingGroups: matchWorkingGroupFields(data)})
+          otherProps.parentState.formik.setFieldValue(`workingGroups`, matchWorkingGroupFields(data))
         }
 
         setLoading(false);
@@ -35,7 +35,7 @@ const WorkingGroupsWrapper = ({ formField, setInitials, ...otherProps }) => {
   }, [])
 
   if(loading) {
-    return "Loading..."
+    return <Loading />
   }
 
   return (

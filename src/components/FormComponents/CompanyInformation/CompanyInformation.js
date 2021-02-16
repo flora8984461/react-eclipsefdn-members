@@ -1,13 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MembershipContext from "../../../Context/MembershipContext";
 import { matchCompanyFields, matchContactFields } from '../../../Utils/formFunctionHelpers';
 import Company from './Company';
 import Contacts from './Contacts';
+import Loading from '../../Loading/Loading';
 
 const CompanyInformation = ({ formField, ...otherProps }) => {
   
   const {currentFormId} = useContext(MembershipContext);
   const formValues = otherProps.parentState.formik.values;
+  const [ loading, setLoading ] = useState(true);
 
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
@@ -43,10 +45,16 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
             // Store contact_id for my PUT later
             otherProps.parentState.formik.setFieldValue('companyRepresentative.representative.id', tempContacts.companyRepresentative.representative.id)
           }
+
+          setLoading(false);
         })
     }
     // eslint-disable-next-line
   }, [])
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <>

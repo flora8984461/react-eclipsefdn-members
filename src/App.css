@@ -7,6 +7,11 @@
 .eclipseFdn-membership-webform .orange-star {
   color: orange;
 }
+.eclipseFdn-membership-webform .display-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .eclipseFdn-membership-webform .form-control {
   border-radius: 5px;
   box-shadow: none;

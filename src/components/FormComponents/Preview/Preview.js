@@ -5,9 +5,9 @@ const Preview = () => {
 
   const { values } = useFormikContext()
 
-  //Check if has signing auth, if has, hide the signing auth info, and remove the info if has when submitting
+  console.log(values)
 
-  // console.log(data)
+  //Check if has signing auth, if has, hide the signing auth info, and remove the info if has when submitting
 
   return (
     <>
@@ -17,7 +17,7 @@ const Preview = () => {
       <div className="margin-top-30">
         <h3 className="fw-600">Company Information</h3>
         <div className="row">
-          <div className="col-md-16"><div className="margin-top-25 fake-input">{values.organization.legalName.value}</div></div>
+          <div className="col-md-16"><div className="margin-top-25 fake-input">{values.organization.legalName.label}</div></div>
           <div className="col-md-8"><label>twitter</label><div className="fake-input">{values.organization.twitterHandle}</div></div>
         </div>
 
