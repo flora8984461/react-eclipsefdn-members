@@ -1,3 +1,18 @@
+function checkSameContact(compnayRep, otherContact) {
+
+  const keyArray = Object.keys(compnayRep);
+  if (!otherContact) {
+    return false;
+  }
+  for (let i=0; i<keyArray.length; i++) {
+    if ( keyArray[i] !== 'id' && keyArray[i] !== 'type' && (compnayRep[keyArray[i]] !== otherContact[keyArray[i]]) ) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export function assignContactData(currentContact, companyContact) {
   currentContact.firstName = companyContact.firstName;
   currentContact.lastName = companyContact.lastName;
@@ -36,6 +51,7 @@ export function matchContactFields(existingContactData, existingFormStateData) {
   let existingCompanyContact = existingContactData.find(el => el.type === "company")
   let existingMarketingContact = existingContactData.find(el => el.type === "marketing")
   let existingAccoutingContact = existingContactData.find(el => el.type === "accounting")
+
   return {
     companyRepresentative: {
       representative: {
@@ -51,7 +67,8 @@ export function matchContactFields(existingContactData, existingFormStateData) {
         firstName: existingMarketingContact?.first_name || "",
         lastName: existingMarketingContact?.last_name || "",
         jobtitle: existingMarketingContact?.title || "",
-        email: existingMarketingContact?.email || ""
+        email: existingMarketingContact?.email || "",
+        sameAsCompany: checkSameContact(existingCompanyContact, existingMarketingContact)
       },
   
       accounting: {
@@ -59,7 +76,8 @@ export function matchContactFields(existingContactData, existingFormStateData) {
         firstName: existingAccoutingContact?.first_name || "",
         lastName: existingAccoutingContact?.last_name || "",
         jobtitle: existingAccoutingContact?.title || "",
-        email: existingAccoutingContact?.email || ""
+        email: existingAccoutingContact?.email || "",
+        sameAsCompany: checkSameContact(existingCompanyContact, existingAccoutingContact)
       }
     }
   }

@@ -40,6 +40,8 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
             otherProps.parentState.formik.setFieldValue('companyRepresentative', tempContacts.companyRepresentative)
           }
 
+          console.log(formValues)
+
           setLoading(false);
         })
     }
