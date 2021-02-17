@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { generateCustomWGSelectStyles, selectTheme } from './customSelectStyle';
 import { useField } from 'formik';
-import { FETCH_HEADER } from '../../../Constants/Constants';
+import { FETCH_HEADER } from '../../../../Constants/Constants';
 
 const WorkingGroupSelect = (props) => {
   const [workingGroupsData, setWorkingGroupsData] = useState([]);
