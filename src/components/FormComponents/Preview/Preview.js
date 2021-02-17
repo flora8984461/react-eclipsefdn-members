@@ -3,9 +3,7 @@ import { useFormikContext } from 'formik'
 
 const Preview = () => {
 
-  const { values } = useFormikContext()
-
-  //Check if has signing auth, if has, hide the signing auth info, and remove the info if has when submitting
+  const { values } = useFormikContext();
 
   return (
     <>

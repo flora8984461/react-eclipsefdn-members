@@ -8,16 +8,13 @@ const Input = ({ name, labelName, placeholder, disableInput }) => {
     <label htmlFor={name}>{labelName}</label><br />
     <Field name={name}>
       {({
-        field, // { name, value, onChange, onBlur }
-        form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+        field,
+        form: { touched, errors },
         meta,
       }) => {
         return (
         <>
           <input {...field} className={`form-control margin-bottom-10 ${meta.touched && meta.error ? "form-border-error" : ""}`} type="text" placeholder={placeholder} disabled={disableInput} />
-          {/* {meta.touched && meta.error && (
-            <div className="error margin-bottom-5">{meta.error}</div>
-          )} */}
         </>
       )}}
     </Field>

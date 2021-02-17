@@ -2,19 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { generateCustomWGSelectStyles, selectTheme } from './customSelectStyle';
 import { useField } from 'formik';
+import { FETCH_HEADER } from '../../../Constants/Constants';
 
 const WorkingGroupSelect = (props) => {
   const [workingGroupsData, setWorkingGroupsData] = useState([]);
-  const [field, meta] = useField(props.field.name);  //// or props.field, must contain name key
+  const [field, meta] = useField(props.field.name);  // or props.field, must contain name key
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
       // Fetch working groups data
-      fetch("workingGroups.json" , {
-        headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }})
+      fetch("workingGroups.json" , { headers: FETCH_HEADER })
        .then(res=>res.json())
        .then(data => {
          let options = data.working_groups.map(item => ({ label: item.name, value: item.id, participation_levels: item.participation_levels }))

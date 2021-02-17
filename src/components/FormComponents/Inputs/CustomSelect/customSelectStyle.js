@@ -1,5 +1,4 @@
-  // selectorStyles object
-
+// selectorStyles object
 export const generateCustomStyles = (isCompany, metaErr) => {
   return {
     option: (styles, state) => ({
@@ -8,7 +7,6 @@ export const generateCustomStyles = (isCompany, metaErr) => {
     }),
     control: (styles, state) => ({
       ...styles,
-      // border: metaErr ? "1px solid red" : "1px solid hsl(0, 0%, 80%)",
       '&:hover': { borderColor: metaErr ? 'red' : 'orange' },
       borderColor: metaErr ? 'red' : 'hsl(0, 0%, 80%)',
       cursor: isCompany ? "text" : "pointer"
@@ -28,7 +26,6 @@ export const generateCustomWGSelectStyles = (metaErr) => {
     }),
     control: (styles, state) => ({
       ...styles,
-      // border: metaErr ? "1px solid red" : "1px solid hsl(0, 0%, 80%)",
       '&:hover': { borderColor: metaErr ? 'red' : 'orange' },
       borderColor: metaErr ? 'red' : 'hsl(0, 0%, 80%)',
     }),

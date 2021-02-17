@@ -6,7 +6,7 @@ import { FETCH_HEADER } from '../../../../Constants/Constants';
 
 const CustomAsyncSelect = (props) => {
 
-  const [field, meta] = useField(props.field.name);  //// or props.field, must contain name key
+  const [field, meta] = useField(props.field.name);  // or props.field, must contain name key
 
   const handleSelect = (option, action) => {
 

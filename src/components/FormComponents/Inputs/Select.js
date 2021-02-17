@@ -2,16 +2,12 @@ import React from "react";
 import { Field, ErrorMessage } from "formik";
 
 const Select = (props) => {
-  const { label, name, options, /*...rest*/ } = props
+  const { label, name, options } = props
   return (
     <>
     <label sr-only="true" htmlFor={name}>{label}</label>
     <Field name={name}>
-      {({
-        field, // { name, value, onChange, onBlur }
-        form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-        meta,
-      }) => {
+      {({ field }) => {
         if (name === "membershipLevel") {
           return (
             <select {...field} className="form-control">
@@ -25,8 +21,6 @@ const Select = (props) => {
             </select>
           )
         }
-
-
         return (
             <select {...field} className="form-control">
               <option value="" key="none">Please select</option>
@@ -39,8 +33,6 @@ const Select = (props) => {
               )}
             </select>
         )
-        
-
       }}
     </Field>
       <ErrorMessage className="error" component="div" name={name} />

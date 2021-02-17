@@ -18,7 +18,6 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
       fetch(`membership_data/${currentFormId}/workingGroups.json`,{headers: FETCH_HEADER})
       .then(resp => resp.json())
       .then(data => {
-        // If have an array, I'll use iterate it
         if(data.length) {
           otherProps.parentState.formik.setFieldValue(`workingGroups`, matchWorkingGroupFields(data))
         }

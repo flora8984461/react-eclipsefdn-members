@@ -3,9 +3,7 @@ import Input from '../Inputs/Input';
 
 const WorkingGroupRepresentative = ({ name, formField }) => {
 
-  const {
-    workingGroupRepresentative
-  } = formField;
+  const { workingGroupRepresentative } = formField;
   
   return (
     <>

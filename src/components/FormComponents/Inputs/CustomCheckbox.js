@@ -5,11 +5,7 @@ const CustomCheckbox = ({ name, label }) => {
   return (
     <Field name={name}>
     {
-      ({
-        field, // { name, value, onChange, onBlur }
-        form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-        meta,
-      }) => {
+      ({ field }) => {
         return (
           <>
         <label className="verical-center margin-top-20 margin-bottom-20">

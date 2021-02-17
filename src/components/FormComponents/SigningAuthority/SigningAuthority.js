@@ -2,9 +2,7 @@ import React from "react";
 import Input from '../Inputs/Input';
 
 const SigningAuthority = ({ formField }) => {
-  const {
-    signingAuthorityRepresentative
-    } = formField;
+  const { signingAuthorityRepresentative } = formField;
   return (
     <>
     <h2 className="fw-600">Signing Authority</h2>
