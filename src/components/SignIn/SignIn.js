@@ -27,7 +27,6 @@ const SignIn = ({setStep}) => {
             <SignInIntroduction />
             <StepperComponent step={-1} childrenArray={fakeChildrenArray} />
             <h1>Form chooser</h1>
-            <h2>Select an existing form</h2>
             <FormChooser currentUser={currentUser} setStep={setStep} />
             </>
         )

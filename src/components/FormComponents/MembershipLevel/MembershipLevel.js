@@ -14,8 +14,9 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
 
-    if (currentFormId) {
+    if (currentFormId && currentFormId !== 'new') {
       fetch(`membership_data/${currentFormId}/membership.json`,{ headers : FETCH_HEADER })
+      // fetch('http://localhost:8090/membership',{ headers : FETCH_HEADER })
       .then(resp => resp.json())
       .then(data => {
         if(data) {

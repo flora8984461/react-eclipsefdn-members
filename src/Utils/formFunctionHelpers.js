@@ -194,7 +194,7 @@ export function sendData(endpoint, dataBody, type) {
 
   switch(type) {
     case "organizations":
-      if (!dataBody.organization_id) {
+      if (!dataBody.organization_id || dataBody.organization_id === 'new') {
         console.log("You send request to: " + endpoint + "By method POST")
         delete dataBody.organization_id;
         console.log("You data body is: " + JSON.stringify(dataBody));

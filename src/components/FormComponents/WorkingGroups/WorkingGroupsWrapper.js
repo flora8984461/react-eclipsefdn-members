@@ -14,7 +14,7 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
 
-    if(currentFormId) {
+    if(currentFormId && currentFormId !== 'new') {
       fetch(`membership_data/${currentFormId}/workingGroups.json`,{headers: FETCH_HEADER})
       .then(resp => resp.json())
       .then(data => {

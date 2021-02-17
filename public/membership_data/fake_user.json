@@ -1,7 +1,4 @@
 {
     "user_id": "fake_user_1",
-    "form_ids": [
-        "form_1",
-        "form_2"
-    ]
+    "form_id": "form_1"
 }

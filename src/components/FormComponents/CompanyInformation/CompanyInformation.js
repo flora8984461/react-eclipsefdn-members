@@ -15,7 +15,7 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
 
-    if (currentFormId) {
+    if (currentFormId && currentFormId !== 'new') {
       let pool = [
         fetch(`membership_data/${currentFormId}/organizations.json`,{headers : FETCH_HEADER}), 
         fetch(`membership_data/${currentFormId}/contacts.json`,{headers : FETCH_HEADER})
