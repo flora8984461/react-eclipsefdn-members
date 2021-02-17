@@ -19,7 +19,7 @@ const Company = () => {
       />
       <div className="row">
         <div className="col-md-8">
-          <Input name="organization.twitterHandle" labelName="Twitter" placeholder="@username" />
+          <Input name="organization.twitterHandle" labelName="Twitter handle" placeholder="@username" />
         </div>
       </div>
 
