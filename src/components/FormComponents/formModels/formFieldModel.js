@@ -1,87 +1,87 @@
-const firstName = "First Name"
-const lastName = "Last Name"
-const email = "Email Address"
-const orgName = "Organization Name"
-const twitter = "Twitter"
-const street = "Street"
-const city = "City"
-const provinceOrState = "Province Or State"
-const postalCode = "Postal Code"
-const country = "Country"
-const jobtitle = "Job Title"
+const firstName = 'First Name'
+const lastName = 'Last Name'
+const email = 'Email Address'
+const orgName = 'Organization Name'
+const twitter = 'Twitter'
+const street = 'Street'
+const city = 'City'
+const provinceOrState = 'Province Or State'
+const postalCode = 'Postal Code'
+const country = 'Country'
+const jobtitle = 'Job Title'
 
-export const requiredErrorMsg = "is required"
+export const requiredErrorMsg = 'is required'
 
 export const initialValues = {
 
   // Step1: company Info
   organization: {
-    id: "",
-    legalName: "",
+    id: '',
+    legalName: '',
     address: {
-      street: "",
-      city: "",
-      provinceOrState: "",
-      country: "",
-      postalCode: ""
+      street: '',
+      city: '',
+      provinceOrState: '',
+      country: '',
+      postalCode: ''
     },
-    twitterHandle: "",
+    twitterHandle: '',
   },
 
   // Step1: Company Representative
   companyRepresentative: {
     representative: {
-      id: "",
-      firstName: "",
-      lastName: "",
-      jobtitle: "",
-      email: ""
+      id: '',
+      firstName: '',
+      lastName: '',
+      jobtitle: '',
+      email: ''
     },
 
     marketingRepresentative: {
       sameAsCompany: false,
-      id: "",
-      firstName: "",
-      lastName: "",
-      jobtitle: "",
-      email: ""
+      id: '',
+      firstName: '',
+      lastName: '',
+      jobtitle: '',
+      email: ''
     },
 
     accounting: {
       sameAsCompany: false,
-      id: "",
-      firstName: "",
-      lastName: "",
-      jobtitle: "",
-      email: ""
+      id: '',
+      firstName: '',
+      lastName: '',
+      jobtitle: '',
+      email: ''
     }
   },
 
   // Step 2
-  membershipLevel: "",
+  membershipLevel: '',
 
   // Step 3: working groups
   workingGroups: [
     {
-      id: "",
-      workingGroup: "",
-      participationLevel: "",
-      effectiveDate: "",
+      id: '',
+      workingGroup: '',
+      participationLevel: '',
+      effectiveDate: '',
       workingGroupRepresentative: {
-        firstName: "",
-        lastName: "",
-        jobtitle: "",
-        email: "",
-        id: ""
+        firstName: '',
+        lastName: '',
+        jobtitle: '',
+        email: '',
+        id: ''
       }
     }
   ],
 
   signingAuthorityRepresentative: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    id: ""
+    firstName: '',
+    lastName: '',
+    email: '',
+    id: ''
   }
 
 }
@@ -226,29 +226,29 @@ export const formField = {
     label: 'Participation Level',
   },
   effectiveDate: {
-    name: "effectiveDate",
+    name: 'effectiveDate',
     label: 'Effective Date',
     requiredErrorMsg: requiredErrorMsg,
   },
 
   workingGroupRepresentative: [
     {
-      name: "firstName",
+      name: 'firstName',
       label: firstName,
       placeholder: firstName,
     },
     {
-      name: "lastName",
+      name: 'lastName',
       label: lastName,
       placeholder: lastName,
     },
     {
-      name: "jobtitle",
+      name: 'jobtitle',
       label: jobtitle,
       placeholder: jobtitle,
     },
     {
-      name: "email",
+      name: 'email',
       label: email,
       placeholder: email,
     }
@@ -256,17 +256,17 @@ export const formField = {
 
   signingAuthorityRepresentative: [
     {
-      name: "signingAuthorityRepresentative.firstName",
+      name: 'signingAuthorityRepresentative.firstName',
       label: firstName,
       placeholder: firstName,
     },
     {
-      name: "signingAuthorityRepresentative.lastName",
+      name: 'signingAuthorityRepresentative.lastName',
       label: lastName,
       placeholder: lastName,
     },
     {
-      name: "signingAuthorityRepresentative.email",
+      name: 'signingAuthorityRepresentative.email',
       label: email,
       placeholder: email,
     }

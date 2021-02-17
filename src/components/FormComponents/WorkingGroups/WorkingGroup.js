@@ -7,7 +7,7 @@ import ParticipationLevel from './ParticipationLevel';
 import EffectiveDate from './EffectiveDate';
 import WorkingGroupsRepresentative from './WorkingGroupRepresentative';
 
-const WorkingGroup = ({ formField, arrayHelpers, formikProps }) => {
+const WorkingGroup = ({ formField, arrayHelpers }) => {
   const { values } = useFormikContext();
   const { isExistingMember } = useContext(MembershipContext);
 

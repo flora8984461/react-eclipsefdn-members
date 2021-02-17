@@ -9,7 +9,7 @@ const ParticipationLevel = ({name, workingGroup}) => {
   useEffect(() => {
     let isSubscribed = true;
 
-    fetch("workingGroups.json", { headers : FETCH_HEADER })
+    fetch('workingGroups.json', { headers : FETCH_HEADER })
       .then(res => res.json())
       .then(data => {
         if (isSubscribed) {
