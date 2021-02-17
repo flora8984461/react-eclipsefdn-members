@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import CustomSelectWrapper from "../Inputs/CustomSelect/CustomSelectWrapper";
-import CountrySelect from "../Inputs/CustomSelect/CountrySelect";
-import CustomAsyncSelect from "../Inputs/CustomSelect/CustomAsyncSelect";
-import MembershipContext from "../../../Context/MembershipContext";
+import React, { useContext } from 'react';
+import CustomSelectWrapper from '../Inputs/CustomSelect/CustomSelectWrapper';
+import CountrySelect from '../Inputs/CustomSelect/CountrySelect';
+import CustomAsyncSelect from '../Inputs/CustomSelect/CustomAsyncSelect';
+import MembershipContext from '../../../Context/MembershipContext';
 import Input from '../Inputs/Input';
 
 const Company = () => {

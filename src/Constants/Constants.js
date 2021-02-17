@@ -1,9 +1,9 @@
 // list all constants here
 export const FETCH_METHOD = {
-    POST: "POST",
-    GET: "GET",
-    PUT: "PUT",
-    DELETE: "DELETE"
+    POST: 'POST',
+    GET: 'GET',
+    PUT: 'PUT',
+    DELETE: 'DELETE'
 }
 
 export const FETCH_HEADER = {

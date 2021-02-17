@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Stepper from "./Stepper";
-import Step from "./Step";
+import Stepper from './Stepper';
+import Step from './Step';
 
 const StepperComponent = ({ step, setStep, childrenArray, completed, formRef, setCurrentFormId }) => {
 
@@ -15,7 +15,7 @@ const StepperComponent = ({ step, setStep, childrenArray, completed, formRef, se
 
     const isSignInPage = () => {
         const pathname = window.location.pathname
-        if (pathname==="/") {
+        if (pathname==='/') {
           return true;
         } else return false;
     }
@@ -23,7 +23,7 @@ const StepperComponent = ({ step, setStep, childrenArray, completed, formRef, se
     const handleSignIn = () => {
         history.push('/');
         if(setCurrentFormId) {
-          setCurrentFormId("");
+          setCurrentFormId('');
         }
     }
 

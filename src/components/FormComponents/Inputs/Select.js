@@ -1,5 +1,5 @@
-import React from "react";
-import { Field, ErrorMessage } from "formik";
+import React from 'react';
+import { Field, ErrorMessage } from 'formik';
 
 const Select = (props) => {
   const { label, name, options } = props
@@ -8,7 +8,7 @@ const Select = (props) => {
     <label sr-only="true" htmlFor={name}>{label}</label>
     <Field name={name}>
       {({ field }) => {
-        if (name === "membershipLevel") {
+        if (name === 'membershipLevel') {
           return (
             <select {...field} className="form-control">
               {options?.map(option => 
@@ -23,7 +23,7 @@ const Select = (props) => {
         }
         return (
             <select {...field} className="form-control">
-              <option value="" key="none">Please select</option>
+              <option value='' key="none">Please select</option>
               {options?.map(option => 
                 (
                   <option key={option} value={option}>

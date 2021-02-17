@@ -10,32 +10,32 @@ const CustomAsyncSelect = (props) => {
 
   const handleSelect = (option, action) => {
 
-    if (option && !option.__isNew__ && action !== "clear") {
-      if (props.srcData === "companies") {
+    if (option && !option.__isNew__ && action !== 'clear') {
+      if (props.srcData === 'companies') {
         // Prefill existing data to selected companies
-        props.form.setFieldValue("organization.legalName", option)
-        props.form.setFieldValue("organization.address", option.address)
+        props.form.setFieldValue('organization.legalName', option)
+        props.form.setFieldValue('organization.address', option.address)
         props.form.setFieldValue('organization.twitterHandle', option.twitterHandle)
       }
     }
 
-    if (action.action === "clear") {
+    if (action.action === 'clear') {
       // Clear prefilled data when clear the selection
-      if (props.srcData === "companies") {
-        props.form.setFieldValue("organization.legalName", "")
-        props.form.setFieldValue("organization.address.street", "")
-        props.form.setFieldValue("organization.address.city", "")
-        props.form.setFieldValue("organization.address.provinceOrState", "")
-        props.form.setFieldValue("organization.address.country", "")
-        props.form.setFieldValue("organization.address.postalCode", "")
-        props.form.setFieldValue('organization.twitterHandle', "")
+      if (props.srcData === 'companies') {
+        props.form.setFieldValue('organization.legalName', '')
+        props.form.setFieldValue('organization.address.street', '')
+        props.form.setFieldValue('organization.address.city', '')
+        props.form.setFieldValue('organization.address.provinceOrState', '')
+        props.form.setFieldValue('organization.address.country', '')
+        props.form.setFieldValue('organization.address.postalCode', '')
+        props.form.setFieldValue('organization.twitterHandle', '')
 
       }
     }
 
     if (option && option.__isNew__) {
       // When create new organization that are not in our data
-      props.form.setFieldValue("organization.legalName", option)
+      props.form.setFieldValue('organization.legalName', option)
 
     }
   }
@@ -51,8 +51,8 @@ const CustomAsyncSelect = (props) => {
 
       switch(props.srcData) {
 
-        case "companies":
-          src_data = "companies.json"
+        case 'companies':
+          src_data = 'companies.json'
           if (inputValue) {
             return fetch(src_data, { headers: FETCH_HEADER })
               .then(resp => resp.json())
@@ -77,14 +77,14 @@ const CustomAsyncSelect = (props) => {
         cacheOptions
         defaultOptions
         loadOptions={promiseOptions}
-        defaultValue={props.field.value || ""}
+        defaultValue={props.field.value || ''}
         onChange={(option, action) => {
           handleSelect(option, action)
         }}
         onBlur={props.form.handleBlur(props.field.name)}
         styles={generateCustomStyles(true, meta.error)}
         theme={selectTheme}
-        noOptionsMessage={() => "Type to Search..."}
+        noOptionsMessage={() => 'Type to Search...'}
         className="margin-bottom-10 form-group"
       />
     )

@@ -11,12 +11,12 @@ const CountrySelect = (props) => {
 
   const handleSelect = (option, action) => {
 
-    if (option && action !== "clear") {
-        props.form.setFieldValue("organization.address.country", option.value)
+    if (option && action !== 'clear') {
+        props.form.setFieldValue('organization.address.country', option.value)
     }
 
-    if (action.action === "clear") {
-        props.form.setFieldValue("organization.address.country", "")
+    if (action.action === 'clear') {
+        props.form.setFieldValue('organization.address.country', '')
     }
   }
 
@@ -28,7 +28,7 @@ const CountrySelect = (props) => {
     <Select
       isSearchable
       options={countryList}
-      value={getValue(countryList, props.field.value) || ""}
+      value={getValue(countryList, props.field.value) || ''}
       onChange={(option, action) => {
         handleSelect(option, action)
       }}

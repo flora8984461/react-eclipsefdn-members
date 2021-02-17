@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import MembershipContext from "../../../Context/MembershipContext";
+import React, { useState, useContext, useEffect } from 'react';
+import MembershipContext from '../../../Context/MembershipContext';
 import { FieldArray } from 'formik';
 import WorkingGroup from './WorkingGroup';
 import { matchWorkingGroupFields } from '../../../Utils/formFunctionHelpers';
@@ -19,7 +19,7 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
       .then(resp => resp.json())
       .then(data => {
         if(data.length) {
-          otherProps.parentState.formik.setFieldValue(`workingGroups`, matchWorkingGroupFields(data))
+          otherProps.parentState.formik.setFieldValue('workingGroups', matchWorkingGroupFields(data))
         }
         setLoading(false);
       })

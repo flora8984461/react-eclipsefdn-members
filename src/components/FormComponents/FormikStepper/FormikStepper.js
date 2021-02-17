@@ -1,10 +1,10 @@
-import React, { useState, useRef, useContext } from "react";
-import { Form, Formik } from "formik";
+import React, { useState, useRef, useContext } from 'react';
+import { Form, Formik } from 'formik';
 import { validationSchema } from '../formModels/ValidationSchema';
-import StepperComponent from "../../Steppers/StepperComponent";
-import CustomStepButton from "../CustomStepButton";
+import StepperComponent from '../../Steppers/StepperComponent';
+import CustomStepButton from '../CustomStepButton';
 import { executeSendDataByStep, assignContactData } from '../../../Utils/formFunctionHelpers';
-import MembershipContext from "../../../Context/MembershipContext";
+import MembershipContext from '../../../Context/MembershipContext';
 import SubmitSuccess from '../SubmitSuccess';
 
 //form.validateForm(); to manually call validate

@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import * as yup from 'yup';
 import { requiredErrorMsg } from './formFieldModel';
 
 export const validationSchema = [
@@ -26,38 +26,38 @@ export const validationSchema = [
       }),
       marketingRepresentative: yup.object().shape({
         sameAsCompany: yup.boolean(),
-        firstName: yup.string().when("sameAsCompany", {
+        firstName: yup.string().when('sameAsCompany', {
           is: false,
           then: yup.string().required(`${requiredErrorMsg}`)
         }),
-        lastName: yup.string().when("sameAsCompany", {
+        lastName: yup.string().when('sameAsCompany', {
           is: false,
           then: yup.string().required(`${requiredErrorMsg}`)
         }),
-        jobtitle: yup.string().when("sameAsCompany", {
+        jobtitle: yup.string().when('sameAsCompany', {
           is: false,
           then: yup.string().required(`${requiredErrorMsg}`)
         }),
-        email: yup.string().when("sameAsCompany", {
+        email: yup.string().when('sameAsCompany', {
           is: false,
           then: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address')
         })
       }),
       accounting: yup.object().shape({
         sameAsCompany: yup.boolean(),
-        firstName: yup.string().when("sameAsCompany", {
+        firstName: yup.string().when('sameAsCompany', {
           is: false,
           then: yup.string().required(`${requiredErrorMsg}`)
         }),
-        lastName: yup.string().when("sameAsCompany", {
+        lastName: yup.string().when('sameAsCompany', {
           is: false,
           then: yup.string().required(`${requiredErrorMsg}`)
         }),
-        jobtitle: yup.string().when("sameAsCompany", {
+        jobtitle: yup.string().when('sameAsCompany', {
           is: false,
           then: yup.string().required(`${requiredErrorMsg}`)
         }),
-        email: yup.string().when("sameAsCompany", {
+        email: yup.string().when('sameAsCompany', {
           is: false,
           then: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address')
         })
@@ -75,11 +75,11 @@ export const validationSchema = [
     workingGroups: yup.array().of(
       yup.object().shape({
         workingGroup: yup.string().required(`${requiredErrorMsg}`),
-        participationLevel: yup.string().when("workingGroup", {
+        participationLevel: yup.string().when('workingGroup', {
           is: value => !!value,
           then: yup.string().required(`${requiredErrorMsg}`)
         }),
-        effectiveDate: yup.mixed().when("workingGroup", {
+        effectiveDate: yup.mixed().when('workingGroup', {
           is: value => !!value,
           then: yup.mixed().required(`${requiredErrorMsg}`)
         }),

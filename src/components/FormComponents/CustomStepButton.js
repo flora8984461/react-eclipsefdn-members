@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const CustomStepButton = ({step, isSubmitting, setStep, isLastStep}) => {
   
@@ -21,7 +21,7 @@ const CustomStepButton = ({step, isSubmitting, setStep, isLastStep}) => {
       ) : null}
         <button
           disabled={isSubmitting}
-          className={`btn ${isLastStep() ? `btn-secondary` : `btn-primary `}`}
+          className={`btn ${isLastStep() ? 'btn-secondary' : 'btn-primary' }`}
           type="submit"
         >
           {isSubmitting ? 'Submitting' : isLastStep() ? 'Submit' : 'Next'}

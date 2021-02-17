@@ -1,19 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import MembershipContext from "../../Context/MembershipContext";
+import MembershipContext from '../../Context/MembershipContext';
 
 const styles = {
     height: '200px',
     width: '200px',
     background: 'white',
-    margin: "10px",
-    paddingTop: "20px",
-    display: "inline-block",
-    textAlign: "center"
+    margin: '10px',
+    paddingTop: '20px',
+    display: 'inline-block',
+    textAlign: 'center'
 }
 
 const style_root = {
-    display: "inline-block"
+    display: 'inline-block'
 }
 
 const FormChooser = ({currentUser}) => {

@@ -1,21 +1,18 @@
-import React, { useContext } from "react";
-import MembershipContext from "../../Context/MembershipContext";
+import React, { useContext } from 'react';
+import MembershipContext from '../../Context/MembershipContext';
 import FormChooser from '../FormPreprocess/FormChooser';
 import SignInIntroduction from './SignInIntroduction';
 import StepperComponent from '../Steppers/StepperComponent';
+import { FETCH_HEADER } from '../../Constants/Constants';
 
 const SignIn = ({setStep}) => {
 
     const {currentUser, setCurrentUser} = useContext(MembershipContext);
 
-    const fakeChildrenArray = [{props: {label: "Company Information"}}, {props: {label: "Membership Level"}},{props: {label: "Working Groups"}},{props: {label: "Signing Authority"}},{props: {label: "Preview"}}]
+    const fakeChildrenArray = [{props: {label: 'Company Information'}}, {props: {label: 'Membership Level'}},{props: {label: 'Working Groups'}},{props: {label: 'Signing Authority'}},{props: {label: 'Preview'}}]
 
     const getFakeUser = () => {
-        fetch('membership_data/fake_user.json',{
-            headers : {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-           }})
+        fetch('membership_data/fake_user.json',{ headers: FETCH_HEADER })
           .then(resp => resp.json())
           .then(data => {
             setCurrentUser(data);

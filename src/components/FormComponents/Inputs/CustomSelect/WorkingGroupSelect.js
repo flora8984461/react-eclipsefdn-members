@@ -11,7 +11,7 @@ const WorkingGroupSelect = (props) => {
 
   useEffect(() => {
       // Fetch working groups data
-      fetch("workingGroups.json" , { headers: FETCH_HEADER })
+      fetch('workingGroups.json' , { headers: FETCH_HEADER })
        .then(res=>res.json())
        .then(data => {
          let options = data.working_groups.map(item => ({ label: item.name, value: item.id, participation_levels: item.participation_levels }))
@@ -26,16 +26,16 @@ const WorkingGroupSelect = (props) => {
 
   const handleSelect = (option, action) => {
 
-    if (option && !option.__isNew__ && action !== "clear") {
+    if (option && !option.__isNew__ && action !== 'clear') {
 
-      if (props.srcData === "workingGroups") {
+      if (props.srcData === 'workingGroups') {
         props.form.setFieldValue(props.field.name, option.value)
       }
     }
 
-    if (action.action === "clear") {
-      if (props.srcData === "workingGroups") {
-        props.form.setFieldValue(props.field.name, "")
+    if (action.action === 'clear') {
+      if (props.srcData === 'workingGroups') {
+        props.form.setFieldValue(props.field.name, '')
       }
     }
   }
@@ -53,7 +53,7 @@ const WorkingGroupSelect = (props) => {
       isSearchable
       isLoading={loading}
       options={workingGroupsData}
-      value={getValue(workingGroupsData, props.field.value) || ""}
+      value={getValue(workingGroupsData, props.field.value) || ''}
       onChange={(option, action) => {
         handleSelect(option, action)
       }}

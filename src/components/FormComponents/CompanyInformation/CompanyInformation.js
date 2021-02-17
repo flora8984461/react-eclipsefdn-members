@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import MembershipContext from "../../../Context/MembershipContext";
+import React, { useContext, useEffect, useState } from 'react';
+import MembershipContext from '../../../Context/MembershipContext';
 import { matchCompanyFields, matchContactFields } from '../../../Utils/formFunctionHelpers';
 import Company from './Company';
 import Contacts from './Contacts';

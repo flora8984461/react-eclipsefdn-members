@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Select from "../Inputs/Select";
+import React, { useState, useEffect } from 'react';
+import Select from '../Inputs/Select';
 import { FETCH_HEADER } from '../../../Constants/Constants';
 
 const ParticipationLevel = ({name, workingGroup}) => {

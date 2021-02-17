@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import FormikStepper from './FormikStepper/FormikStepper';
-import CompanyInformation from "./CompanyInformation/CompanyInformation";
-import MembershipLevel from "./MembershipLevel/MembershipLevel";
-import WorkingGroupsWrapper from "./WorkingGroups/WorkingGroupsWrapper";
+import CompanyInformation from './CompanyInformation/CompanyInformation';
+import MembershipLevel from './MembershipLevel/MembershipLevel';
+import WorkingGroupsWrapper from './WorkingGroups/WorkingGroupsWrapper';
 import SigningAuthority from './SigningAuthority/SigningAuthority';
-import Preview from "./Preview/Preview";
+import Preview from './Preview/Preview';
 import { formField } from './formModels/formFieldModel';
 import { initialValues } from '../FormComponents/formModels/formFieldModel';
 

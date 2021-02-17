@@ -4,9 +4,9 @@ import {
   Switch,
   Route,
   Redirect
-} from "react-router-dom";
+} from 'react-router-dom';
 import MultiStepForm from '../FormComponents/MultiStepForm';
-import MembershipContext from "../../Context/MembershipContext";
+import MembershipContext from '../../Context/MembershipContext';
 import SignIn from '../SignIn/SignIn';
 
 const FormWrapper = () => {

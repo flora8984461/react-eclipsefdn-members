@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import Select from '../Inputs/Select';
 import MembershipFeeTable from './MembershipFeeTable';
-import MembershipContext from "../../../Context/MembershipContext";
+import MembershipContext from '../../../Context/MembershipContext';
 import Loading from '../../Loading/Loading';
 import { FETCH_HEADER, membership_levels } from '../../../Constants/Constants';
 

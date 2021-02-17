@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import DateInput from '../Inputs/DateInput';
 
 const EffectiveDate = ({ name }) => {
