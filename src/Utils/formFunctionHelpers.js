@@ -1,9 +1,11 @@
 function checkSameContact(compnayRep, otherContact) {
 
-  const keyArray = Object.keys(compnayRep);
-  if (!otherContact) {
+  if (!otherContact || !compnayRep) {
     return false;
   }
+
+  const keyArray = Object.keys(compnayRep);
+
   for (let i=0; i<keyArray.length; i++) {
     if ( keyArray[i] !== 'id' && keyArray[i] !== 'type' && (compnayRep[keyArray[i]] !== otherContact[keyArray[i]]) ) {
       return false;
