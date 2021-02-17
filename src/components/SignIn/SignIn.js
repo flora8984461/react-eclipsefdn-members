@@ -9,7 +9,7 @@ const SignIn = ({setStep}) => {
 
     const {currentUser, setCurrentUser} = useContext(MembershipContext);
 
-    const fakeChildrenArray = [{props: {label: 'Company Information'}}, {props: {label: 'Membership Level'}},{props: {label: 'Working Groups'}},{props: {label: 'Signing Authority'}},{props: {label: 'Preview'}}]
+    const fakeChildrenArray = [{props: {label: 'Company Information'}}, {props: {label: 'Membership Level'}},{props: {label: 'Working Groups'}},{props: {label: 'Signing Authority'}},{props: {label: 'Review'}}]
 
     const getFakeUser = () => {
         fetch('membership_data/fake_user.json',{ headers: FETCH_HEADER })

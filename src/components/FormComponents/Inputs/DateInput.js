@@ -8,7 +8,7 @@ const DateInput = (props) => {
   const { label, name, ...rest } = props
   return (
     <>
-      <label htmlFor={name}>{label}</label>
+      <label id="effective-date-label" htmlFor={name}>{label}</label>
       <Field name={name}>
         {({ form, field, meta }) => {
           const { setFieldValue } = form

@@ -81,6 +81,7 @@ export const initialValues = {
     firstName: '',
     lastName: '',
     email: '',
+    jobtitle: '',
     id: ''
   }
 
@@ -264,6 +265,11 @@ export const formField = {
       name: 'signingAuthorityRepresentative.lastName',
       label: lastName,
       placeholder: lastName,
+    },
+    {
+      name: 'signingAuthorityRepresentative.jobtitle',
+      label: jobtitle,
+      placeholder: jobtitle,
     },
     {
       name: 'signingAuthorityRepresentative.email',

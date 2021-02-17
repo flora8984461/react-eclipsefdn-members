@@ -22,7 +22,7 @@ const Contacts = ({formValues, formField}) => {
 
   return (
   <>
-    <h4 className="fw-600">Company Representative Contact</h4>
+    <h4 className="fw-600">Company Member Representative<span className="orange-star margin-left-5">*</span></h4>
     <p>Please indicate the primary point of contact between your organization and the Eclipse Foundation. As per the Eclipse Bylaws, the Member Representative shall represent your organization in the General Assembly, have the right to cast any votes on behalf of your organization, and shall have the authority to update information provided to Eclipse Foundation.</p>
     <p>All formal communications from the Eclipse Foundation will be sent to the Member Representative.</p>
     <div className="row">
@@ -30,14 +30,14 @@ const Contacts = ({formValues, formField}) => {
     </div>
 
     <h4 className="fw-600">Company Marketing Representative</h4>
-    <CustomCheckbox name="companyRepresentative.marketingRepresentative.sameAsCompany" label="Same as company Rep." />
+    <CustomCheckbox name="companyRepresentative.marketingRepresentative.sameAsCompany" label="Same as member rep." />
     <div className="row">
       { mktSame && generateContacts(companyRepresentative, 'marketingRepresentative-', mktSame) }
       { !mktSame && generateContacts(marketingRepresentative, 'marketingRepresentative-', mktSame) }
     </div>
 
     <h4 className="fw-600">Company Accounting Representative</h4>
-    <CustomCheckbox name="companyRepresentative.accounting.sameAsCompany" label="Same as company Rep." />
+    <CustomCheckbox name="companyRepresentative.accounting.sameAsCompany" label="Same as member rep." />
     <div className="row">
       { accSame && generateContacts(companyRepresentative, 'accounting-', accSame) }
       { !accSame && generateContacts(accounting, 'accounting-', accSame) }

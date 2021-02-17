@@ -1,11 +1,13 @@
 import React from 'react';
 import { Field } from 'formik';
 
-const Input = ({ name, labelName, placeholder, disableInput }) => {
+const Input = ({ name, labelName, placeholder, disableInput, requiredMark }) => {
 
   return (
     <>
-    <label htmlFor={name}>{labelName}</label><br />
+    <label htmlFor={name}>{labelName}</label>
+    {requiredMark && <span className="orange-star margin-left-5">*</span>}
+    <br />
     <Field name={name}>
       {({
         field,

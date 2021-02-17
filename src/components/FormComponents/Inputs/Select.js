@@ -3,9 +3,14 @@ import { Field, ErrorMessage } from 'formik';
 
 const Select = (props) => {
   const { label, name, options } = props
+
+  const style = {
+    display: 'none'
+  };
+
   return (
     <>
-    <label sr-only="true" htmlFor={name}>{label}</label>
+    <label sr-only="true" style={style} htmlFor={name}>{label}</label>
     <Field name={name}>
       {({ field }) => {
         if (name === 'membershipLevel') {

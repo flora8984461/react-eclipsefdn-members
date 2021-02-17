@@ -8,7 +8,7 @@ const Preview = () => {
   return (
     <>
       <h2 className="fw-600">Review and Submit your Completed Application</h2>
-      <p> Please review your completed Membership Application Form. If you would like to make changes to the information, please click the back button.</p>
+      <p>Please review your completed membership application form. If you would like to make changes to the information, please click the back button.</p>
       <p>Please click <strong>submit</strong> when ready.</p>
       <div className="margin-top-30">
         <h3 className="fw-600">Company Information</h3>

@@ -19,23 +19,23 @@ const Company = () => {
       />
       <div className="row">
         <div className="col-md-8">
-          <Input name="organization.twitterHandle" labelName="Twitter" placeholder="Twitter" />
+          <Input name="organization.twitterHandle" labelName="Twitter" placeholder="@username" />
         </div>
       </div>
 
       <h4 className="fw-600">Address</h4>
       <div className="row">
       <div className="col-md-16">
-        <Input name="organization.address.street" labelName="Street" placeholder="Street" />
+        <Input name="organization.address.street" labelName="Street" placeholder="Street" requiredMark={true} />
       </div>
       <div className="col-md-8">
-        <Input name="organization.address.city" labelName="City" placeholder="City" />
+        <Input name="organization.address.city" labelName="City" placeholder="City" requiredMark={true} />
       </div>
       </div>
 
       <div className="row margin-bottom-40">
         <div className="col-md-8">
-          <label htmlFor="organization.address.country">Country</label>
+          <label htmlFor="organization.address.country">Country</label><span className="orange-star margin-left-5">*</span>
           <CustomSelectWrapper
             name="organization.address.country"
             srcData="country"
@@ -44,10 +44,10 @@ const Company = () => {
           />
         </div>
         <div className="col-md-8">
-          <Input name="organization.address.provinceOrState" labelName="Province or State" placeholder="Province or State" />
+          <Input name="organization.address.provinceOrState" labelName="Province or State" placeholder="Province or State" requiredMark={true} />
         </div>
         <div className="col-md-8">
-          <Input name="organization.address.postalCode" labelName="Postal Code" placeholder="Postal Code" />
+          <Input name="organization.address.postalCode" labelName="Postal Code" placeholder="Postal Code" requiredMark={true} />
         </div>
       </div>
 

@@ -9,7 +9,7 @@ const MembershipFeeTable = () => {
             <thead>
                 <tr>
                   <th width="40%" rowSpan="2">Annual Corporate Revenue
-                  </th><th className="text-center" width="60%" colSpan="3">Annual Eclipse Foundation Membership Fees*</th>
+                  </th><th className="text-center" width="60%" colSpan="3">Annual Eclipse Foundation Membership Fees</th>
                 </tr>
                 <tr>
                   <th className="text-center" width="20%">Strategic</th>
@@ -69,7 +69,6 @@ const MembershipFeeTable = () => {
             </tbody>
           </table>
         </div>
-        <p className="text-center">*There is no cost to being a Committer member of the Foundation</p>
       </>
     )
 }

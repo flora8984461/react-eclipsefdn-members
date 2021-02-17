@@ -24,7 +24,7 @@ const ParticipationLevel = ({name, workingGroup}) => {
 
   return (
     <>
-      <h4 className="fw-600 margin-top-30">What is your intended participation level?</h4>
+      <h4 className="fw-600 margin-top-30">What is your intended participation level?<span className="orange-star margin-left-5">*</span></h4>
       <Select
         label="ParticipationLevel"
         name={name}

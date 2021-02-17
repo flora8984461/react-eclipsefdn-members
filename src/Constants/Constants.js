@@ -13,8 +13,7 @@ export const FETCH_HEADER = {
 
 export const membership_levels = [
     { name: 'Select a level', value: '' },
-    { name: 'Strategic Members', value: 'strategic' },
-    { name: 'Contributing Members (formerly referred to as Solutions Members)', value: 'contributing' },
-    { name: 'Associate Members', value: 'associate' },
-    { name: 'Committer Members', value: 'committer' }
+    { name: 'Strategic Member', value: 'strategic' },
+    { name: 'Contributing Member (formerly referred to as Solutions Members)', value: 'contributing' },
+    { name: 'Associate Member', value: 'associate' }
 ]

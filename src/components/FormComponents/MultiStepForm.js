@@ -44,7 +44,7 @@ const MultiStepForm = () => {
           label="Signing Authority" 
         />
         
-        <Preview formField={formField} label="Preview" />
+        <Preview formField={formField} label="Review" />
 
       </FormikStepper>
     </>

@@ -56,7 +56,7 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
   return (
     <>
       <h2 className="fw-600">Company Information</h2>
-      <p>Please complete your company information below. This should be the legal name and address of your organization. Committer members do not need to provide this information unless it differs from the information provided with their Individual Committer Agreement.</p>
+      <p>Please complete your company information below. This should be the legal name and address of your organization.</p>
       <div className="align-center">
         <Company />
         <Contacts formValues={formValues} formField={formField} />

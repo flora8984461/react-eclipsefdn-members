@@ -32,10 +32,7 @@
   align-items: center;
   justify-content: center;
 }
-.eclipseFdn-membership-webform label[for="membershipLevel"] {
-  display: none;
-}
-.eclipseFdn-membership-webform #working-groups-page label {
+.eclipseFdn-membership-webform label#effective-date-label {
   display: none;
 }
 .eclipseFdn-membership-webform select.form-control {
