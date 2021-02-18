@@ -1,0 +1,38 @@
+[
+    {
+        "effective_date": "1970-01-19T14:24:34Z",
+        "id": "402880987649273c0176492a6c6200fd",
+        "form_id": "form_1",
+        "membership_level": "contributing",
+        "participation_level": "AsciiDoc_level_a",
+        "user_id": "fake_user_1",
+        "working_group": "ascii_doc",
+        "contact": {
+            "id": "111",
+            "form_id": "form_1",
+            "first_name": "Yi",
+            "last_name": "Liu",
+            "email": "yiliu@uottawa.ca",
+            "job_title": "Frontend Developer",
+            "type": "working_group"
+          }
+    },
+    {
+        "effective_date": "1970-01-19T14:20:31Z",
+        "id": "402880987649273c0176492a6c6300fe",
+        "form_id": "form_1",
+        "membership_level": "strategic",
+        "participation_level": "OpenGENESIS_level_c",
+        "user_id": "fake_user_1",
+        "working_group": "opengenesis",
+        "contact": {
+            "id": "777",
+            "form_id": "form_1",
+            "first_name": "Flora",
+            "last_name": "Liu",
+            "email": "FloraLiu@uottawa.ca",
+            "job_title": "Backend Developer",
+            "type": "working_group"
+          }
+    }
+]
