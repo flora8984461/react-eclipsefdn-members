@@ -1,5 +1,6 @@
 package org.eclipsefoundation.react.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -26,17 +27,26 @@ import org.eclipsefoundation.persistence.model.ParameterizedSQLStatementBuilder;
 import org.eclipsefoundation.react.namespace.MembershipFormAPIParameterNames;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * Represents a prospective Working Group relationship with the current organization (based on the form)
+ * 
+ * @author Martin Lowe
+ */
 @Table
 @Entity
-public class Organization extends BareNode {
-    public static final DtoTable TABLE = new DtoTable(Organization.class, "o");
+public class WorkingGroup extends BareNode {
+    public static final DtoTable TABLE = new DtoTable(WorkingGroup.class, "wg");
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
-    private String legalName;
-    private String twitterHandle;
+    @JsonProperty("working_group")
+    private String workingGroupID;
+    private String participationLevel;
+    private Date effectiveDate;
 
     // form entity
     @JsonbTransient
@@ -47,28 +57,22 @@ public class Organization extends BareNode {
     private String formID;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Address address;
+    @JoinColumn(referencedColumnName = "id")
+    private Contact contact;
 
+    /**
+     * @return the id
+     */
     @Override
     public String getId() {
         return id;
     }
 
-    /** @param id the id to set */
-    @JsonbTransient
+    /**
+     * @param id the id to set
+     */
     public void setId(String id) {
         this.id = id;
-    }
-
-    /** @return the formID */
-    public String getFormID() {
-        return formID;
-    }
-
-    /** @param formID the formID to set */
-    @JsonbTransient
-    public void setFormID(String formID) {
-        this.formID = formID;
     }
 
     /**
@@ -85,45 +89,82 @@ public class Organization extends BareNode {
         this.form = form;
     }
 
-    /** @return the legalName */
-    public String getLegalName() {
-        return legalName;
-    }
-
-    /** @param legalName the legalName to set */
-    public void setLegalName(String legalName) {
-        this.legalName = legalName;
+    /**
+     * @return the formID
+     */
+    public String getFormID() {
+        return formID;
     }
 
     /**
-     * @return the twitterHandle
+     * @param formID the formID to set
      */
-    public String getTwitterHandle() {
-        return twitterHandle;
+    public void setFormID(String formID) {
+        this.formID = formID;
     }
 
     /**
-     * @param twitterHandle the twitterHandle to set
+     * @return the workingGroupID
      */
-    public void setTwitterHandle(String twitterHandle) {
-        this.twitterHandle = twitterHandle;
+    public String getWorkingGroupID() {
+        return workingGroupID;
     }
 
-    /** @return the address */
-    public Address getAddress() {
-        return address;
+    /**
+     * @param workingGroupID the workingGroupID to set
+     */
+    public void setWorkingGroupID(String workingGroupID) {
+        this.workingGroupID = workingGroupID;
     }
 
-    /** @param address the address to set */
-    public void setAddress(Address address) {
-        this.address = address;
+    /**
+     * @return the participationLevel
+     */
+    public String getParticipationLevel() {
+        return participationLevel;
+    }
+
+    /**
+     * @param participationLevel the participationLevel to set
+     */
+    public void setParticipationLevel(String participationLevel) {
+        this.participationLevel = participationLevel;
+    }
+
+    /**
+     * @return the effectiveDate
+     */
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    /**
+     * @param effectiveDate the effectiveDate to set
+     */
+    public void setEffectiveDate(Date effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+    /**
+     * @return the contact
+     */
+    public Contact getContact() {
+        return contact;
+    }
+
+    /**
+     * @param contact the contact to set
+     */
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(address, form, formID, id, legalName, twitterHandle);
+        result = prime * result
+                + Objects.hash(contact, effectiveDate, form, formID, id, participationLevel, workingGroupID);
         return result;
     }
 
@@ -135,33 +176,36 @@ public class Organization extends BareNode {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Organization other = (Organization) obj;
-        return Objects.equals(address, other.address) && Objects.equals(form, other.form)
-                && Objects.equals(formID, other.formID) && Objects.equals(id, other.id)
-                && Objects.equals(legalName, other.legalName) && Objects.equals(twitterHandle, other.twitterHandle);
+        WorkingGroup other = (WorkingGroup) obj;
+        return Objects.equals(contact, other.contact) && Objects.equals(effectiveDate, other.effectiveDate)
+                && Objects.equals(form, other.form) && Objects.equals(formID, other.formID)
+                && Objects.equals(id, other.id) && Objects.equals(participationLevel, other.participationLevel)
+                && Objects.equals(workingGroupID, other.workingGroupID);
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Organization [id=");
+        builder.append("WorkingGroup [id=");
         builder.append(id);
-        builder.append(", legalName=");
-        builder.append(legalName);
-        builder.append(", twitterHandle=");
-        builder.append(twitterHandle);
+        builder.append(", workingGroupID=");
+        builder.append(workingGroupID);
+        builder.append(", participationLevel=");
+        builder.append(participationLevel);
+        builder.append(", effectiveDate=");
+        builder.append(effectiveDate);
         builder.append(", form=");
         builder.append(form);
         builder.append(", formID=");
         builder.append(formID);
-        builder.append(", address=");
-        builder.append(address);
+        builder.append(", contact=");
+        builder.append(contact);
         builder.append("]");
         return builder.toString();
     }
 
     @Singleton
-    public static class OrganizationFilter implements DtoFilter<Organization> {
+    public static class WorkingGroupFilter implements DtoFilter<WorkingGroup> {
         @Inject
         ParameterizedSQLStatementBuilder builder;
 
@@ -186,8 +230,8 @@ public class Organization extends BareNode {
         }
 
         @Override
-        public Class<Organization> getType() {
-            return Organization.class;
+        public Class<WorkingGroup> getType() {
+            return WorkingGroup.class;
         }
     }
 }
