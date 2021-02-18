@@ -28,7 +28,7 @@ export function matchCompanyFields(existingOrganizationData, existingFormStateDa
   return {
     // Step1: company Info
     organization: {
-      id: existingOrganizationData?.organization_id || "",
+      id: existingOrganizationData?.id || "",
       legalName: {
         value: existingOrganizationData?.legal_name || "",
         label: existingOrganizationData?.legal_name || "",
@@ -114,8 +114,6 @@ export function matchWorkingGroupFields(existingMembershipData, existingFormStat
 //== Transform data from my form model to PUT or POST for backend
 export function matchCompanyFieldsToBackend(organizationData, formId) {
 
-  // if new, organization_id not exists, remove organization_id
-
   return {
     address: {
       city: organizationData.address.city,
@@ -125,7 +123,7 @@ export function matchCompanyFieldsToBackend(organizationData, formId) {
       street: organizationData.address.street
     },
   form_id: formId,
-  organization_id: organizationData.id,
+  id: organizationData.id,
   legal_name: organizationData.legalName.label
   }
 }
@@ -175,19 +173,19 @@ export async function executeSendDataByStep(step, formData, formId, userId) {
 
   switch(step) {
     case 0:
-      sendData(`/form/${formId}/organizations`, matchCompanyFieldsToBackend(formData.organization, formId), "organizations")
-      sendData(`/form/${formId}contacts`, matchContactFieldsToBackend(formData.companyRepresentative.representative, 'company', formId))
-      sendData(`/form/${formId}contacts`, matchContactFieldsToBackend(formData.companyRepresentative.marketingRepresentative, 'marketing', formId))
-      sendData(`/form/${formId}contacts`, matchContactFieldsToBackend(formData.companyRepresentative.accounting, 'accounting', formId))
+      sendData(formId, 'organizations', matchCompanyFieldsToBackend(formData.organization, formId))
+      sendData(formId, 'contacts', matchContactFieldsToBackend(formData.companyRepresentative.representative, 'company', formId))
+      sendData(formId, 'contacts', matchContactFieldsToBackend(formData.companyRepresentative.marketingRepresentative, 'marketing', formId))
+      sendData(formId, 'contacts', matchContactFieldsToBackend(formData.companyRepresentative.accounting, 'accounting', formId))
       break;
 
     case 1:
-      sendData(`/form/${formId}`, matchMembershipLevelFieldsToBackend(formData.membershipLevel, formId, userId))
+      sendData(formId, '', matchMembershipLevelFieldsToBackend(formData.membershipLevel, formId, userId))
       break;
 
     case 2:
       formData.workingGroups.forEach(item => {
-        sendData(`/form/${formId}/working_groups`, matchWGFieldsToBackend(item, formId))
+        sendData(formId, 'working_groups', matchWGFieldsToBackend(item, formId))
       });
       break;
 
@@ -199,8 +197,28 @@ export async function executeSendDataByStep(step, formData, formId, userId) {
   }
 }
 
+function callSendData(formId, endpoint='', method, dataBody, entityId='') {
+
+  let url = `http://localhost:8090/form/${formId}`;
+
+  if (endpoint) {
+    url = `http://localhost:8090/form/${formId}/${endpoint}`;
+  }
+
+  if (entityId && entityId !== formId) {
+    url = `http://localhost:8090/form/${formId}/${endpoint}/${entityId}`;
+  }
+
+  fetch(url, {
+    method: method,
+    body: dataBody
+  }).then( res => {
+    console.log(res.status);
+  })
+}
+
 // PUT or POST function
-export function sendData(endpoint, dataBody, type) {
+export function sendData(formId, endpoint, dataBody) {
   // fetch(`${endpoint}/${formId}`, {
   //   method: 'PUT',
   //   body: dataBody
@@ -212,26 +230,45 @@ export function sendData(endpoint, dataBody, type) {
   //   }
   // })
 
-  switch(type) {
+  switch(endpoint) {
     case "organizations":
-      if (!dataBody.organization_id || dataBody.organization_id === 'new') {
-        console.log("You send request to: " + endpoint + "By method POST")
-        delete dataBody.organization_id;
-        console.log("You data body is: " + JSON.stringify(dataBody));
+      if (!dataBody.id || formId === 'new') {
+        delete dataBody.id;
+        callSendData(formId, endpoint, 'POST', dataBody);
       } else {
-        console.log("You send request to:" + endpoint + "/" + dataBody.organization_id + "; By method PUT")
-        console.log("You data body is: " + JSON.stringify(dataBody));
+        callSendData(formId, endpoint, 'PUT', dataBody, dataBody.id);
       }
       break;
 
     default:
       if (!dataBody.id) {
-        console.log("You send request to: " + endpoint + "; By method POST")
         delete dataBody.id;
-        console.log("You data body is: " + JSON.stringify(dataBody));
+        callSendData(formId, endpoint, 'POST', dataBody);
       } else {
-        console.log("You send request to:" + endpoint + "/" + dataBody.id + "; By method PUT")
-        console.log("You data body is: " + JSON.stringify(dataBody));
+        callSendData(formId, endpoint, 'PUT', dataBody, dataBody.id);
       }
   }
+
+  // switch(type) {
+  //   case "organizations":
+  //     if (!dataBody.id || dataBody.id === 'new') {
+  //       console.log("You send request to: " + endpoint + "By method POST")
+  //       delete dataBody.id;
+  //       console.log("You data body is: " + JSON.stringify(dataBody));
+  //     } else {
+  //       console.log("You send request to:" + endpoint + "/" + dataBody.id + "; By method PUT")
+  //       console.log("You data body is: " + JSON.stringify(dataBody));
+  //     }
+  //     break;
+
+  //   default:
+  //     if (!dataBody.id) {
+  //       console.log("You send request to: " + endpoint + "; By method POST")
+  //       delete dataBody.id;
+  //       console.log("You data body is: " + JSON.stringify(dataBody));
+  //     } else {
+  //       console.log("You send request to:" + endpoint + "/" + dataBody.id + "; By method PUT")
+  //       console.log("You data body is: " + JSON.stringify(dataBody));
+  //     }
+  // }
 }
