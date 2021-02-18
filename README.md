@@ -60,7 +60,7 @@ With these properties updated, the server should be able to start and authentica
 
 #### Running
 
-To run the server as a local instance as a stack, first run `npm run build`. This will package the React app and copy it into the static web resources of the server source. To run as a development application, which is the fastest way with the least dependencies, run the following command: `mvn compile quarkus:dev -Dconfig.secret.path=$(pwd)/config/secret.properties`.
+To run the server as a local instance as a stack, first run `npm run build`. This will package the React app and copy it into the static web resources of the server source. To run as a development application, which is the fastest way with the least dependencies, run the following command: `mvn compile quarkus:dev -Dconfig.secret.path=$(pwd)/config/secret.properties` or `mvn compile quarkus:dev "-Dconfig.secret.path=$pwd/config/secret.properties"` when running in a Windows PowerShell.
 
 ## Contributing
 
