@@ -15,7 +15,7 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   useEffect(() => {
 
     if(currentFormId && currentFormId !== 'new') {
-      fetch(`membership_data/${currentFormId}/workingGroups.json`,{headers: FETCH_HEADER})
+      fetch(`http://localhost:8090/form/${currentFormId}/working_groups`,{headers: FETCH_HEADER})
       .then(resp => resp.json())
       .then(data => {
         if(data.length) {

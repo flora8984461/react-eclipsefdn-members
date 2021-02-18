@@ -17,8 +17,8 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
 
     if (currentFormId && currentFormId !== 'new') {
       let pool = [
-        fetch(`membership_data/${currentFormId}/organizations.json`,{headers : FETCH_HEADER}), 
-        fetch(`membership_data/${currentFormId}/contacts.json`,{headers : FETCH_HEADER})
+        fetch(`http://localhost:8090/form/${currentFormId}/organizations`,{headers : FETCH_HEADER}), 
+        fetch(`http://localhost:8090/form/${currentFormId}/contacts`,{headers : FETCH_HEADER})
       ]
   
       Promise.all(pool)
