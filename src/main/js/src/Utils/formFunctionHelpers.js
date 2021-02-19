@@ -1,3 +1,4 @@
+
 function checkSameContact(compnayRep, otherContact) {
 
   if (!otherContact || !compnayRep) {
@@ -141,6 +142,17 @@ export function matchMembershipLevelFieldsToBackend(membershipLevel, formId, use
 
 export function matchContactFieldsToBackend(contactData, contactType, formId) {
 
+  if (contactType === 'WORKING_GROUP' && !contactData.id) {
+    return {
+      form_id: formId,
+      first_name: contactData.firstName,
+      last_name: contactData.lastName,
+      job_title: contactData.jobtitle,
+      email: contactData.email,
+      type: contactType
+    }
+  }
+
   return {
     id: contactData.id,
     form_id: formId,
@@ -155,7 +167,7 @@ export function matchContactFieldsToBackend(contactData, contactType, formId) {
 
 export function matchWGFieldsToBackend(eachWorkingGroupData, formId) {
 
-  var wg_contact = matchContactFieldsToBackend(eachWorkingGroupData.workingGroupRepresentative, "WORKING_GROUP", formId);
+  var wg_contact = matchContactFieldsToBackend(eachWorkingGroupData.workingGroupRepresentative, 'WORKING_GROUP', formId);
 
   return {
     id: eachWorkingGroupData.id,
@@ -209,9 +221,14 @@ function callSendData(formId, endpoint='', method, dataBody, entityId='') {
     url = `http://localhost:8090/form/${formId}/${endpoint}/${entityId}`;
   }
 
+  delete dataBody.id;
+
   fetch(url, {
     method: method,
-    body: dataBody
+    headers: {
+      'Content-Type': 'application/json'
+  },
+    body: JSON.stringify(dataBody)
   }).then( res => {
     console.log(res.status);
   })
@@ -241,7 +258,6 @@ export function sendData(formId, endpoint, dataBody) {
       break;
 
     default:
-      console.log(dataBody)
       if (!dataBody.id) {
         delete dataBody.id;
         callSendData(formId, endpoint, 'POST', dataBody);
@@ -250,26 +266,4 @@ export function sendData(formId, endpoint, dataBody) {
       }
   }
 
-  // switch(type) {
-  //   case "organizations":
-  //     if (!dataBody.id || dataBody.id === 'new') {
-  //       console.log("You send request to: " + endpoint + "By method POST")
-  //       delete dataBody.id;
-  //       console.log("You data body is: " + JSON.stringify(dataBody));
-  //     } else {
-  //       console.log("You send request to:" + endpoint + "/" + dataBody.id + "; By method PUT")
-  //       console.log("You data body is: " + JSON.stringify(dataBody));
-  //     }
-  //     break;
-
-  //   default:
-  //     if (!dataBody.id) {
-  //       console.log("You send request to: " + endpoint + "; By method POST")
-  //       delete dataBody.id;
-  //       console.log("You data body is: " + JSON.stringify(dataBody));
-  //     } else {
-  //       console.log("You send request to:" + endpoint + "/" + dataBody.id + "; By method PUT")
-  //       console.log("You data body is: " + JSON.stringify(dataBody));
-  //     }
-  // }
 }
