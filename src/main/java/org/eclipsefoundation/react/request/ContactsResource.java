@@ -87,9 +87,15 @@ public class ContactsResource extends AbstractRESTResource {
     @PUT
     @Path("{contactID}")
     public List<Contact> update(@PathParam("id") String formID, @PathParam("contactID") String id, Contact contact) {
-        contact.setId(id);
-        contact.setForm(dao.getReference(formID, MembershipForm.class));
-        return dao.add(new RDBMSQuery<>(wrap, filters.get(Contact.class)), Arrays.asList(contact));
+        // need to fetch ref to use attached entity
+        Contact ref = dao.getReference(id, Contact.class);
+        ref.setEmail(contact.getEmail());
+        ref.setfName(contact.getfName());
+        ref.setlName(contact.getlName());
+        ref.setTitle(contact.getTitle());
+        ref.setType(contact.getType());
+        ref.setForm(dao.getReference(formID, MembershipForm.class));
+        return dao.add(new RDBMSQuery<>(wrap, filters.get(Contact.class)), Arrays.asList(ref));
     }
 
     @DELETE
