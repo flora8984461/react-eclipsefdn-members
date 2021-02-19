@@ -50,9 +50,9 @@ export function matchCompanyFields(existingOrganizationData, existingFormStateDa
 
 export function matchContactFields(existingContactData, existingFormStateData) {
 
-  let existingCompanyContact = existingContactData.find(el => el.type === "company")
-  let existingMarketingContact = existingContactData.find(el => el.type === "marketing")
-  let existingAccoutingContact = existingContactData.find(el => el.type === "accounting")
+  let existingCompanyContact = existingContactData.find(el => el.type === "COMPANY")
+  let existingMarketingContact = existingContactData.find(el => el.type === "MARKETING")
+  let existingAccoutingContact = existingContactData.find(el => el.type === "ACCOUNTING")
 
   return {
     companyRepresentative: {
@@ -134,7 +134,7 @@ export function matchMembershipLevelFieldsToBackend(membershipLevel, formId, use
     id: formId,
     user_id: userId,
     membership_level: membershipLevel,
-    // signing_authority: tbd
+    signing_authority: true
   }
 
 }
@@ -155,7 +155,7 @@ export function matchContactFieldsToBackend(contactData, contactType, formId) {
 
 export function matchWGFieldsToBackend(eachWorkingGroupData, formId) {
 
-  var wg_contact = matchContactFieldsToBackend(eachWorkingGroupData.workingGroupRepresentative, "working_group", formId);
+  var wg_contact = matchContactFieldsToBackend(eachWorkingGroupData.workingGroupRepresentative, "WORKING_GROUP", formId);
 
   return {
     id: eachWorkingGroupData.id,
@@ -174,9 +174,9 @@ export async function executeSendDataByStep(step, formData, formId, userId) {
   switch(step) {
     case 0:
       sendData(formId, 'organizations', matchCompanyFieldsToBackend(formData.organization, formId))
-      sendData(formId, 'contacts', matchContactFieldsToBackend(formData.companyRepresentative.representative, 'company', formId))
-      sendData(formId, 'contacts', matchContactFieldsToBackend(formData.companyRepresentative.marketingRepresentative, 'marketing', formId))
-      sendData(formId, 'contacts', matchContactFieldsToBackend(formData.companyRepresentative.accounting, 'accounting', formId))
+      sendData(formId, 'contacts', matchContactFieldsToBackend(formData.companyRepresentative.representative, 'COMPANY', formId))
+      sendData(formId, 'contacts', matchContactFieldsToBackend(formData.companyRepresentative.marketingRepresentative, 'MARKETING', formId))
+      sendData(formId, 'contacts', matchContactFieldsToBackend(formData.companyRepresentative.accounting, 'ACCOUNTING', formId))
       break;
 
     case 1:
@@ -241,6 +241,7 @@ export function sendData(formId, endpoint, dataBody) {
       break;
 
     default:
+      console.log(dataBody)
       if (!dataBody.id) {
         delete dataBody.id;
         callSendData(formId, endpoint, 'POST', dataBody);
