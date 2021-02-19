@@ -40,7 +40,7 @@ public class Organization extends BareNode {
 
     // form entity
     @JsonbTransient
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "form_id", referencedColumnName = "id")
     private MembershipForm form;
     @Column(name = "form_id", updatable = false, insertable = false)
