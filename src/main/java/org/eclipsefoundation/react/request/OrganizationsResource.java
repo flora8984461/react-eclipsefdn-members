@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import org.eclipsefoundation.core.helper.CSRFHelper;
 import org.eclipsefoundation.core.namespace.DefaultUrlParameterNames;
 import org.eclipsefoundation.persistence.model.RDBMSQuery;
+import org.eclipsefoundation.react.model.Address;
 import org.eclipsefoundation.react.model.MembershipForm;
 import org.eclipsefoundation.react.model.Organization;
 import org.eclipsefoundation.react.namespace.MembershipFormAPIParameterNames;
@@ -57,6 +58,7 @@ public class OrganizationsResource extends AbstractRESTResource {
     @POST
     public List<Organization> create(@PathParam("id") String formID, Organization org) {
         org.setForm(dao.getReference(formID, MembershipForm.class));
+        org.setFormID(formID);
         return dao.add(new RDBMSQuery<>(wrap, filters.get(Organization.class)), Arrays.asList(org));
     }
 
@@ -85,10 +87,13 @@ public class OrganizationsResource extends AbstractRESTResource {
     public List<Organization> update(@PathParam("id") String formID, @PathParam("orgID") String id, Organization org) {
         // need to fetch ref to use attached entity
         Organization ref = dao.getReference(id, Organization.class);
+        ref.setFormID(formID);
         ref.setForm(dao.getReference(formID, MembershipForm.class));
-        ref.setAddress(org.getAddress());
-        ref.setLegalName(org.getLegalName());
-        ref.setTwitterHandle(org.getTwitterHandle());
+        // update the nested contact
+        if (ref.getAddress().getId() != null) {
+            // update the address object to get entity ref if set
+            ref.setAddress(org.getAddress().cloneTo(dao.getReference(org.getAddress().getId(), Address.class)));
+        }
         return dao.add(new RDBMSQuery<>(wrap, filters.get(Organization.class)), Arrays.asList(ref));
     }
 

@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Table
 @Entity
-public class WorkingGroup extends BareNode {
+public class WorkingGroup extends BareNode implements TargetedClone<WorkingGroup> {
     public static final DtoTable TABLE = new DtoTable(WorkingGroup.class, "wg");
 
     @Id
@@ -156,6 +156,15 @@ public class WorkingGroup extends BareNode {
      */
     public void setContact(Contact contact) {
         this.contact = contact;
+    }
+
+    @Override
+    public WorkingGroup cloneTo(WorkingGroup target) {
+        target.setContact(getContact());
+        target.setEffectiveDate(getEffectiveDate());
+        target.setParticipationLevel(getParticipationLevel());
+        target.setWorkingGroupID(getWorkingGroupID());
+        return target;
     }
 
     @Override

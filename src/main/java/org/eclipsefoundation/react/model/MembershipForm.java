@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Table
 @Entity
-public class MembershipForm extends BareNode {
+public class MembershipForm extends BareNode implements TargetedClone<MembershipForm>{
     public static final DtoTable TABLE = new DtoTable(MembershipForm.class, "m");
 
     @Id
@@ -74,6 +74,14 @@ public class MembershipForm extends BareNode {
     /** @param signingAuthority the signingAuthority to set */
     public void setSigningAuthority(boolean signingAuthority) {
         this.signingAuthority = signingAuthority;
+    }
+
+    @Override
+    public MembershipForm cloneTo(MembershipForm target) {
+        target.setUserID(getUserID());
+        target.setMembershipLevel(getMembershipLevel());
+        target.setSigningAuthority(isSigningAuthority());
+        return target;
     }
 
     @Override
