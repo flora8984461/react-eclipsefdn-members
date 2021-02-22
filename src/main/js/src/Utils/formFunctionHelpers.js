@@ -61,7 +61,7 @@ export function matchContactFields(existingContactData, existingFormStateData) {
         id: existingCompanyContact?.id || "",
         firstName: existingCompanyContact?.first_name || "",
         lastName: existingCompanyContact?.last_name || "",
-        jobtitle: existingCompanyContact?.title || "",
+        jobtitle: existingCompanyContact?.job_title || "",
         email: existingCompanyContact?.email || ""
       },
   
@@ -69,7 +69,7 @@ export function matchContactFields(existingContactData, existingFormStateData) {
         id: existingMarketingContact?.id || "",
         firstName: existingMarketingContact?.first_name || "",
         lastName: existingMarketingContact?.last_name || "",
-        jobtitle: existingMarketingContact?.title || "",
+        jobtitle: existingMarketingContact?.job_title || "",
         email: existingMarketingContact?.email || "",
         sameAsCompany: checkSameContact(existingCompanyContact, existingMarketingContact)
       },
@@ -78,7 +78,7 @@ export function matchContactFields(existingContactData, existingFormStateData) {
         id: existingAccoutingContact?.id || "",
         firstName: existingAccoutingContact?.first_name || "",
         lastName: existingAccoutingContact?.last_name || "",
-        jobtitle: existingAccoutingContact?.title || "",
+        jobtitle: existingAccoutingContact?.job_title || "",
         email: existingAccoutingContact?.email || "",
         sameAsCompany: checkSameContact(existingCompanyContact, existingAccoutingContact)
       }

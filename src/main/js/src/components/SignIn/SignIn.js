@@ -15,8 +15,8 @@ const SignIn = ({setStep}) => {
         fetch('http://localhost:8090/userinfo',{ headers: FETCH_HEADER })
         .then(res=> res.json())
         .then(data=> {
-            console.log(data)
-            setCurrentUser(data?.name);
+            console.log(data)  // {family_name: "User1", given_name: "User1", name: "user1"}
+            setCurrentUser(data);
         })
         .catch(err => console.log(err));
     // eslint-disable-next-line
@@ -41,7 +41,6 @@ const SignIn = ({setStep}) => {
         <SignInIntroduction />
         <StepperComponent step={-1} childrenArray={fakeChildrenArray} />
             <div className="text-center margin-bottom-20">
-                {/* <button type="button" onClick={getFakeUser} className="btn btn-secondary">Sign In</button> */}
                 <a href="/login" className="btn btn-secondary">Sign In</a>
                 <a href="https://accounts.eclipse.org/" className="btn btn-secondary">Create an account</a>
             </div>

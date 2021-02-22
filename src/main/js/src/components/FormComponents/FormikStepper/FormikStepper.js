@@ -50,12 +50,12 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
         if (values.companyRepresentative.accounting.sameAsCompany) {
           assignContactData(values.companyRepresentative.accounting, values.companyRepresentative.representative)
         }
-        await executeSendDataByStep(step, values, currentFormId, currentUser.user_id);
+        await executeSendDataByStep(step, values, currentFormId, currentUser.name);
         defaultBehaviour();
         break;
 
       default:
-        await executeSendDataByStep(step, values, currentFormId, currentUser.user_id);
+        await executeSendDataByStep(step, values, currentFormId, currentUser.name);
         defaultBehaviour();
     }
   }

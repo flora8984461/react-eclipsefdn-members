@@ -14,6 +14,7 @@ const FormChooser = ({currentUser}) => {
         .then(res=> res.json())
         .then(data=> {
             setCurrentFormId(data[0]?.id);
+            console.log(data[0]?.id)
         })
         .catch(err => console.log(err));
     }
