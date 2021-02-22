@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -35,7 +34,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Table
 @Entity
-public class Contact extends BareNode {
+public class Contact extends BareNode implements TargetedClone<Contact> {
     public static final DtoTable TABLE = new DtoTable(Contact.class, "c");
 
     @Id
@@ -146,6 +145,17 @@ public class Contact extends BareNode {
     }
 
     @Override
+    public Contact cloneTo(Contact target) {
+        target.setEmail(getEmail());
+        target.setfName(getfName());
+        target.setlName(getlName());
+        target.setTitle(getTitle());
+        target.setType(getType());
+        target.setForm(getForm());
+        return target;
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
@@ -199,3 +209,5 @@ public class Contact extends BareNode {
         }
     }
 }
+
+

@@ -84,11 +84,9 @@ public class MembershipFormResource extends AbstractRESTResource {
     @PUT
     @Path("{id}")
     public List<MembershipForm> update(@PathParam("id") String formID, MembershipForm mem) {
+        mem.setUserID(ident.getPrincipal().getName());
         // need to fetch ref to use attached entity
-        MembershipForm ref = dao.getReference(formID, MembershipForm.class);
-        ref.setUserID(ident.getPrincipal().getName());
-        ref.setMembershipLevel(mem.getMembershipLevel());
-        ref.setSigningAuthority(mem.isSigningAuthority());
+        MembershipForm ref = mem.cloneTo(dao.getReference(formID, MembershipForm.class));
         return dao.add(new RDBMSQuery<>(wrap, filters.get(MembershipForm.class)), Arrays.asList(ref));
     }
 
