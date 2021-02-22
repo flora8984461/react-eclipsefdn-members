@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.eclipsefoundation.core.namespace.DefaultUrlParameterNames;
+import org.eclipsefoundation.persistence.dto.BareNode;
 import org.eclipsefoundation.persistence.dto.filter.DtoFilter;
 import org.eclipsefoundation.persistence.model.DtoTable;
 import org.eclipsefoundation.persistence.model.ParameterizedSQLStatement;
@@ -26,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Table
 @Entity
-public class Address {
+public class Address extends BareNode implements TargetedClone<Address> {
     public static final DtoTable TABLE = new DtoTable(Address.class, "a");
 
     @Id
@@ -44,6 +45,7 @@ public class Address {
     private String postalCode;
 
     /** @return the id */
+    @Override
     public String getId() {
         return id;
     }
@@ -111,6 +113,17 @@ public class Address {
     /** @param postalCode the postalCode to set */
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    @Override
+    public Address cloneTo(Address target) {
+        target.setCity(getCity());
+        target.setCountry(getCountry());
+        target.setOrganizationID(getOrganizationID());
+        target.setPostalCode(getPostalCode());
+        target.setProvinceState(getProvinceState());
+        target.setStreet(getStreet());
+        return target;
     }
 
     @Override

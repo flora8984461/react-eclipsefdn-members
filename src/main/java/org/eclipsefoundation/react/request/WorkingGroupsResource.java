@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import org.eclipsefoundation.core.helper.CSRFHelper;
 import org.eclipsefoundation.core.namespace.DefaultUrlParameterNames;
 import org.eclipsefoundation.persistence.model.RDBMSQuery;
+import org.eclipsefoundation.react.model.Contact;
 import org.eclipsefoundation.react.model.MembershipForm;
 import org.eclipsefoundation.react.model.WorkingGroup;
 import org.eclipsefoundation.react.namespace.MembershipFormAPIParameterNames;
@@ -57,6 +58,18 @@ public class WorkingGroupsResource extends AbstractRESTResource {
     @POST
     public List<WorkingGroup> createWorkingGroup(@PathParam("id") String formID, WorkingGroup wg) {
         wg.setForm(dao.getReference(formID, MembershipForm.class));
+        wg.setFormID(formID);
+        // update the nested contact
+        if (wg.getContact() != null) {
+            if (wg.getContact().getId() != null) {
+                // update the contact object to get entity wg if set
+                Contact c = dao.getReference(wg.getContact().getId(), Contact.class);
+                wg.setContact(wg.getContact().cloneTo(c));
+            }
+            // set the form back for wgerences
+            wg.getContact().setForm(wg.getForm());
+            wg.getContact().setFormID(formID);
+        }
         return dao.add(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class)), Arrays.asList(wg));
     }
 
@@ -84,13 +97,21 @@ public class WorkingGroupsResource extends AbstractRESTResource {
     public List<WorkingGroup> updateWorkingGroup(@PathParam("id") String formID, WorkingGroup wg,
             @PathParam("wgID") String wgID) {
         // need to fetch ref to use attached entity
-        WorkingGroup ref = dao.getReference(formID, WorkingGroup.class);
+        WorkingGroup ref = wg.cloneTo(dao.getReference(wgID, WorkingGroup.class));
+        ref.setFormID(formID);
         ref.setForm(dao.getReference(formID, MembershipForm.class));
-        ref.setContact(wg.getContact());
-        ref.setEffectiveDate(wg.getEffectiveDate());
-        ref.setParticipationLevel(wg.getParticipationLevel());
-        ref.setWorkingGroupID(wg.getWorkingGroupID());
-        return dao.add(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class)), Arrays.asList(wg));
+        // update the nested contact
+        if (ref.getContact() != null) {
+            if (ref.getContact().getId() != null) {
+                // update the contact object to get entity ref if set
+                Contact c = dao.getReference(wg.getContact().getId(), Contact.class);
+                ref.setContact(ref.getContact().cloneTo(c));
+            }
+            // set the form back for references
+            ref.getContact().setForm(ref.getForm());
+            ref.getContact().setFormID(formID);
+        }
+        return dao.add(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class)), Arrays.asList(ref));
     }
 
     @DELETE

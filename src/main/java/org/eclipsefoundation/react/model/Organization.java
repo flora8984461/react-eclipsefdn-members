@@ -8,7 +8,6 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -28,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Table
 @Entity
-public class Organization extends BareNode {
+public class Organization extends BareNode implements TargetedClone<Organization> {
     public static final DtoTable TABLE = new DtoTable(Organization.class, "o");
 
     @Id
@@ -117,6 +116,14 @@ public class Organization extends BareNode {
     /** @param address the address to set */
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public Organization cloneTo(Organization target) {
+        target.setAddress(getAddress());
+        target.setLegalName(getLegalName());
+        target.setTwitterHandle(getTwitterHandle());
+        return target;
     }
 
     @Override
