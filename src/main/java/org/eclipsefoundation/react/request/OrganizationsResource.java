@@ -2,7 +2,6 @@ package org.eclipsefoundation.react.request;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -47,13 +46,12 @@ public class OrganizationsResource extends AbstractRESTResource {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl<>();
         params.add(MembershipFormAPIParameterNames.FORM_ID.getName(), formID);
         // retrieve the possible cached object
-        Optional<List<Organization>> cachedResults = cache.get(formID, params, Organization.class,
-                () -> dao.get(new RDBMSQuery<>(wrap, filters.get(Organization.class), params)));
-        if (!cachedResults.isPresent()) {
+        List<Organization> results = dao.get(new RDBMSQuery<>(wrap, filters.get(Organization.class), params));
+        if (results == null) {
             return Response.serverError().build();
         }
         // return the results as a response
-        return responseBuider.build(formID, wrap, params, cachedResults.get(), Organization.class);
+        return Response.ok(results).build();
     }
 
     @POST
@@ -74,13 +72,12 @@ public class OrganizationsResource extends AbstractRESTResource {
         params.add(MembershipFormAPIParameterNames.FORM_ID.getName(), formID);
 
         // retrieve the possible cached object
-        Optional<List<Organization>> cachedResults = cache.get(id, params, Organization.class,
-                () -> dao.get(new RDBMSQuery<>(wrap, filters.get(Organization.class), params)));
-        if (!cachedResults.isPresent()) {
+        List<Organization> results = dao.get(new RDBMSQuery<>(wrap, filters.get(Organization.class), params));
+        if (results == null) {
             return Response.serverError().build();
         }
         // return the results as a response
-        return responseBuider.build(id, wrap, params, cachedResults.get(), Organization.class);
+        return Response.ok(results).build();
     }
 
     @PUT

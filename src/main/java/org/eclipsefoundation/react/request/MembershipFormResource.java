@@ -2,7 +2,6 @@ package org.eclipsefoundation.react.request;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -50,13 +49,12 @@ public class MembershipFormResource extends AbstractRESTResource {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl<>();
         params.add(MembershipFormAPIParameterNames.USER_ID.getName(), ident.getPrincipal().getName());
         // retrieve the possible cached object
-        Optional<List<MembershipForm>> cachedResults = cache.get(ALL_CACHE_PLACEHOLDER, params, MembershipForm.class,
-                () -> dao.get(new RDBMSQuery<>(wrap, filters.get(MembershipForm.class), params)));
-        if (!cachedResults.isPresent()) {
+        List<MembershipForm> results = dao.get(new RDBMSQuery<>(wrap, filters.get(MembershipForm.class), params));
+        if (results == null) {
             return Response.serverError().build();
         }
         // return the results as a response
-        return responseBuider.build(ALL_CACHE_PLACEHOLDER, wrap, params, cachedResults.get(), MembershipForm.class);
+        return Response.ok(results).build();
     }
 
     @GET
@@ -69,13 +67,12 @@ public class MembershipFormResource extends AbstractRESTResource {
         params.add(DefaultUrlParameterNames.ID.getName(), formID);
 
         // retrieve the possible cached object
-        Optional<List<MembershipForm>> cachedResults = cache.get(formID, params, MembershipForm.class,
-                () -> dao.get(new RDBMSQuery<>(wrap, filters.get(MembershipForm.class), params)));
-        if (!cachedResults.isPresent()) {
+        List<MembershipForm> results = dao.get(new RDBMSQuery<>(wrap, filters.get(MembershipForm.class), params));
+        if (results == null) {
             return Response.serverError().build();
         }
         // return the results as a response
-        return responseBuider.build(formID, wrap, params, cachedResults.get(), MembershipForm.class);
+        return Response.ok(results).build();
     }
 
     @POST
