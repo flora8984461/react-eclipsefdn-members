@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { generateCustomWGSelectStyles, selectTheme } from './customSelectStyle';
 import { useField } from 'formik';
-import { FETCH_HEADER } from '../../../../Constants/Constants';
+import { FETCH_HEADER, workingGroups } from '../../../../Constants/Constants';
 
 const WorkingGroupSelect = (props) => {
   const [workingGroupsData, setWorkingGroupsData] = useState([]);
@@ -28,13 +28,13 @@ const WorkingGroupSelect = (props) => {
 
     if (option && !option.__isNew__ && action !== 'clear') {
 
-      if (props.srcData === 'workingGroups') {
+      if ( props.srcData === workingGroups ) {
         props.form.setFieldValue(props.field.name, option.value)
       }
     }
 
     if (action.action === 'clear') {
-      if (props.srcData === 'workingGroups') {
+      if ( props.srcData === workingGroups ) {
         props.form.setFieldValue(props.field.name, '')
       }
     }

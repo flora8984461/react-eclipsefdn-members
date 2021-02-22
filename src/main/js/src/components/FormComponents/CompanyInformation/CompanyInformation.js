@@ -4,10 +4,10 @@ import { matchCompanyFields, matchContactFields } from '../../../Utils/formFunct
 import Company from './Company';
 import Contacts from './Contacts';
 import Loading from '../../Loading/Loading';
-import { FETCH_HEADER } from '../../../Constants/Constants';
+import { end_point, api_prefix_form, FETCH_HEADER, newForm_tempId } from '../../../Constants/Constants';
 
 const CompanyInformation = ({ formField, ...otherProps }) => {
-  
+  const { organizationName, organizationAddress, organizationId } = formField;
   const {currentFormId} = useContext(MembershipContext);
   const formValues = otherProps.parentState.formik.values;
   const [ loading, setLoading ] = useState(true);
@@ -15,10 +15,10 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
 
-    if (currentFormId && currentFormId !== 'new') {
+    if (currentFormId && currentFormId !== newForm_tempId) {
       let pool = [
-        fetch(`http://localhost:8090/form/${currentFormId}/organizations`,{headers : FETCH_HEADER}), 
-        fetch(`http://localhost:8090/form/${currentFormId}/contacts`,{headers : FETCH_HEADER})
+        fetch(api_prefix_form + `/${currentFormId}/` + end_point.organizations, { headers : FETCH_HEADER }), 
+        fetch(api_prefix_form + `/${currentFormId}/` + end_point.contacts, { headers : FETCH_HEADER })
       ]
   
       Promise.all(pool)
@@ -29,10 +29,10 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
           // Matching the field data
           if (organizations[0]) {
             let tempOrg = matchCompanyFields(organizations[0])
-            otherProps.parentState.formik.setFieldValue('organization.legalName', tempOrg.organization.legalName)
-            otherProps.parentState.formik.setFieldValue('organization.address', tempOrg.organization.address)
+            otherProps.parentState.formik.setFieldValue(organizationName.name, tempOrg.organization.legalName)
+            otherProps.parentState.formik.setFieldValue(organizationAddress.address.name, tempOrg.organization.address)
             // Store Organization_Id for my PUT later
-            otherProps.parentState.formik.setFieldValue('organization.id', tempOrg.organization.id)
+            otherProps.parentState.formik.setFieldValue(organizationId.name, tempOrg.organization.id)
           }
           if(contacts.length) {
             let tempContacts = matchContactFields(contacts)

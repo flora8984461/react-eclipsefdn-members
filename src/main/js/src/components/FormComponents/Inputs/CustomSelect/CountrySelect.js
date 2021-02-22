@@ -2,8 +2,11 @@ import React from 'react';
 import Select from 'react-select';
 import { selectTheme, generateCustomStyles } from './customSelectStyle';
 import { useField } from 'formik';
+import { formField } from '../../formModels/formFieldModel';
 
 const CountrySelect = (props) => {
+
+  const { organizationAddress } = formField;
 
   const countryList = require('country-list').getNames().map(item => ({ label: item, value: item }));
 
@@ -12,11 +15,11 @@ const CountrySelect = (props) => {
   const handleSelect = (option, action) => {
 
     if (option && action !== 'clear') {
-        props.form.setFieldValue('organization.address.country', option.value)
+        props.form.setFieldValue(organizationAddress.country.name, option.value)
     }
 
     if (action.action === 'clear') {
-        props.form.setFieldValue('organization.address.country', '')
+        props.form.setFieldValue(organizationAddress.country.name, '')
     }
   }
 

@@ -4,50 +4,53 @@ import CountrySelect from '../Inputs/CustomSelect/CountrySelect';
 import CustomAsyncSelect from '../Inputs/CustomSelect/CustomAsyncSelect';
 import MembershipContext from '../../../Context/MembershipContext';
 import Input from '../Inputs/Input';
+import { formField } from '../formModels/formFieldModel';
+import { companies } from '../../../Constants/Constants';
 
 const Company = () => {
-    const { isExistingMember } = useContext(MembershipContext)
+    const { isExistingMember } = useContext(MembershipContext);
+    const { organizationName, companyTwitter, organizationAddress } = formField;
 
     return (
     <>
       <h4 className="fw-600"> Organization <span className="orange-star">*</span> </h4>
       <CustomSelectWrapper
-        name="organization.legalName"
-        srcData="companies"
+        name={organizationName.name}
+        srcData={companies}
         isExistingMember={isExistingMember}
         renderComponent={CustomAsyncSelect}
       />
       <div className="row">
         <div className="col-md-8">
-          <Input name="organization.twitterHandle" labelName="Twitter handle" placeholder="@username" />
+          <Input name={companyTwitter.name} labelName={companyTwitter.label} placeholder={companyTwitter.placeholder} />
         </div>
       </div>
 
       <h4 className="fw-600">Address</h4>
       <div className="row">
       <div className="col-md-16">
-        <Input name="organization.address.street" labelName="Street" placeholder="Street" requiredMark={true} />
+        <Input name={organizationAddress.street.name} labelName={organizationAddress.street.label} placeholder={organizationAddress.street.placeholder} requiredMark={true} />
       </div>
       <div className="col-md-8">
-        <Input name="organization.address.city" labelName="City" placeholder="City" requiredMark={true} />
+        <Input name={organizationAddress.city.name} labelName={organizationAddress.city.label} placeholder={organizationAddress.city.placeholder} requiredMark={true} />
       </div>
       </div>
 
       <div className="row margin-bottom-40">
         <div className="col-md-8">
-          <label htmlFor="organization.address.country">Country</label><span className="orange-star margin-left-5">*</span>
+          <label htmlFor={organizationAddress.country.name}>Country</label><span className="orange-star margin-left-5">*</span>
           <CustomSelectWrapper
-            name="organization.address.country"
+            name={organizationAddress.country.name}
             srcData="country"
             isExistingMember={isExistingMember}
             renderComponent={CountrySelect}
           />
         </div>
         <div className="col-md-8">
-          <Input name="organization.address.provinceOrState" labelName="Province or State" placeholder="Province or State" requiredMark={true} />
+          <Input name={organizationAddress.provinceOrState.name} labelName={organizationAddress.provinceOrState.label} placeholder={organizationAddress.provinceOrState.placeholder} requiredMark={true} />
         </div>
         <div className="col-md-8">
-          <Input name="organization.address.postalCode" labelName="Postal Code" placeholder="Postal Code" requiredMark={true} />
+          <Input name={organizationAddress.postalCode.name} labelName={organizationAddress.postalCode.label} placeholder={organizationAddress.postalCode.placeholder} requiredMark={true} />
         </div>
       </div>
 

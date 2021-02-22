@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import MembershipContext from '../../Context/MembershipContext';
-import { FETCH_HEADER } from '../../Constants/Constants';
+import { FETCH_HEADER, api_prefix_form, newForm_tempId } from '../../Constants/Constants';
 
 const styles = {
     marginBottom: '20px'
@@ -10,7 +10,7 @@ const FormChooser = ({currentUser}) => {
     const {setCurrentFormId} = useContext(MembershipContext);
 
     const fetchExistingForm = () => {
-        fetch('http://localhost:8090/form',{ headers: FETCH_HEADER })
+        fetch(api_prefix_form, { headers: FETCH_HEADER })
         .then(res=> res.json())
         .then(data=> {
             setCurrentFormId(data[0]?.id);
@@ -20,7 +20,7 @@ const FormChooser = ({currentUser}) => {
     }
 
     const createNewForm = () => {
-        setCurrentFormId("new");
+        setCurrentFormId(newForm_tempId);
     }
 
     return (

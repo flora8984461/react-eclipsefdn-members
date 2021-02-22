@@ -6,10 +6,13 @@ import WorkingGroupSelect from '../Inputs/CustomSelect/WorkingGroupSelect';
 import ParticipationLevel from './ParticipationLevel';
 import EffectiveDate from './EffectiveDate';
 import WorkingGroupsRepresentative from './WorkingGroupRepresentative';
+import { deleteData } from '../../../Utils/formFunctionHelpers';
+import { end_point, WORKING_GROUPS, workingGroups } from '../../../Constants/Constants';
 
 const WorkingGroup = ({ formField, arrayHelpers }) => {
   const { values } = useFormikContext();
   const { isExistingMember } = useContext(MembershipContext);
+  const { currentFormId } = useContext(MembershipContext);
 
   const each_workingGroupField = {
       id: '',
@@ -28,10 +31,8 @@ const WorkingGroup = ({ formField, arrayHelpers }) => {
   const removeWorkingGroupCall = (arrayHelpersRemove, index, id) => {
 
     // Call API to remove
-    console.log('you called DELETE method with id: ' + id)
-
-    // Remove from frontend
-    arrayHelpersRemove(index);
+    console.log('you called DELETE method with id: ' + id);
+    deleteData(currentFormId, end_point.working_groups, id, arrayHelpersRemove, index);
   }
 
   return (
@@ -40,21 +41,21 @@ const WorkingGroup = ({ formField, arrayHelpers }) => {
         <div key={index}>
           <h3 className="h4 fw-600">Which working group would you like to join? <span className="orange-star">*</span> </h3>
           <CustomSelectWrapper
-            label="Working Groups"
-            name={`workingGroups.${index}.workingGroup`}
-            srcData="workingGroups"
+            label={WORKING_GROUPS}
+            name={`${workingGroups}.${index}.workingGroup`}
+            srcData={workingGroups}
             isExistingMember={isExistingMember}
             renderComponent={WorkingGroupSelect}
           />
 
           { workingGroup.workingGroup && workingGroup.workingGroup !== "not now" ? 
             <>
-              <ParticipationLevel name={`workingGroups.${index}.participationLevel`} workingGroup={workingGroup.workingGroup} />
-              <EffectiveDate name={`workingGroups.${index}.effectiveDate`} label="Effective Date" />
+              <ParticipationLevel name={`${workingGroups}.${index}.participationLevel`} workingGroup={workingGroup.workingGroup} />
+              <EffectiveDate name={`${workingGroups}.${index}.effectiveDate`} label="Effective Date" />
             </>
             : null
           }
-            <WorkingGroupsRepresentative name={`workingGroups.${index}.workingGroupRepresentative`} formField={formField} label="Working Group Representative" />
+            <WorkingGroupsRepresentative name={`${workingGroups}.${index}.workingGroupRepresentative`} formField={formField} label="Working Group Representative" />
             
             { values.workingGroups.length > 1 &&
             <div className="text-center margin-bottom-20">
