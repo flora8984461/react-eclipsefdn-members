@@ -2,7 +2,6 @@ package org.eclipsefoundation.react.request;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -47,14 +46,13 @@ public class ContactsResource extends AbstractRESTResource {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl<>();
         params.add(MembershipFormAPIParameterNames.FORM_ID.getName(), formID);
 
-        // retrieve the possible cached object
-        Optional<List<Contact>> cachedResults = cache.get(ALL_CACHE_PLACEHOLDER, params, Contact.class,
-                () -> dao.get(new RDBMSQuery<>(wrap, filters.get(Contact.class), params)));
-        if (!cachedResults.isPresent()) {
+        // retrieve the possible object
+        List<Contact> results = dao.get(new RDBMSQuery<>(wrap, filters.get(Contact.class), params));
+        if (results == null) {
             return Response.serverError().build();
         }
         // return the results as a response
-        return responseBuider.build(ALL_CACHE_PLACEHOLDER, wrap, params, cachedResults.get(), Contact.class);
+        return Response.ok(results).build();
     }
 
     @POST
@@ -74,14 +72,13 @@ public class ContactsResource extends AbstractRESTResource {
         params.add(MembershipFormAPIParameterNames.FORM_ID.getName(), formID);
         params.add(DefaultUrlParameterNames.ID.getName(), contactID);
 
-        // retrieve the possible cached object
-        Optional<List<Contact>> cachedResults = cache.get(contactID, params, Contact.class,
-                () -> dao.get(new RDBMSQuery<>(wrap, filters.get(Contact.class), params)));
-        if (!cachedResults.isPresent()) {
+        // retrieve the possible object
+        List<Contact> results = dao.get(new RDBMSQuery<>(wrap, filters.get(Contact.class), params));
+        if (results == null) {
             return Response.serverError().build();
         }
         // return the results as a response
-        return responseBuider.build(contactID, wrap, params, cachedResults.get(), Contact.class);
+        return Response.ok(results).build();
     }
 
     @PUT

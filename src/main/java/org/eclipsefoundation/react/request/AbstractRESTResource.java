@@ -23,8 +23,6 @@ public abstract class AbstractRESTResource {
     @Inject
     PersistenceDao dao;
     @Inject
-    CachingService cache;
-    @Inject
     FilterService filters;
 
     @Inject

@@ -2,7 +2,6 @@ package org.eclipsefoundation.react.request;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -46,14 +45,13 @@ public class WorkingGroupsResource extends AbstractRESTResource {
         // create parameter map
         MultivaluedMap<String, String> params = new MultivaluedMapImpl<>();
         params.add(MembershipFormAPIParameterNames.FORM_ID.getName(), formID);
-        // retrieve the possible cached object
-        Optional<List<WorkingGroup>> cachedResults = cache.get(ALL_CACHE_PLACEHOLDER, params, WorkingGroup.class,
-                () -> dao.get(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class), params)));
-        if (!cachedResults.isPresent()) {
+        // retrieve the possible object
+        List<WorkingGroup> results = dao.get(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class), params));
+        if (results == null) {
             return Response.serverError().build();
         }
         // return the results as a response
-        return responseBuider.build(ALL_CACHE_PLACEHOLDER, wrap, params, cachedResults.get(), WorkingGroup.class);
+        return Response.ok(results).build();
     }
 
     @POST
@@ -72,14 +70,13 @@ public class WorkingGroupsResource extends AbstractRESTResource {
         MultivaluedMap<String, String> params = new MultivaluedMapImpl<>();
         params.add(DefaultUrlParameterNames.ID.getName(), wgID);
         params.add(MembershipFormAPIParameterNames.FORM_ID.getName(), formID);
-        // retrieve the possible cached object
-        Optional<List<WorkingGroup>> cachedResults = cache.get(wgID, params, WorkingGroup.class,
-                () -> dao.get(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class), params)));
-        if (!cachedResults.isPresent()) {
+        // retrieve the possible object
+        List<WorkingGroup> results = dao.get(new RDBMSQuery<>(wrap, filters.get(WorkingGroup.class), params));
+        if (results == null) {
             return Response.serverError().build();
         }
         // return the results as a response
-        return responseBuider.build(wgID, wrap, params, cachedResults.get(), WorkingGroup.class);
+        return Response.ok(results).build();
     }
 
     @PUT
