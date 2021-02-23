@@ -20,6 +20,7 @@ export const initialValues = {
     id: '',
     legalName: '',
     address: {
+      id: '',
       street: '',
       city: '',
       provinceOrState: '',

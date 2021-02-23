@@ -38,6 +38,7 @@ export function matchCompanyFields(existingOrganizationData, existingFormStateDa
         twitterHandle: existingOrganizationData?.twitterHandle || ''
       } || '',
       address: {
+        id: existingOrganizationData?.address.id || '',
         street: existingOrganizationData?.address.street || '',
         city: existingOrganizationData?.address.city || '',
         provinceOrState: existingOrganizationData?.address.province_state || '',
@@ -116,7 +117,7 @@ export function matchWorkingGroupFields(existingMembershipData, existingFormStat
 //== Transform data from my form model to PUT or POST for backend
 export function matchCompanyFieldsToBackend(organizationData, formId) {
 
-  return {
+  var org = {
     address: {
       city: organizationData.address.city,
       country: organizationData.address.country,
@@ -124,10 +125,16 @@ export function matchCompanyFieldsToBackend(organizationData, formId) {
       province_state: organizationData.address.provinceOrState,
       street: organizationData.address.street
     },
-  form_id: formId,
-  id: organizationData.id,
-  legal_name: organizationData.legalName.label
+    form_id: formId,
+    id: organizationData.id,
+    legal_name: organizationData.legalName.label
   }
+
+  if (organizationData.address.id) {
+    org.address.id = organizationData.address.id;
+  }
+
+  return org;
 }
 
 export function matchMembershipLevelFieldsToBackend(membershipLevel, formId, userId) {
