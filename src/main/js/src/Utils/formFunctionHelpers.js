@@ -25,7 +25,7 @@ export function assignContactData(currentContact, companyContact) {
 }
 
 //== Transform data from backend to match my form model
-export function matchCompanyFields(existingOrganizationData, existingFormStateData) {
+export function matchCompanyFields(existingOrganizationData) {
 
   return {
     // Step1: company Info
@@ -51,7 +51,7 @@ export function matchCompanyFields(existingOrganizationData, existingFormStateDa
 
 }
 
-export function matchContactFields(existingContactData, existingFormStateData) {
+export function matchContactFields(existingContactData) {
 
   let existingCompanyContact = existingContactData.find(el => el.type === contact_type.COMPANY)
   let existingMarketingContact = existingContactData.find(el => el.type === contact_type.MARKETING)
@@ -89,7 +89,7 @@ export function matchContactFields(existingContactData, existingFormStateData) {
 
 }
 
-export function matchWorkingGroupFields(existingMembershipData, existingFormStateData) {
+export function matchWorkingGroupFields(existingMembershipData) {
   var res = [];
   // Array
   existingMembershipData.forEach((item, index) => {
@@ -292,5 +292,28 @@ export function deleteData(formId, endpoint, entityId, callback, index) {
       }
     })
   }
+
+}
+
+export async function handleNewForm(setCurrentFormId, formData, userId, defaultBehaviour) {
+
+  var dataBody = {
+    membership_level: '',
+    signing_authority: false
+  };
+
+  fetch(api_prefix_form, {
+    method: FETCH_METHOD.POST,
+    headers: FETCH_HEADER,
+    body: JSON.stringify(dataBody)
+  })
+  .then(res => res.json())
+  .then(data => {
+    setCurrentFormId(data[0]?.id);
+    executeSendDataByStep(0, formData, data[0]?.id, userId);
+    defaultBehaviour();
+  })
+
+  // Also need to delete the old form Id
 
 }
