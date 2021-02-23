@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Select from '../Inputs/Select';
-// import Select from 'react-select';
+import DefaultSelect from '../Inputs/CustomSelect/DefaultSelect';
+import CustomSelectWrapper from '../Inputs/CustomSelect/CustomSelectWrapper';
 import MembershipFeeTable from './MembershipFeeTable';
 import MembershipContext from '../../../Context/MembershipContext';
 import Loading from '../../Loading/Loading';
@@ -43,11 +43,15 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
       <h2 className="fw-600">Membership Level</h2>
       <p>Please Indicate the class of membership for which you are applying</p>
       <h3 className="fw-600">What is your intended Membership Level?</h3>
-      <Select
-        label={membershipLevel.label}
-        name={membershipLevel.name}
-        options={membership_levels}
-      />
+      <div className="row">
+        <div className="col-md-12">
+          <CustomSelectWrapper
+            name={membershipLevel.name}
+            renderComponent={DefaultSelect}
+            options={membership_levels}
+          />
+        </div>
+      </div>
       <MembershipFeeTable />
       </div>
     </>

@@ -43,6 +43,7 @@ const WorkingGroup = ({ formField, arrayHelpers }) => {
           <CustomSelectWrapper
             label={WORKING_GROUPS}
             name={`${workingGroups}.${index}.workingGroup`}
+            participationLevel={`${workingGroups}.${index}.participationLevel`}
             srcData={workingGroups}
             isExistingMember={isExistingMember}
             renderComponent={WorkingGroupSelect}

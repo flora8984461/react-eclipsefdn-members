@@ -73,6 +73,7 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
       onSubmit={handleOnSubmit}
       validationSchema={currentValidationSchema}
       innerRef={formRef}
+      validateOnChange={false}
     >
       {
         (formik) =>

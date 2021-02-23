@@ -30,19 +30,25 @@ const WorkingGroupSelect = (props) => {
 
       if ( props.srcData === workingGroups ) {
         props.form.setFieldValue(props.field.name, option.value)
+        if (props.participationLevel) {
+          props.form.setFieldValue(props.participationLevel, '')
+        }
       }
     }
 
     if (action.action === 'clear') {
       if ( props.srcData === workingGroups ) {
         props.form.setFieldValue(props.field.name, '')
+        if (props.participationLevel) {
+          props.form.setFieldValue(props.participationLevel, '')
+        }
       }
     }
   }
 
   const getValue = (options, value) => {
     if (!loading) {
-      return options.find(option => value === option.value)
+      return options?.find(option => value === option.value)
     }
   }
 
