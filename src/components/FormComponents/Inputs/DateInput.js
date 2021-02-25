@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { FastField } from 'formik';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -6,8 +6,10 @@ import './dateInputstyles.css';
 
 const DateInput = (props) => {
   const { label, name, ...rest } = props
+  const ref = React.createRef()
 
-  const CustomDateInput = (props) => {
+  const CustomDateInput = forwardRef((props, ref) => {
+
     return (
         <div className="input-group">
            <input
@@ -15,17 +17,18 @@ const DateInput = (props) => {
             id={props.id}
             name={props.name}
             onClick={props.onClick}
-            // onChange={props.onChange}
+            onChange={props.onChange}
+            ref={ref}
             value={props.value}
             placeholder="Date"
-            type="text" 
+            type="text"
             className={`form-control margin-bottom-10 ${props.meta.touched && props.meta.error ? "form-border-error" : ""}`} 
             aria-describedby="date"
           />
           <span className="input-group-addon" id="date"><span className="glyphicon glyphicon-calendar" /></span>
         </div>
     )
-  }
+  })
 
   return (
     <>
@@ -48,7 +51,7 @@ const DateInput = (props) => {
               showMonthDropdown
               showYearDropdown
               dropdownMode="select"
-              customInput={<CustomDateInput meta={meta} id={name} name={name} />}
+              customInput={<CustomDateInput meta={meta} id={name} name={name} ref={ref} />}
               // className={`form-control margin-bottom-10 ${meta.touched && meta.error ? "form-border-error" : ""}`}
             />
             {/* <span className="input-group-addon" id="date"><span className="glyphicon glyphicon-calendar" /></span> */}

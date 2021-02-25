@@ -231,13 +231,22 @@ function callSendData(formId, endpoint='', method, dataBody, entityId='') {
 
   delete dataBody.id;
 
-  fetch(url, {
-    method: method,
-    headers: FETCH_HEADER,
-    body: JSON.stringify(dataBody)
-  }).then( res => {
-    console.log(res.status);
-  })
+  if (getCurrentMode() === MODE_REACT_ONLY) {
+
+    console.log(`You called ${url} with Method ${method} and data body is:`);
+    console.log(JSON.stringify(dataBody));
+  }
+
+  if (getCurrentMode() === MODE_REACT_API) {
+    fetch(url, {
+      method: method,
+      headers: FETCH_HEADER,
+      body: JSON.stringify(dataBody)
+    }).then( res => {
+      console.log(res.status);
+    })
+  }
+
 }
 
 // PUT or POST function
