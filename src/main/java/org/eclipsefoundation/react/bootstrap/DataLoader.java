@@ -57,13 +57,14 @@ public class DataLoader {
      * After loading, this bean will generate a number of forms in the database for the given application if it is in
      * one of the applicable application profiles (dev and staging by default).
      * 
-     * @param ev startup event, injected by CDI 
+     * @param ev startup event, injected by CDI
      */
     @PostConstruct
     public void init(@Observes StartupEvent ev) {
         // if running in dev mode, preload a bunch of data using dao
         LOGGER.debug("Current mode: {}", ProfileManager.getActiveProfile());
-        if (config.getDataLoaderProfiles().contains(ProfileManager.getActiveProfile())) {
+        if (config.isEnabled()
+                && config.getDataLoaderProfiles().contains(ProfileManager.getActiveProfile())) {
             RequestWrapper wrap = new RequestWrapper();
             List<MembershipForm> forms = new ArrayList<>(config.getFormCount());
             for (int i = 0; i < config.getFormCount(); i++) {

@@ -15,12 +15,27 @@ import io.quarkus.arc.config.ConfigProperties;
 @ConfigProperties(prefix = "eclipse.dataloader")
 public class DataLoaderConfig {
     // set the internal values + default values
+    private boolean enabled = false;
     private List<String> dataLoaderProfiles = Arrays.asList("dev", "staging");
     private Integer formCount = 25;
     private List<String> userIDs = Arrays.asList("user1", "user2", "user3");
     private List<String> workingGroups = Arrays.asList("internet-things-iot", "jakarta-ee", "cloud-tools-development");
     private List<String> membershipLevels = Arrays.asList("strategic", "contributing", "associate", "committer");
     private List<String> participationLevels = Arrays.asList("platinum", "gold", "silver", "associate");
+
+    /**
+     * @return the dataLoaderEnabled
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * @param enabled the enabled to set
+     */
+    public void setDataLoaderEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     /**
      * @return the dataLoaderProfiles
