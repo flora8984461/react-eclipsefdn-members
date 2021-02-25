@@ -1,4 +1,4 @@
-import { FETCH_METHOD, contact_type, end_point, api_prefix_form, FETCH_HEADER, newForm_tempId } from '../Constants/Constants';
+import { FETCH_METHOD, contact_type, end_point, api_prefix_form, FETCH_HEADER, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../Constants/Constants';
 
 function checkSameContact(compnayRep, otherContact) {
 
@@ -272,6 +272,11 @@ export function deleteData(formId, endpoint, entityId, callback, index) {
     callback(index);
   }
 
+  // If the not using java server, just remove it from frontend
+  if (getCurrentMode() === MODE_REACT_ONLY) {
+    callback(index);
+  }
+
   // If removing existing working_group
   if (entityId) {
     let url = api_prefix_form + `/${formId}`;
@@ -297,23 +302,29 @@ export function deleteData(formId, endpoint, entityId, callback, index) {
 
 export async function handleNewForm(setCurrentFormId, formData, userId, defaultBehaviour) {
 
-  var dataBody = {
-    membership_level: '',
-    signing_authority: false
-  };
-
-  fetch(api_prefix_form, {
-    method: FETCH_METHOD.POST,
-    headers: FETCH_HEADER,
-    body: JSON.stringify(dataBody)
-  })
-  .then(res => res.json())
-  .then(data => {
-    setCurrentFormId(data[0]?.id);
-    executeSendDataByStep(0, formData, data[0]?.id, userId);
+  if (getCurrentMode() === MODE_REACT_ONLY) {
     defaultBehaviour();
-  })
+  }
 
-  // Also need to delete the old form Id
+  if (getCurrentMode() === MODE_REACT_API) {
+    var dataBody = {
+      membership_level: '',
+      signing_authority: false
+    };
+  
+    fetch(api_prefix_form, {
+      method: FETCH_METHOD.POST,
+      headers: FETCH_HEADER,
+      body: JSON.stringify(dataBody)
+    })
+    .then(res => res.json())
+    .then(data => {
+      setCurrentFormId(data[0]?.id);
+      executeSendDataByStep(0, formData, data[0]?.id, userId);
+      defaultBehaviour();
+    })
+  }
+
+  // Probably Also need to delete the old form Id, or keep in the db for 30 days
 
 }
