@@ -2,40 +2,41 @@ import React from 'react';
 import AsyncCreatable from 'react-select/async-creatable';
 import { selectTheme, generateCustomStyles } from './customSelectStyle';
 import { useField } from 'formik';
-import { FETCH_HEADER } from '../../../../Constants/Constants';
+import { FETCH_HEADER, companies } from '../../../../Constants/Constants';
+import { formField } from '../../formModels/formFieldModel';
 
 const CustomAsyncSelect = (props) => {
-
+  const { organizationName, organizationAddress, companyTwitter } = formField;
   const [field, meta] = useField(props.field.name);  // or props.field, must contain name key
 
   const handleSelect = (option, action) => {
 
     if (option && !option.__isNew__ && action !== 'clear') {
-      if (props.srcData === 'companies') {
+      if (props.srcData === companies) {
         // Prefill existing data to selected companies
-        props.form.setFieldValue('organization.legalName', option)
-        props.form.setFieldValue('organization.address', option.address)
-        props.form.setFieldValue('organization.twitterHandle', option.twitterHandle)
+        props.form.setFieldValue(organizationName.name, option)
+        props.form.setFieldValue(organizationAddress.address.name, option.address)
+        props.form.setFieldValue(companyTwitter.name, option.twitterHandle)
       }
     }
 
     if (action.action === 'clear') {
       // Clear prefilled data when clear the selection
-      if (props.srcData === 'companies') {
-        props.form.setFieldValue('organization.legalName', '')
-        props.form.setFieldValue('organization.address.street', '')
-        props.form.setFieldValue('organization.address.city', '')
-        props.form.setFieldValue('organization.address.provinceOrState', '')
-        props.form.setFieldValue('organization.address.country', '')
-        props.form.setFieldValue('organization.address.postalCode', '')
-        props.form.setFieldValue('organization.twitterHandle', '')
+      if (props.srcData === companies) {
+        props.form.setFieldValue(organizationName.name, '')
+        props.form.setFieldValue(organizationAddress.street.name, '')
+        props.form.setFieldValue(organizationAddress.city.name, '')
+        props.form.setFieldValue(organizationAddress.provinceOrState.name, '')
+        props.form.setFieldValue(organizationAddress.country.name, '')
+        props.form.setFieldValue(organizationAddress.postalCode.name, '')
+        props.form.setFieldValue(companyTwitter.name, '')
 
       }
     }
 
     if (option && option.__isNew__) {
       // When create new organization that are not in our data
-      props.form.setFieldValue('organization.legalName', option)
+      props.form.setFieldValue(organizationName.name, option)
 
     }
   }
@@ -51,7 +52,7 @@ const CustomAsyncSelect = (props) => {
 
       switch(props.srcData) {
 
-        case 'companies':
+        case companies:
           src_data = 'companies.json'
           if (inputValue) {
             return fetch(src_data, { headers: FETCH_HEADER })

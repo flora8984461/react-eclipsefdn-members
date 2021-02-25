@@ -3,9 +3,10 @@ import { Form, Formik } from 'formik';
 import { validationSchema } from '../formModels/ValidationSchema';
 import StepperComponent from '../../Steppers/StepperComponent';
 import CustomStepButton from '../CustomStepButton';
-import { executeSendDataByStep, assignContactData } from '../../../Utils/formFunctionHelpers';
+import { executeSendDataByStep, assignContactData, handleNewForm } from '../../../Utils/formFunctionHelpers';
 import MembershipContext from '../../../Context/MembershipContext';
 import SubmitSuccess from '../SubmitSuccess';
+import { newForm_tempId } from '../../../Constants/Constants';
 
 //form.validateForm(); to manually call validate
 
@@ -50,12 +51,19 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
         if (values.companyRepresentative.accounting.sameAsCompany) {
           assignContactData(values.companyRepresentative.accounting, values.companyRepresentative.representative)
         }
-        await executeSendDataByStep(step, values, currentFormId, currentUser.user_id);
-        defaultBehaviour();
+
+        if (currentFormId === newForm_tempId) {
+          await handleNewForm(setCurrentFormId, values, currentUser.name, defaultBehaviour);
+        }
+        else {
+          await executeSendDataByStep(step, values, currentFormId, currentUser.name);
+          defaultBehaviour();
+        }
+        
         break;
 
       default:
-        await executeSendDataByStep(step, values, currentFormId, currentUser.user_id);
+        await executeSendDataByStep(step, values, currentFormId, currentUser.name);
         defaultBehaviour();
     }
   }
@@ -73,6 +81,7 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
       onSubmit={handleOnSubmit}
       validationSchema={currentValidationSchema}
       innerRef={formRef}
+      validateOnChange={false}
     >
       {
         (formik) =>
