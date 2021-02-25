@@ -33,7 +33,7 @@ public class DataLoaderConfig {
     /**
      * @param enabled the enabled to set
      */
-    public void setDataLoaderEnabled(boolean enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
