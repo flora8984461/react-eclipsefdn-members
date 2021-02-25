@@ -87,6 +87,7 @@ public class DataLoader {
                 Organization o = new Organization();
                 o.setForm(mf);
                 o.setLegalName(RandomStringUtils.randomAlphabetic(4, 10));
+                o.setTwitterHandle(RandomStringUtils.randomAlphabetic(4, 10));
                 Address a = new Address();
                 a.setCity(RandomStringUtils.randomAlphabetic(4, 10));
                 a.setCountry(RandomStringUtils.randomAlphabetic(4, 10));
