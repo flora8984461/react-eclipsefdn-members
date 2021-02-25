@@ -4,7 +4,7 @@ import { matchCompanyFields, matchContactFields } from '../../../Utils/formFunct
 import Company from './Company';
 import Contacts from './Contacts';
 import Loading from '../../Loading/Loading';
-import { end_point, api_prefix_form, FETCH_HEADER, newForm_tempId } from '../../../Constants/Constants';
+import { end_point, api_prefix_form, FETCH_HEADER, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../../Constants/Constants';
 
 const CompanyInformation = ({ formField, ...otherProps }) => {
   const { organizationName, organizationAddress, organizationId } = formField;
@@ -14,11 +14,21 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
 
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
+    let url_prefix_local;
+    let url_suffix_local = '';
+    if ( getCurrentMode() === MODE_REACT_ONLY ) {
+      url_prefix_local = 'membership_data';
+      url_suffix_local = '.json';
+    }
+
+    if (getCurrentMode() === MODE_REACT_API) {
+      url_prefix_local = api_prefix_form;
+    }
 
     if (currentFormId && currentFormId !== newForm_tempId) {
       let pool = [
-        fetch(api_prefix_form + `/${currentFormId}/` + end_point.organizations, { headers : FETCH_HEADER }), 
-        fetch(api_prefix_form + `/${currentFormId}/` + end_point.contacts, { headers : FETCH_HEADER })
+        fetch(url_prefix_local + `/${currentFormId}/` + end_point.organizations + url_suffix_local, { headers : FETCH_HEADER }), 
+        fetch(url_prefix_local + `/${currentFormId}/` + end_point.contacts + url_suffix_local, { headers : FETCH_HEADER })
       ]
   
       Promise.all(pool)

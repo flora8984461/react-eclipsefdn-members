@@ -4,7 +4,7 @@ import { FieldArray } from 'formik';
 import WorkingGroup from './WorkingGroup';
 import { matchWorkingGroupFields } from '../../../Utils/formFunctionHelpers';
 import Loading from '../../Loading/Loading';
-import { end_point, api_prefix_form, FETCH_HEADER, workingGroups, newForm_tempId } from '../../../Constants/Constants';
+import { end_point, api_prefix_form, FETCH_HEADER, workingGroups, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../../Constants/Constants';
 
 const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext);
@@ -14,8 +14,19 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
 
+    let url_prefix_local;
+    let url_suffix_local = '';
+    if ( getCurrentMode() === MODE_REACT_ONLY ) {
+      url_prefix_local = 'membership_data';
+      url_suffix_local = '.json';
+    }
+
+    if (getCurrentMode() === MODE_REACT_API) {
+      url_prefix_local = api_prefix_form;
+    }
+
     if(currentFormId && currentFormId !== newForm_tempId) {
-      fetch(api_prefix_form + `/${currentFormId}/` + end_point.working_groups, { headers: FETCH_HEADER })
+      fetch(url_prefix_local + `/${currentFormId}/` + end_point.working_groups + url_suffix_local, { headers: FETCH_HEADER })
       .then(resp => resp.json())
       .then(data => {
         if(data.length) {

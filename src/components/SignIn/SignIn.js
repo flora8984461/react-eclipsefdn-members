@@ -3,20 +3,32 @@ import MembershipContext from '../../Context/MembershipContext';
 import FormChooser from '../FormPreprocess/FormChooser';
 import SignInIntroduction from './SignInIntroduction';
 import StepperComponent from '../Steppers/StepperComponent';
-import { FETCH_HEADER, api_prefix, end_point, fakeChildrenArray } from '../../Constants/Constants';
+import { FETCH_HEADER, api_prefix, end_point, fakeChildrenArray, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../Constants/Constants';
 
 const SignIn = ({setStep}) => {
 
+    console.log(window.location.href)
+
     const {currentUser, setCurrentUser} = useContext(MembershipContext);
 
-    useEffect(() => {
-        fetch(api_prefix + `/${end_point.userinfo}`, { headers: FETCH_HEADER })
-        .then(res=> res.json())
-        .then(data=> {
-            console.log(data)  // {family_name: "User1", given_name: "User1", name: "user1"}
+    const getFakeUser = () => {
+        fetch('membership_data/fake_user.json',{ headers: FETCH_HEADER })
+        .then(resp => resp.json())
+        .then(data => {
             setCurrentUser(data);
         })
-        .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        if (getCurrentMode() === MODE_REACT_API) {
+            fetch(api_prefix + `/${end_point.userinfo}`, { headers: FETCH_HEADER })
+            .then(res=> res.json())
+            .then(data=> {
+                console.log(data)  // {family_name: "User1", given_name: "User1", name: "user1"}
+                setCurrentUser(data);
+            })
+            .catch(err => console.log(err));
+        }
     // eslint-disable-next-line
     }, [])
 
@@ -39,8 +51,10 @@ const SignIn = ({setStep}) => {
         <SignInIntroduction />
         <StepperComponent step={-1} childrenArray={fakeChildrenArray} />
             <div className="text-center margin-bottom-20">
-                <a href="/login" className="btn btn-secondary">Sign In</a>
-                <a href="https://accounts.eclipse.org/" className="btn btn-secondary">Create an account</a>
+            { getCurrentMode() === MODE_REACT_ONLY && <button type="button" onClick={getFakeUser} className="btn btn-secondary">React Only Login</button> } 
+            
+            { getCurrentMode() === MODE_REACT_API && <a href="/login" className="btn btn-secondary">Sign In</a>}
+            <a href="https://accounts.eclipse.org/" className="btn btn-secondary">Create an account</a>
             </div>
         </>
     )

@@ -1,4 +1,5 @@
 {
-    "user_id": "fake_user_1",
-    "form_id": "form_1"
+    "family_name": "User1",
+    "given_name": "User1",
+    "name": "user1"
 }

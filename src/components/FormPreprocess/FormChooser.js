@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import MembershipContext from '../../Context/MembershipContext';
-import { FETCH_HEADER, api_prefix_form, newForm_tempId } from '../../Constants/Constants';
+import { FETCH_HEADER, api_prefix_form, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../Constants/Constants';
 
 const styles = {
     marginBottom: '20px'
@@ -10,7 +10,17 @@ const FormChooser = ({currentUser}) => {
     const {setCurrentFormId} = useContext(MembershipContext);
 
     const fetchExistingForm = () => {
-        fetch(api_prefix_form, { headers: FETCH_HEADER })
+
+        let url_prefix_local;
+        if ( getCurrentMode() === MODE_REACT_ONLY ) {
+          url_prefix_local = 'membership_data/form_1/form.json';
+        }
+    
+        if (getCurrentMode() === MODE_REACT_API) {
+          url_prefix_local = api_prefix_form;
+        }
+
+        fetch(url_prefix_local, { headers: FETCH_HEADER })
         .then(res=> res.json())
         .then(data=> {
             setCurrentFormId(data[0]?.id);
