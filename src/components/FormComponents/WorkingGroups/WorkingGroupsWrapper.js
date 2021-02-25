@@ -4,7 +4,7 @@ import { FieldArray } from 'formik';
 import WorkingGroup from './WorkingGroup';
 import { matchWorkingGroupFields } from '../../../Utils/formFunctionHelpers';
 import Loading from '../../Loading/Loading';
-import { FETCH_HEADER } from '../../../Constants/Constants';
+import { end_point, api_prefix_form, FETCH_HEADER, workingGroups, newForm_tempId } from '../../../Constants/Constants';
 
 const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext);
@@ -14,12 +14,12 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
 
-    if(currentFormId && currentFormId !== 'new') {
-      fetch(`membership_data/${currentFormId}/workingGroups.json`,{headers: FETCH_HEADER})
+    if(currentFormId && currentFormId !== newForm_tempId) {
+      fetch(api_prefix_form + `/${currentFormId}/` + end_point.working_groups, { headers: FETCH_HEADER })
       .then(resp => resp.json())
       .then(data => {
         if(data.length) {
-          otherProps.parentState.formik.setFieldValue('workingGroups', matchWorkingGroupFields(data))
+          otherProps.parentState.formik.setFieldValue(workingGroups, matchWorkingGroupFields(data))
         }
         setLoading(false);
       })
@@ -39,7 +39,7 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
     <p>Please complete the following details for joining a Working Group</p>
     <div id="working-groups-page" className="align-center margin-top-50 margin-bottom-30">
     <FieldArray
-      name="workingGroups"
+      name={workingGroups}
       render={arrayHelpers => {
         return(
             <WorkingGroup formField={formField} arrayHelpers={arrayHelpers} formikProps={otherProps.parentState.formik} />

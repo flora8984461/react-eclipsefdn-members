@@ -1,19 +1,18 @@
 import React from 'react';
-import { Field, ErrorMessage } from 'formik';
+import { Field } from 'formik';
 
-const CustomSelectWrapper = ({ name, srcData, isExistingMember, setDisableInput, renderComponent }) => {
+const CustomSelectWrapper = ({ name, srcData, isExistingMember, setDisableInput, participationLevel, renderComponent, options }) => {
 
   return (
-    <>
     <Field
       name={name}
       component={renderComponent}
       srcData={srcData}
       isExistingMember={isExistingMember}
+      participationLevel={participationLevel}
       setDisableInput={setDisableInput}
+      options={options}
     />
-    <ErrorMessage className="error margin-bottom-20" component="div" name={name} />
-    </>
   )
 }
 

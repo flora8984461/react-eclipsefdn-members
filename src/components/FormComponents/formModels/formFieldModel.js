@@ -2,7 +2,8 @@ const firstName = 'First Name'
 const lastName = 'Last Name'
 const email = 'Email Address'
 const orgName = 'Organization Name'
-const twitter = 'Twitter'
+const twitterLabel = 'Twitter Handle'
+const twitter = '@username'
 const street = 'Street'
 const city = 'City'
 const provinceOrState = 'Province Or State'
@@ -19,6 +20,7 @@ export const initialValues = {
     id: '',
     legalName: '',
     address: {
+      id: '',
       street: '',
       city: '',
       provinceOrState: '',
@@ -88,47 +90,53 @@ export const initialValues = {
 }
 
 export const formField = {
+  organizationId: {
+    name: 'organization.id'
+  },
   organizationName: {
     name: 'organization.legalName',
     label: orgName,
     placeholder: orgName,
     requiredErrorMsg: requiredErrorMsg
   },
-  organizationAddress: [
-    {
+  organizationAddress: {
+    address: {
+      name: 'organization.address'
+    },
+    street: {
       name: 'organization.address.street',
       label: street,
       placeholder: street,
       requiredErrorMsg: requiredErrorMsg
     },
-    {
+    city: {
       name: 'organization.address.city',
       label: city,
       placeholder: city,
       requiredErrorMsg: requiredErrorMsg
     },
-    {
+    provinceOrState: {
       name: 'organization.address.provinceOrState',
       label: provinceOrState,
       placeholder: provinceOrState,
       requiredErrorMsg: requiredErrorMsg
     },
-    {
+    country: {
       name: 'organization.address.country',
       label: country,
       placeholder: country,
       requiredErrorMsg: requiredErrorMsg
     },
-    {
+    postalCode: {
       name: 'organization.address.postalCode',
       label: postalCode,
       placeholder: postalCode,
       requiredErrorMsg: requiredErrorMsg
     }
-  ],
+  },
   companyTwitter: {
     name: 'organization.twitterHandle',
-    label: twitter,
+    label: twitterLabel,
     placeholder: twitter,
   },
   companyRepresentative: [

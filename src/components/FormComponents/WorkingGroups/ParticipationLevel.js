@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Select from '../Inputs/Select';
 import { FETCH_HEADER } from '../../../Constants/Constants';
+import DefaultSelect from '../Inputs/CustomSelect/DefaultSelect';
+import CustomSelectWrapper from '../Inputs/CustomSelect/CustomSelectWrapper';
 
 const ParticipationLevel = ({name, workingGroup}) => {
 
@@ -22,14 +23,22 @@ const ParticipationLevel = ({name, workingGroup}) => {
     return () => (isSubscribed = false)
   }, [workingGroup])
 
+  const renderOptions = (array) => {
+    return array?.map(el => ({ label: el, value: el }))
+  }
+
   return (
     <>
       <h4 className="fw-600 margin-top-30">What is your intended participation level?<span className="orange-star margin-left-5">*</span></h4>
-      <Select
-        label="ParticipationLevel"
+      <div className="row">
+      <div className="col-md-12">
+      <CustomSelectWrapper
         name={name}
-        options={participationLevels}
+        renderComponent={DefaultSelect}
+        options={renderOptions(participationLevels)}
       />
+      </div>
+      </div>
     </>
   );
 };

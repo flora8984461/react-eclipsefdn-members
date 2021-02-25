@@ -2,36 +2,31 @@ import React from 'react';
 import Select from 'react-select';
 import { selectTheme, generateCustomStyles } from './customSelectStyle';
 import { useField } from 'formik';
-import { formField } from '../../formModels/formFieldModel';
 
-const CountrySelect = (props) => {
-
-  const { organizationAddress } = formField;
-
-  const countryList = require('country-list').getNames().map(item => ({ label: item, value: item }));
+const DefaultSelect = (props) => {
 
   const [, meta] = useField(props.field.name);
 
   const handleSelect = (option, action) => {
 
     if (option && action !== 'clear') {
-        props.form.setFieldValue(organizationAddress.country.name, option.value)
+        props.form.setFieldValue(props.field.name, option.value)
     }
 
     if (action.action === 'clear') {
-        props.form.setFieldValue(organizationAddress.country.name, '')
+        props.form.setFieldValue(props.field.name, '')
     }
   }
 
   const getValue = (options, value) => {
-    return options.find(option => value === option.value)
+    return options?.find(option => value === option.value)
   }
 
   return (
     <Select
       isSearchable
-      options={countryList}
-      value={getValue(countryList, props.field.value) || ''}
+      options={props.options}
+      value={getValue(props.options, props.field.value) || ''}
       onChange={(option, action) => {
         handleSelect(option, action)
       }}
@@ -44,4 +39,4 @@ const CountrySelect = (props) => {
 
 }
 
-export default CountrySelect
+export default DefaultSelect

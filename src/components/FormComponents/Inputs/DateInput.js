@@ -1,15 +1,36 @@
 import React from 'react';
-import { Field } from 'formik';
+import { FastField } from 'formik';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './dateInputstyles.css';
 
 const DateInput = (props) => {
   const { label, name, ...rest } = props
+
+  const CustomDateInput = (props) => {
+    return (
+        <div className="input-group">
+           <input
+            // {...props}
+            id={props.id}
+            name={props.name}
+            onClick={props.onClick}
+            // onChange={props.onChange}
+            value={props.value}
+            placeholder="Date"
+            type="text" 
+            className={`form-control margin-bottom-10 ${props.meta.touched && props.meta.error ? "form-border-error" : ""}`} 
+            aria-describedby="date"
+          />
+          <span className="input-group-addon" id="date"><span className="glyphicon glyphicon-calendar" /></span>
+        </div>
+    )
+  }
+
   return (
     <>
       <label id="effective-date-label" htmlFor={name}>{label}</label>
-      <Field name={name}>
+      <FastField name={name}>
         {({ form, field, meta }) => {
           const { setFieldValue } = form
           const { value } = field
@@ -20,20 +41,21 @@ const DateInput = (props) => {
               {...field}
               {...rest}
               selected={(value && new Date(value)) || null}
-              onChange={val => setFieldValue(name, val)}
+              onChange={val => {
+                setFieldValue(name, val);
+              }}
               peekNextMonth
               showMonthDropdown
               showYearDropdown
               dropdownMode="select"
-              className="form-control"
+              customInput={<CustomDateInput meta={meta} id={name} name={name} />}
+              // className={`form-control margin-bottom-10 ${meta.touched && meta.error ? "form-border-error" : ""}`}
             />
-            {meta.touched && meta.error && (
-              <div className="error">{meta.error}</div>
-            )}
+            {/* <span className="input-group-addon" id="date"><span className="glyphicon glyphicon-calendar" /></span> */}
             </>
           )
         }}
-      </Field>
+      </FastField>
     </>
   )
 }

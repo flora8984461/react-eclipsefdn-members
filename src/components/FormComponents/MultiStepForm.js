@@ -5,8 +5,14 @@ import MembershipLevel from './MembershipLevel/MembershipLevel';
 import WorkingGroupsWrapper from './WorkingGroups/WorkingGroupsWrapper';
 import SigningAuthority from './SigningAuthority/SigningAuthority';
 import Preview from './Preview/Preview';
-import { formField } from './formModels/formFieldModel';
-import { initialValues } from '../FormComponents/formModels/formFieldModel';
+import { formField, initialValues } from './formModels/formFieldModel';
+import { 
+  COMPANY_INFORMATION,
+  MEMBERSHIP_LEVEL,
+  WORKING_GROUPS,
+  SIGNING_AUTHORITY,
+  REVIEW
+} from '../../Constants/Constants';
 
 const MultiStepForm = () => {
 
@@ -26,25 +32,25 @@ const MultiStepForm = () => {
       >
         <CompanyInformation
           formField={formField}
-          label="Company Information"
+          label={COMPANY_INFORMATION}
         />
 
         <MembershipLevel
           formField={formField}
-          label="Membership Level"
+          label={MEMBERSHIP_LEVEL}
         />
 
         <WorkingGroupsWrapper
           formField={formField}
-          label="Working Groups"
+          label={WORKING_GROUPS}
         />
 
         <SigningAuthority
           formField={formField}
-          label="Signing Authority" 
+          label={SIGNING_AUTHORITY}
         />
         
-        <Preview formField={formField} label="Review" />
+        <Preview formField={formField} label={REVIEW} />
 
       </FormikStepper>
     </>
