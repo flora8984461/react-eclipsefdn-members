@@ -9,7 +9,7 @@ import { companies } from '../../../Constants/Constants';
 
 const Company = () => {
     const { isExistingMember } = useContext(MembershipContext);
-    const { organizationName, companyTwitter, organizationAddress } = formField;
+    const { organizationName, organizationTwitter, organizationAddress } = formField;
 
     return (
     <>
@@ -22,7 +22,7 @@ const Company = () => {
       />
       <div className="row">
         <div className="col-md-8">
-          <Input name={companyTwitter.name} labelName={companyTwitter.label} placeholder={companyTwitter.placeholder} />
+          <Input name={organizationTwitter.name} labelName={organizationTwitter.label} placeholder={organizationTwitter.placeholder} />
         </div>
       </div>
 

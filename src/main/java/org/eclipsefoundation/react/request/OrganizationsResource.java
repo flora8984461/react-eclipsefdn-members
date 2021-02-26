@@ -89,6 +89,8 @@ public class OrganizationsResource extends AbstractRESTResource {
         Organization ref = dao.getReference(id, Organization.class);
         ref.setFormID(formID);
         ref.setForm(dao.getReference(formID, MembershipForm.class));
+        ref.setLegalName(org.getLegalName());
+        ref.setTwitterHandle(org.getTwitterHandle());
         // update the nested contact
         if (ref.getAddress().getId() != null) {
             // update the address object to get entity ref if set

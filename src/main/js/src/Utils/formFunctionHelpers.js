@@ -35,7 +35,7 @@ export function matchCompanyFields(existingOrganizationData) {
         value: existingOrganizationData?.legal_name || '',
         label: existingOrganizationData?.legal_name || '',
         address: existingOrganizationData?.address || '',
-        twitterHandle: existingOrganizationData?.twitter || ''
+        twitterHandle: existingOrganizationData?.twitter_handle || ''
       } || '',
       address: {
         id: existingOrganizationData?.address.id || '',
@@ -45,7 +45,7 @@ export function matchCompanyFields(existingOrganizationData) {
         country: existingOrganizationData?.address.country || '',
         postalCode: existingOrganizationData?.address.postal_code || '',
       },
-      twitterHandle: existingOrganizationData?.twitter || '',  
+      twitterHandle: existingOrganizationData?.twitter_handle || '',  
     }
   }
 
@@ -128,7 +128,7 @@ export function matchCompanyFieldsToBackend(organizationData, formId) {
     form_id: formId,
     id: organizationData.id,
     legal_name: organizationData.legalName.label,
-    twitter: organizationData.twitterHandle || ''
+    twitter_handle: organizationData.twitterHandle || ''
   }
 
   if (organizationData.address.id) {

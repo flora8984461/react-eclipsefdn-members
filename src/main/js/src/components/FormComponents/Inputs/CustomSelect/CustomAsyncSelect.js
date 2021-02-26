@@ -6,7 +6,7 @@ import { FETCH_HEADER, companies } from '../../../../Constants/Constants';
 import { formField } from '../../formModels/formFieldModel';
 
 const CustomAsyncSelect = (props) => {
-  const { organizationName, organizationAddress, companyTwitter } = formField;
+  const { organizationName, organizationAddress, organizationTwitter } = formField;
   const [field, meta] = useField(props.field.name);  // or props.field, must contain name key
 
   const handleSelect = (option, action) => {
@@ -16,7 +16,7 @@ const CustomAsyncSelect = (props) => {
         // Prefill existing data to selected companies
         props.form.setFieldValue(organizationName.name, option)
         props.form.setFieldValue(organizationAddress.address.name, option.address)
-        props.form.setFieldValue(companyTwitter.name, option.twitterHandle)
+        props.form.setFieldValue(organizationTwitter.name, option.twitterHandle)
       }
     }
 
@@ -29,7 +29,7 @@ const CustomAsyncSelect = (props) => {
         props.form.setFieldValue(organizationAddress.provinceOrState.name, '')
         props.form.setFieldValue(organizationAddress.country.name, '')
         props.form.setFieldValue(organizationAddress.postalCode.name, '')
-        props.form.setFieldValue(companyTwitter.name, '')
+        props.form.setFieldValue(organizationTwitter.name, '')
 
       }
     }
