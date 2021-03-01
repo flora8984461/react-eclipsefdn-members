@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import CustomSelectWrapper from '../Inputs/CustomSelect/CustomSelectWrapper';
-import CountrySelect from '../Inputs/CustomSelect/CountrySelect';
+import DefaultSelect from '../Inputs/CustomSelect/DefaultSelect';
 import CustomAsyncSelect from '../Inputs/CustomSelect/CustomAsyncSelect';
 import MembershipContext from '../../../Context/MembershipContext';
 import Input from '../Inputs/Input';
@@ -10,6 +10,7 @@ import { companies } from '../../../Constants/Constants';
 const Company = () => {
     const { isExistingMember } = useContext(MembershipContext);
     const { organizationName, companyTwitter, organizationAddress } = formField;
+    const countryList = require('country-list').getNames().map(item => ({ label: item, value: item }));
 
     return (
     <>
@@ -41,9 +42,8 @@ const Company = () => {
           <label htmlFor={organizationAddress.country.name}>Country</label><span className="orange-star margin-left-5">*</span>
           <CustomSelectWrapper
             name={organizationAddress.country.name}
-            srcData="country"
-            isExistingMember={isExistingMember}
-            renderComponent={CountrySelect}
+            renderComponent={DefaultSelect}
+            options={countryList}
           />
         </div>
         <div className="col-md-8">

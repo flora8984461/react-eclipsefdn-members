@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'formik';
 
-const CustomSelectWrapper = ({ name, srcData, isExistingMember, setDisableInput, participationLevel, renderComponent, options }) => {
+const CustomSelectWrapper = ({ name, srcData, isExistingMember, participationLevel, renderComponent, options }) => {
 
   return (
     <Field
@@ -10,7 +10,6 @@ const CustomSelectWrapper = ({ name, srcData, isExistingMember, setDisableInput,
       srcData={srcData}
       isExistingMember={isExistingMember}
       participationLevel={participationLevel}
-      setDisableInput={setDisableInput}
       options={options}
     />
   )
