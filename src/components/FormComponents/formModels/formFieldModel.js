@@ -134,7 +134,7 @@ export const formField = {
       requiredErrorMsg: requiredErrorMsg
     }
   },
-  companyTwitter: {
+  organizationTwitter: {
     name: 'organization.twitterHandle',
     label: twitterLabel,
     placeholder: twitter,

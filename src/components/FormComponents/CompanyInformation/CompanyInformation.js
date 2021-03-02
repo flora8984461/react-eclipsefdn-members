@@ -7,7 +7,6 @@ import Loading from '../../Loading/Loading';
 import { end_point, api_prefix_form, FETCH_HEADER, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../../Constants/Constants';
 
 const CompanyInformation = ({ formField, ...otherProps }) => {
-  const { organizationName, organizationAddress, organizationId } = formField;
   const {currentFormId} = useContext(MembershipContext);
   const formValues = otherProps.parentState.formik.values;
   const [ loading, setLoading ] = useState(true);
@@ -39,10 +38,7 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
           // Matching the field data
           if (organizations[0]) {
             let tempOrg = matchCompanyFields(organizations[0])
-            otherProps.parentState.formik.setFieldValue(organizationName.name, tempOrg.organization.legalName)
-            otherProps.parentState.formik.setFieldValue(organizationAddress.address.name, tempOrg.organization.address)
-            // Store Organization_Id for my PUT later
-            otherProps.parentState.formik.setFieldValue(organizationId.name, tempOrg.organization.id)
+            otherProps.parentState.formik.setFieldValue('organization', tempOrg.organization)
           }
           if(contacts.length) {
             let tempContacts = matchContactFields(contacts)
