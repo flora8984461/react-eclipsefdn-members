@@ -10,20 +10,27 @@ const DefaultSelect = (props) => {
   const handleSelect = (option, action) => {
 
     if (option && action !== 'clear') {
-        props.form.setFieldValue(props.field.name, option.value)
+        props.form.setFieldValue(props.field.name, option.value);
+        if (props.participationLevel) {
+          props.form.setFieldValue(props.participationLevel, '');
+        }
     }
 
     if (action.action === 'clear') {
-        props.form.setFieldValue(props.field.name, '')
+        props.form.setFieldValue(props.field.name, '');
+        if (props.participationLevel) {
+          props.form.setFieldValue(props.participationLevel, '');
+        }
     }
   }
 
   const getValue = (options, value) => {
-    return options?.find(option => value === option.value)
+    return options?.find(option => value === option.value);
   }
 
   return (
     <Select
+      isClearable
       isSearchable
       options={props.options}
       value={getValue(props.options, props.field.value) || ''}

@@ -4,23 +4,29 @@ import DefaultSelect from '../Inputs/CustomSelect/DefaultSelect';
 import CustomSelectWrapper from '../Inputs/CustomSelect/CustomSelectWrapper';
 
 const ParticipationLevel = ({name, workingGroup}) => {
-
-  const [participationLevels, setParticipationLevels] = useState([])
+  const workingGroupsData = JSON.parse(localStorage.getItem('workingGroupsData'));
+  const [participationLevels, setParticipationLevels] = useState([]);
 
   useEffect(() => {
     let isSubscribed = true;
-
-    fetch('workingGroups.json', { headers : FETCH_HEADER })
+    if (!workingGroupsData) {
+      fetch('workingGroups.json', { headers : FETCH_HEADER })
       .then(res => res.json())
       .then(data => {
         if (isSubscribed) {
-          let temp = data.working_groups?.find(item => workingGroup === item.id)
-          setParticipationLevels(temp?.participation_levels)
+          let temp = data.working_groups?.find(item => workingGroup === item.id);
+          setParticipationLevels(temp?.participation_levels);
         }
       })
-
+    }
+    else {
+      let temp = workingGroupsData?.find(item => workingGroup === item.value);
+      setParticipationLevels(temp?.participation_levels);
+    }
     // cancel subscription to useEffect
     return () => (isSubscribed = false)
+
+    // eslint-disable-next-line
   }, [workingGroup])
 
   const renderOptions = (array) => {

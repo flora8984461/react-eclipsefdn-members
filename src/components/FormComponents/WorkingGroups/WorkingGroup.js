@@ -2,14 +2,14 @@ import React, { useContext } from 'react';
 import { useFormikContext } from 'formik';
 import MembershipContext from '../../../Context/MembershipContext';
 import CustomSelectWrapper from '../Inputs/CustomSelect/CustomSelectWrapper';
-import WorkingGroupSelect from '../Inputs/CustomSelect/WorkingGroupSelect';
 import ParticipationLevel from './ParticipationLevel';
 import EffectiveDate from './EffectiveDate';
 import WorkingGroupsRepresentative from './WorkingGroupRepresentative';
 import { deleteData } from '../../../Utils/formFunctionHelpers';
 import { end_point, WORKING_GROUPS, workingGroups } from '../../../Constants/Constants';
+import DefaultSelect from '../Inputs/CustomSelect/DefaultSelect';
 
-const WorkingGroup = ({ formField, arrayHelpers }) => {
+const WorkingGroup = ({ formField, workingGroupsData, arrayHelpers }) => {
   const { values } = useFormikContext();
   const { isExistingMember } = useContext(MembershipContext);
   const { currentFormId } = useContext(MembershipContext);
@@ -45,8 +45,9 @@ const WorkingGroup = ({ formField, arrayHelpers }) => {
             name={`${workingGroups}.${index}.workingGroup`}
             participationLevel={`${workingGroups}.${index}.participationLevel`}
             srcData={workingGroups}
+            options={workingGroupsData}
             isExistingMember={isExistingMember}
-            renderComponent={WorkingGroupSelect}
+            renderComponent={DefaultSelect}
           />
 
           { workingGroup.workingGroup && workingGroup.workingGroup !== "not now" ? 

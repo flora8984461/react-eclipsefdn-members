@@ -16,7 +16,7 @@ import {
 
 const MultiStepForm = () => {
 
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(0);
 
   const handleSubmit = (values) => {  // This is for final submit, after preview
       console.log(values)

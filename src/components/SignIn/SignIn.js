@@ -7,8 +7,6 @@ import { FETCH_HEADER, api_prefix, end_point, fakeChildrenArray, getCurrentMode,
 
 const SignIn = ({setStep}) => {
 
-    console.log(window.location.href)
-
     const {currentUser, setCurrentUser} = useContext(MembershipContext);
 
     const getFakeUser = () => {
