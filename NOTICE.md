@@ -66,3 +66,23 @@ The project maintains the following source code repositories:
 ### jquery.matchHeight.js (^0.7.2)
 
 * License: The MIT License (MIT)
+
+### react (^17.0.0)
+
+* License: The MIT License (MIT)
+
+### Formik (^2.1.5)
+
+* License: The MIT License (MIT)
+
+### react-select (^3.1.1)
+
+* License: The MIT License (MIT)
+
+### react-datepicker (^3.2.2)
+
+* License: The MIT License (MIT)
+
+### yup (^0.29.3)
+
+* License: The MIT License (MIT)
