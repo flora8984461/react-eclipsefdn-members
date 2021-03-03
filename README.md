@@ -58,6 +58,11 @@ Inside that realm, create a client and update the `quarkus.oidc.client-id` prope
 
 With these properties updated, the server should be able to start and authenticate properly. If the 3 users mentioned within the OIDC configuration section were added, the data should be accessible in a way that is comparable to how it would be in production.
 
+As a side note, regeneration of the database on start along with the insertion of data into the database can be disabled for development environments by setting the following fields within `src/main/resources/application.properties`:
+
+1. Setting `%dev.eclipse.dataloader.enabled` to false. This property is what enables the Data bootstrap to load in mock data.  
+2. Removing the `%dev.quarkus.hibernate-orm.database.generation` property or commenting it out. This is what resets the database to empty on start.
+
 #### Running
 
 To run the server as a local instance as a stack, first run `npm run build`. This will package the React app and copy it into the static web resources of the server source. To run as a development application, which is the fastest way with the least dependencies, run the following command: `mvn compile quarkus:dev -Dconfig.secret.path=$(pwd)/config/secret.properties` or `mvn compile quarkus:dev "-Dconfig.secret.path=$pwd/config/secret.properties"` when running in a Windows PowerShell.
