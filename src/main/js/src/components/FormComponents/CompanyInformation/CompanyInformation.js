@@ -7,7 +7,7 @@ import Loading from '../../Loading/Loading';
 import { end_point, api_prefix_form, FETCH_HEADER, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../../Constants/Constants';
 
 const CompanyInformation = ({ formField, ...otherProps }) => {
-  const {currentFormId} = useContext(MembershipContext);
+  const { currentUser, currentFormId } = useContext(MembershipContext);
   const formValues = otherProps.parentState.formik.values;
   const [ loading, setLoading ] = useState(true);
 
@@ -25,9 +25,15 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
     }
 
     if (currentFormId && currentFormId !== newForm_tempId) {
+
+      let secureHeader = {
+        ...FETCH_HEADER,
+        'x-csrf-token': currentUser.csrfToken
+      }
+
       let pool = [
-        fetch(url_prefix_local + `/${currentFormId}/` + end_point.organizations + url_suffix_local, { headers : FETCH_HEADER }), 
-        fetch(url_prefix_local + `/${currentFormId}/` + end_point.contacts + url_suffix_local, { headers : FETCH_HEADER })
+        fetch(url_prefix_local + `/${currentFormId}/` + end_point.organizations + url_suffix_local, { headers : secureHeader }), 
+        fetch(url_prefix_local + `/${currentFormId}/` + end_point.contacts + url_suffix_local, { headers : secureHeader })
       ]
   
       Promise.all(pool)

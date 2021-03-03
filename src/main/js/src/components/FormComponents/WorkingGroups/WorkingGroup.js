@@ -11,8 +11,7 @@ import DefaultSelect from '../Inputs/CustomSelect/DefaultSelect';
 
 const WorkingGroup = ({ formField, workingGroupsData, arrayHelpers }) => {
   const { values } = useFormikContext();
-  const { isExistingMember } = useContext(MembershipContext);
-  const { currentFormId } = useContext(MembershipContext);
+  const { currentUser, isExistingMember, currentFormId } = useContext(MembershipContext);
 
   const each_workingGroupField = {
       id: '',
@@ -32,7 +31,7 @@ const WorkingGroup = ({ formField, workingGroupsData, arrayHelpers }) => {
 
     // Call API to remove
     console.log('you called DELETE method with id: ' + id);
-    deleteData(currentFormId, end_point.working_groups, id, arrayHelpersRemove, index);
+    deleteData(currentFormId, end_point.working_groups, id, arrayHelpersRemove, index, currentUser.csrfToken);
   }
 
   return (

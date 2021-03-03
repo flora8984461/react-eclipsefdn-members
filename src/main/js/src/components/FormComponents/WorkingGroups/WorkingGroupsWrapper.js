@@ -25,7 +25,12 @@ const WorkingGroupsWrapper = ({ formField, workingGroupsData, ...otherProps }) =
     }
 
     if(currentFormId && currentFormId !== newForm_tempId) {
-      fetch(url_prefix_local + `/${currentFormId}/` + end_point.working_groups + url_suffix_local, { headers: FETCH_HEADER })
+      let secureHeader = {
+        ...FETCH_HEADER,
+        'x-csrf-token': currentUser.csrfToken
+      }
+
+      fetch(url_prefix_local + `/${currentFormId}/` + end_point.working_groups + url_suffix_local, { headers: secureHeader })
       .then(resp => resp.json())
       .then(data => {
         if(data.length) {

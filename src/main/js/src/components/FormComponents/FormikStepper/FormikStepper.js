@@ -13,9 +13,9 @@ import { newForm_tempId } from '../../../Constants/Constants';
 const FormikStepper = ({ step, setStep, children, ...props }) => {
 
   const [completed, setCompleted] = useState(new Set());
-  const childrenArray = React.Children.toArray(children)
-  const currentChild = childrenArray[step]
-  const currentValidationSchema = validationSchema[step]
+  const childrenArray = React.Children.toArray(children);
+  const currentChild = childrenArray[step];
+  const currentValidationSchema = validationSchema[step];
 
   const formRef = useRef();
 
@@ -53,17 +53,17 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
         }
 
         if (currentFormId === newForm_tempId) {
-          await handleNewForm(setCurrentFormId, values, currentUser.name, defaultBehaviour);
+          await handleNewForm(setCurrentFormId, values, currentUser.name, defaultBehaviour, currentUser.csrfToken);
         }
         else {
-          await executeSendDataByStep(step, values, currentFormId, currentUser.name);
+          await executeSendDataByStep(step, values, currentFormId, currentUser.name, currentUser.csrfToken);
           defaultBehaviour();
         }
         
         break;
 
       default:
-        await executeSendDataByStep(step, values, currentFormId, currentUser.name);
+        await executeSendDataByStep(step, values, currentFormId, currentUser.name, currentUser.csrfToken);
         defaultBehaviour();
     }
   }

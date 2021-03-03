@@ -282,24 +282,26 @@ export function matchWGFieldsToBackend(eachWorkingGroupData, formId) {
  * Form Id fetched from the server, sotored in membership context, used for calling APIs
  * @param userId -
  * User Id fetched from the server when sign in, sotored in membership context, used for calling APIs
+ * @param csrfToken -
+ * The x-csrf-token header passed to server, it is fetched when sign in and stored in currentUser context
  * **/
-export async function executeSendDataByStep(step, formData, formId, userId) {
+export async function executeSendDataByStep(step, formData, formId, userId, csrfToken) {
 
   switch(step) {
     case 0:
-      sendData(formId, end_point.organizations, matchCompanyFieldsToBackend(formData.organization, formId))
-      sendData(formId, end_point.contacts, matchContactFieldsToBackend(formData.companyRepresentative.representative, contact_type.COMPANY, formId))
-      sendData(formId, end_point.contacts, matchContactFieldsToBackend(formData.companyRepresentative.marketingRepresentative, contact_type.MARKETING, formId))
-      sendData(formId, end_point.contacts, matchContactFieldsToBackend(formData.companyRepresentative.accounting, contact_type.ACCOUNTING, formId))
+      sendData(formId, end_point.organizations, matchCompanyFieldsToBackend(formData.organization, formId), csrfToken)
+      sendData(formId, end_point.contacts, matchContactFieldsToBackend(formData.companyRepresentative.representative, contact_type.COMPANY, formId), csrfToken)
+      sendData(formId, end_point.contacts, matchContactFieldsToBackend(formData.companyRepresentative.marketingRepresentative, contact_type.MARKETING, formId), csrfToken)
+      sendData(formId, end_point.contacts, matchContactFieldsToBackend(formData.companyRepresentative.accounting, contact_type.ACCOUNTING, formId), csrfToken)
       break;
 
     case 1:
-      sendData(formId, '', matchMembershipLevelFieldsToBackend(formData.membershipLevel, formId, userId))
+      sendData(formId, '', matchMembershipLevelFieldsToBackend(formData.membershipLevel, formId, userId), csrfToken)
       break;
 
     case 2:
       formData.workingGroups.forEach(item => {
-        sendData(formId, end_point.working_groups, matchWGFieldsToBackend(item, formId))
+        sendData(formId, end_point.working_groups, matchWGFieldsToBackend(item, formId), csrfToken)
       });
       break;
 
@@ -325,8 +327,10 @@ export async function executeSendDataByStep(step, formData, formId, userId) {
  * The Id of organizations, or contacts, or working groups entry;
  * If empty, is creating a new entity, use POST method;
  * If has value, is fetched from server, use PUT or DELETE;
+ * @param csrfToken -
+ * The x-csrf-token header passed to server, it is fetched when sign in and stored in currentUser context
  * **/
-function callSendData(formId, endpoint='', method, dataBody, entityId='') {
+function callSendData(formId, endpoint='', method, dataBody, entityId='', csrfToken) {
 
   let url = api_prefix_form + `/${formId}`;
 
@@ -349,7 +353,10 @@ function callSendData(formId, endpoint='', method, dataBody, entityId='') {
   if (getCurrentMode() === MODE_REACT_API) {
     fetch(url, {
       method: method,
-      headers: FETCH_HEADER,
+      headers: {
+        ...FETCH_HEADER,
+        'x-csrf-token': csrfToken
+      },
       body: JSON.stringify(dataBody)
     }).then( res => {
       console.log(res.status);
@@ -367,25 +374,27 @@ function callSendData(formId, endpoint='', method, dataBody, entityId='') {
  * /form/{id}, /form/{id}/organizations/{id}, /form/{id}/contacts/{id}, /form/{id}/working_groups/{id}
  * @param dataBody -
  * The data body passed to server, normally is the filled form data to be saved
+ * @param csrfToken -
+ * The x-csrf-token header passed to server, it is fetched when sign in and stored in currentUser context
  * **/
-export function sendData(formId, endpoint, dataBody) {
+export function sendData(formId, endpoint, dataBody, csrfToken) {
 
   switch(endpoint) {
     case end_point.organizations:
       if (!dataBody.id || formId === newForm_tempId) {
         delete dataBody.id;
-        callSendData(formId, endpoint, FETCH_METHOD.POST, dataBody);
+        callSendData(formId, endpoint, FETCH_METHOD.POST, dataBody, '', csrfToken);
       } else {
-        callSendData(formId, endpoint, FETCH_METHOD.PUT, dataBody, dataBody.id);
+        callSendData(formId, endpoint, FETCH_METHOD.PUT, dataBody, dataBody.id, csrfToken);
       }
       break;
 
     default:
       if (!dataBody.id) {
         delete dataBody.id;
-        callSendData(formId, endpoint, FETCH_METHOD.POST, dataBody);
+        callSendData(formId, endpoint, FETCH_METHOD.POST, dataBody, '', csrfToken);
       } else {
-        callSendData(formId, endpoint, FETCH_METHOD.PUT, dataBody, dataBody.id);
+        callSendData(formId, endpoint, FETCH_METHOD.PUT, dataBody, dataBody.id, csrfToken);
       }
   }
 
@@ -407,8 +416,10 @@ export function sendData(formId, endpoint, dataBody) {
  * @param index -
  * Typically for working groups, which one is deleted
  * Typically is used by the callback function from WorkingGroup Component (arrayhelpers.remove())
+ * @param csrfToken -
+ * The x-csrf-token header passed to server, it is fetched when sign in and stored in currentUser context
  * **/
-export function deleteData(formId, endpoint, entityId, callback, index) {
+export function deleteData(formId, endpoint, entityId, callback, index, csrfToken) {
 
   // If the added field array is not in the server, just remove it from frontend
   if (!entityId) {
@@ -431,6 +442,10 @@ export function deleteData(formId, endpoint, entityId, callback, index) {
     }
     fetch(url, {
       method: FETCH_METHOD.DELETE,
+      headers: {
+        ...FETCH_HEADER,
+        'x-csrf-token': csrfToken
+      }
     }).then( res => {
       console.log(res.status);
       // Remove from frontend
@@ -453,8 +468,10 @@ export function deleteData(formId, endpoint, entityId, callback, index) {
  * User Id fetched from the server when sign in, sotored in membership context, used for calling APIs
  * @param defaultBehaviour -
  * Go to the next step and add this step to complete set, passed from FormikStepper Component
+ * @param csrfToken -
+ * The x-csrf-token header passed to server, it is fetched when sign in and stored in currentUser context
  * **/
-export async function handleNewForm(setCurrentFormId, formData, userId, defaultBehaviour) {
+export async function handleNewForm(setCurrentFormId, formData, userId, defaultBehaviour, csrfToken) {
 
   if (getCurrentMode() === MODE_REACT_ONLY) {
     defaultBehaviour();
@@ -468,13 +485,16 @@ export async function handleNewForm(setCurrentFormId, formData, userId, defaultB
   
     fetch(api_prefix_form, {
       method: FETCH_METHOD.POST,
-      headers: FETCH_HEADER,
+      headers: {
+        ...FETCH_HEADER,
+        'x-csrf-token': csrfToken
+      },
       body: JSON.stringify(dataBody)
     })
     .then(res => res.json())
     .then(data => {
       setCurrentFormId(data[0]?.id);
-      executeSendDataByStep(0, formData, data[0]?.id, userId);
+      executeSendDataByStep(0, formData, data[0]?.id, userId, csrfToken);
       defaultBehaviour();
     })
   }

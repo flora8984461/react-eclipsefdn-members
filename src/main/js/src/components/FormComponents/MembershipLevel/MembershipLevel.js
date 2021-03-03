@@ -9,8 +9,7 @@ import { api_prefix_form, FETCH_HEADER, membership_levels, newForm_tempId, getCu
 
 const MembershipLevel = ({ formField, ...otherProps }) => {
 
-  const { currentFormId } = useContext(MembershipContext);
-
+  const { currentUser, currentFormId } = useContext(MembershipContext);
   const { membershipLevel } = formField;
 
   const [ loading, setLoading ] = useState(true);
@@ -30,7 +29,13 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
     }
 
     if (currentFormId && currentFormId !== newForm_tempId) {
-      fetch(url_prefix_local + `/${currentFormId}` + url_suffix_local, { headers : FETCH_HEADER })
+
+      let secureHeader = {
+        ...FETCH_HEADER,
+        'x-csrf-token': currentUser.csrfToken
+      }
+
+      fetch(url_prefix_local + `/${currentFormId}` + url_suffix_local, { headers : secureHeader })
       .then(resp => resp.json())
       .then(data => {
         if(data) {

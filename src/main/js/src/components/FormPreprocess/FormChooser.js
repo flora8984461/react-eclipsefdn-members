@@ -21,7 +21,12 @@ const FormChooser = ({currentUser}) => {
           url_prefix_local = api_prefix_form;
         }
 
-        fetch(url_prefix_local, { headers: FETCH_HEADER })
+        let secureHeader = {
+            ...FETCH_HEADER,
+            'x-csrf-token': currentUser.csrfToken
+        }
+
+        fetch(url_prefix_local, { headers: secureHeader })
         .then(res=> res.json())
         .then(data=> {
             setCurrentFormId(data[0]?.id);

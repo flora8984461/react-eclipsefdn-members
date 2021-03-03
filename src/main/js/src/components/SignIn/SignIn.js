@@ -19,11 +19,23 @@ const SignIn = ({setStep}) => {
 
     useEffect(() => {
         if (getCurrentMode() === MODE_REACT_API) {
+
             fetch(api_prefix + `/${end_point.userinfo}`, { headers: FETCH_HEADER })
             .then(res=> res.json())
             .then(data=> {
                 console.log(data)  // {family_name: "User1", given_name: "User1", name: "user1"}
-                setCurrentUser(data);
+                // setCurrentUser(data);
+
+                fetch(api_prefix + `/${end_point.csrf}`, { headers: FETCH_HEADER })
+                .then(res=> {
+                    var csrfToken = res.headers.get('x-csrf-token');
+                    setCurrentUser({
+                        ...data,
+                        csrfToken: csrfToken
+                    }) // {family_name: "user1", given_name: "user1", name: "user1", csrfToken: "blabla"}
+                })
+                .catch(err => console.log(err));
+
             })
             .catch(err => console.log(err));
         }

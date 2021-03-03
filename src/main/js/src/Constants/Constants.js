@@ -46,7 +46,8 @@ export const end_point = {
     organizations: 'organizations',
     contacts: 'contacts',
     working_groups: 'working_groups',
-    userinfo: 'userinfo'
+    userinfo: 'userinfo',
+    csrf: 'csrf'
 }
 
 // const for workingGroups string
