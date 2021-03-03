@@ -60,7 +60,7 @@ export const MODE_REACT_ONLY = 'MODE_REACT_ONLY';
 export const MODE_REACT_API = 'MODE_REACT_API';
 
 export function getCurrentMode() {
-    if (process.env.NODE_ENV === 'production' || window.location.href.includes('http://localhost:3000')) {
+    if (window.location.href.includes('http://localhost:3000')) {
         return MODE_REACT_ONLY;
     } else return MODE_REACT_API;
 }
