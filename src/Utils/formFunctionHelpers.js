@@ -1,5 +1,12 @@
 import { FETCH_METHOD, contact_type, end_point, api_prefix_form, FETCH_HEADER, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../Constants/Constants';
 
+/**
+ * @param compnayRep -
+ * The company representative contact info object
+ * @param otherContact -
+ * The representative contact info object that used to compare with company representative, which normally are
+ * marketing representative, and accounting representative
+ * **/
 function checkSameContact(compnayRep, otherContact) {
 
   if (!otherContact || !compnayRep) {
@@ -8,6 +15,7 @@ function checkSameContact(compnayRep, otherContact) {
 
   const keyArray = Object.keys(compnayRep);
 
+  // Check contacts' name, email and jobtitle to check if they are the same
   for (let i=0; i<keyArray.length; i++) {
     if ( keyArray[i] !== 'id' && keyArray[i] !== 'type' && (compnayRep[keyArray[i]] !== otherContact[keyArray[i]]) ) {
       return false;
@@ -17,6 +25,13 @@ function checkSameContact(compnayRep, otherContact) {
   return true;
 }
 
+/**
+ * @param currentContact -
+ * The representative contact info object that used to compare with company representative, which normally are
+ * marketing representative, and accounting representative
+ * @param companyContact -
+ * The company representative contact info object
+ * **/
 export function assignContactData(currentContact, companyContact) {
   currentContact.firstName = companyContact.firstName;
   currentContact.lastName = companyContact.lastName;
@@ -25,6 +40,11 @@ export function assignContactData(currentContact, companyContact) {
 }
 
 //== Transform data from backend to match my form model
+
+/**
+ * @param existingOrganizationData -
+ * Existing Organization data, fetched from server
+ * **/
 export function matchCompanyFields(existingOrganizationData) {
 
   return {
@@ -51,6 +71,10 @@ export function matchCompanyFields(existingOrganizationData) {
 
 }
 
+/**
+ * @param existingContactData -
+ * Existing Contacts data, fetched from server
+ * **/
 export function matchContactFields(existingContactData) {
 
   let existingCompanyContact = existingContactData.find(el => el.type === contact_type.COMPANY)
@@ -89,10 +113,14 @@ export function matchContactFields(existingContactData) {
 
 }
 
-export function matchWorkingGroupFields(existingMembershipData) {
+/**
+ * @param existingworkingGroupData -
+ * Existing working groups data, fetched from server
+ * **/
+export function matchWorkingGroupFields(existingworkingGroupData) {
   var res = [];
   // Array
-  existingMembershipData.forEach((item, index) => {
+  existingworkingGroupData.forEach((item, index) => {
 
     res.push(
       {
@@ -115,6 +143,13 @@ export function matchWorkingGroupFields(existingMembershipData) {
 }
 
 //== Transform data from my form model to PUT or POST for backend
+
+/**
+ * @param organizationData -
+ * Filled Organization data, stored in formik context
+ * @param formId -
+ * Form Id fetched from the server, sotored in membership context, used for calling APIs
+ * **/
 export function matchCompanyFieldsToBackend(organizationData, formId) {
 
   var org = {
@@ -138,6 +173,14 @@ export function matchCompanyFieldsToBackend(organizationData, formId) {
   return org;
 }
 
+/**
+ * @param membershipLevel -
+ * Filled membership level data, stored in formik context
+ * @param formId -
+ * Form Id fetched from the server, sotored in membership context, used for calling APIs
+ * @param userId -
+ * User Id fetched from the server when sign in, sotored in membership context, used for calling APIs
+ * **/
 export function matchMembershipLevelFieldsToBackend(membershipLevel, formId, userId) {
 
   return {
@@ -149,6 +192,14 @@ export function matchMembershipLevelFieldsToBackend(membershipLevel, formId, use
 
 }
 
+/**
+ * @param contactData -
+ * Filled contacts data, stored in formik context
+ * @param contactType -
+ * WORKING_GROUP, MARKETING, ACCOUNTING, COMPNAY, one of the types
+ * @param formId -
+ * Form Id fetched from the server, sotored in membership context, used for calling APIs
+ * **/
 export function matchContactFieldsToBackend(contactData, contactType, formId) {
 
   if (contactType === contact_type.WORKING_GROUP && !contactData.id) {
@@ -174,6 +225,12 @@ export function matchContactFieldsToBackend(contactData, contactType, formId) {
 
 }
 
+/**
+ * @param eachWorkingGroupData -
+ * Filled working group data, stored in formik context
+ * @param formId -
+ * Form Id fetched from the server, sotored in membership context, used for calling APIs
+ * **/
 export function matchWGFieldsToBackend(eachWorkingGroupData, formId) {
 
   var wg_contact = matchContactFieldsToBackend(eachWorkingGroupData.workingGroupRepresentative, contact_type.WORKING_GROUP, formId);
@@ -189,7 +246,18 @@ export function matchWGFieldsToBackend(eachWorkingGroupData, formId) {
   }
 }
 
-// EXECUTE Send Data function
+//== EXECUTE Send Data function
+
+/**
+ * @param step -
+ * The current step that is sending data 
+ * @param formData -
+ * Filled whole form data stored in formik context
+ * @param formId -
+ * Form Id fetched from the server, sotored in membership context, used for calling APIs
+ * @param userId -
+ * User Id fetched from the server when sign in, sotored in membership context, used for calling APIs
+ * **/
 export async function executeSendDataByStep(step, formData, formId, userId) {
 
   switch(step) {
@@ -218,6 +286,21 @@ export async function executeSendDataByStep(step, formData, formId, userId) {
   }
 }
 
+/**
+ * @param formId -
+ * Form Id fetched from the server, sotored in membership context, used for calling APIs
+ * @param endpoint -
+ * To which endpoint the fetch is calling to backend: 
+ * /form/{id}, /form/{id}/organizations/{id}, /form/{id}/contacts/{id}, /form/{id}/working_groups/{id}
+ * @param method -
+ * Fetch methods: POST, GET, PUT, DELETE
+ * @param dataBody -
+ * The data body passed to server, normally is the filled form data to be saved
+ * @param entityId -
+ * The Id of organizations, or contacts, or working groups entry;
+ * If empty, is creating a new entity, use POST method;
+ * If has value, is fetched from server, use PUT or DELETE;
+ * **/
 function callSendData(formId, endpoint='', method, dataBody, entityId='') {
 
   let url = api_prefix_form + `/${formId}`;
@@ -250,7 +333,16 @@ function callSendData(formId, endpoint='', method, dataBody, entityId='') {
 
 }
 
-// PUT or POST function
+//== PUT or POST function
+/**
+ * @param formId -
+ * Form Id fetched from the server, sotored in membership context, used for calling APIs
+ * @param endpoint -
+ * To which endpoint the fetch is calling to backend: 
+ * /form/{id}, /form/{id}/organizations/{id}, /form/{id}/contacts/{id}, /form/{id}/working_groups/{id}
+ * @param dataBody -
+ * The data body passed to server, normally is the filled form data to be saved
+ * **/
 export function sendData(formId, endpoint, dataBody) {
 
   switch(endpoint) {
@@ -274,7 +366,23 @@ export function sendData(formId, endpoint, dataBody) {
 
 }
 
-
+//== DELETE
+/**
+ * @param formId -
+ * Form Id fetched from the server, sotored in membership context, used for calling APIs
+ * @param endpoint -
+ * To which endpoint the fetch is calling to backend: 
+ * /form/{id}, /form/{id}/organizations/{id}, /form/{id}/contacts/{id}, /form/{id}/working_groups/{id}
+ * @param entityId -
+ * The Id of organizations, or contacts, or working groups entry;
+ * If empty, is creating a new entity, use POST method;
+ * If has value, is fetched from server, use PUT or DELETE;
+ * @param callback -
+ * Callback function, called when fetch resolved
+ * @param index -
+ * Typically for working groups, which one is deleted
+ * Typically is used by the callback function from WorkingGroup Component (arrayhelpers.remove())
+ * **/
 export function deleteData(formId, endpoint, entityId, callback, index) {
 
   // If the added field array is not in the server, just remove it from frontend
@@ -310,6 +418,17 @@ export function deleteData(formId, endpoint, entityId, callback, index) {
 
 }
 
+//== Handle New Form
+/**
+ * @param setCurrentFormId -
+ * setCurrentFormId function from membership context
+ * @param formData -
+ * Filled whole form data stored in formik context
+ * @param userId -
+ * User Id fetched from the server when sign in, sotored in membership context, used for calling APIs
+ * @param defaultBehaviour -
+ * Go to the next step and add this step to complete set, passed from FormikStepper Component
+ * **/
 export async function handleNewForm(setCurrentFormId, formData, userId, defaultBehaviour) {
 
   if (getCurrentMode() === MODE_REACT_ONLY) {
