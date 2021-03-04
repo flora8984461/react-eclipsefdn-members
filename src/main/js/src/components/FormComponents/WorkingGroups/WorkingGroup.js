@@ -54,11 +54,10 @@ const WorkingGroup = ({ formField, workingGroupsData, arrayHelpers }) => {
             <>
               <ParticipationLevel name={`${workingGroups}.${index}.participationLevel`} workingGroup={workingGroup.workingGroup} />
               <EffectiveDate name={`${workingGroups}.${index}.effectiveDate`} label="Effective Date" />
+              <WorkingGroupsRepresentative name={`${workingGroups}.${index}.workingGroupRepresentative`} formField={formField} label="Working Group Representative" />
             </>
             : null
           }
-            <WorkingGroupsRepresentative name={`${workingGroups}.${index}.workingGroupRepresentative`} formField={formField} label="Working Group Representative" />
-            
             { values.workingGroups.length > 1 &&
             <div className="text-center margin-bottom-20">
               <button className="btn btn-secondary padding-15" type="button" onClick={() => removeWorkingGroupCall(arrayHelpers.remove, index, values.workingGroups[index].id)}>

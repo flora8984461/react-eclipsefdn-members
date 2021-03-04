@@ -6,6 +6,8 @@
 }
 .eclipseFdn-membership-webform .orange-star {
   color: orange;
+  font-weight: bold;
+  font-size: larger;
 }
 .eclipseFdn-membership-webform .display-center {
   display: flex;

@@ -55,10 +55,11 @@ const Preview = () => {
           <div className="col-md-10"><div className="preview-field">{values.membershipLevel}</div></div>
         </div>
 
-        <h3 className="fw-600">Working Group to Join</h3>
+        <h3 className="fw-600">Working Group(s) to Join</h3>
         {
           values.workingGroups.map((el, index) => (
-            <div key={index} className="row margin-bottom-10">
+            <React.Fragment key={index}>
+            <div className="row margin-bottom-10">
               <div className="col-md-8"><label>Working group</label><div className="preview-field">{el.workingGroup}</div></div>
               <div className="col-md-8"><label>Intended Participation Level</label><div className="preview-field">{el.participationLevel}</div></div>
               <div className="col-md-8"><label>Effective Date</label><div className="preview-field">{new Date(el.effectiveDate).toLocaleDateString()}</div></div>
@@ -69,6 +70,8 @@ const Preview = () => {
               <div className="col-md-6"><label>Job Title</label><div className="preview-field">{el.workingGroupRepresentative.jobtitle}</div></div>
               <div className="col-md-6"><label>Job Title</label><div className="preview-field">{el.workingGroupRepresentative.email}</div></div>
             </div>
+            <hr />
+            </React.Fragment>
           ))
         }
 
