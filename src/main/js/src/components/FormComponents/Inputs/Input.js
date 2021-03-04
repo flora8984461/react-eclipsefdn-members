@@ -16,7 +16,7 @@ const Input = ({ name, labelName, placeholder, disableInput, requiredMark }) => 
       }) => {
         return (
         <>
-          <input {...field} className={`form-control margin-bottom-10 ${meta.touched && meta.error ? "form-border-error" : ""}`} type="text" placeholder={placeholder} disabled={disableInput} />
+          <input {...field} id={name} className={`form-control margin-bottom-10 ${meta.touched && meta.error ? "form-border-error" : ""}`} type="text" placeholder={placeholder} disabled={disableInput} />
         </>
       )}}
     </Field>

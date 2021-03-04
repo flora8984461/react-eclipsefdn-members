@@ -32,7 +32,7 @@ const DateInput = (props) => {
 
   return (
     <>
-      <label id="effective-date-label" htmlFor={name}>{label}</label>
+      <label id="effective-date-label" htmlFor={name} className="sr-only">{label}</label>
       <FastField name={name}>
         {({ form, field, meta }) => {
           const { setFieldValue } = form
