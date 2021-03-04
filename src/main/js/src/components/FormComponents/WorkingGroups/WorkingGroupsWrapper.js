@@ -8,7 +8,6 @@ import { end_point, api_prefix_form, FETCH_HEADER, workingGroups, newForm_tempId
 
 const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext);
-  const { isExistingMember } = useContext(MembershipContext);
   const workingGroupsData = JSON.parse(localStorage.getItem('workingGroupsData'));
   const [loading, setLoading] = useState(true);
 
@@ -21,9 +20,6 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
       .then(res=>res.json())
       .then(data => {
         let options = data.working_groups.map(item => ({ label: item.name, value: item.id, participation_levels: item.participation_levels }))
-        // if (!isExistingMember) {
-        //  options.push({ label: 'I do not want to join a working group at this time', value: '' })
-        // }
         localStorage.setItem('workingGroupsData', JSON.stringify(options));
       })
     }
