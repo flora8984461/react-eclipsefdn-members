@@ -4,6 +4,7 @@ import CustomSelectWrapper from '../Inputs/CustomSelect/CustomSelectWrapper';
 import MembershipFeeTable from './MembershipFeeTable';
 import MembershipContext from '../../../Context/MembershipContext';
 import Loading from '../../Loading/Loading';
+import { mapMembershipLevel } from '../../../Utils/formFunctionHelpers';
 import { api_prefix_form, FETCH_HEADER, membership_levels, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../../Constants/Constants';
 
 const MembershipLevel = ({ formField, ...otherProps }) => {
@@ -33,7 +34,7 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
       .then(resp => resp.json())
       .then(data => {
         if(data) {
-          otherProps.parentState.formik.setFieldValue(membershipLevel.name, data[0]?.membership_level);
+          otherProps.parentState.formik.setFieldValue(membershipLevel.name, mapMembershipLevel(data[0]?.membership_level,  membership_levels));
         }
         setLoading(false);
       })

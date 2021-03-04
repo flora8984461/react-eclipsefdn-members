@@ -67,27 +67,30 @@ export const validationSchema = [
 
   // Second step - membership level
   yup.object().shape({
-    membershipLevel: yup.string().required(`${requiredErrorMsg}`)
+    membershipLevel: yup.mixed().required(`${requiredErrorMsg}`)
   }),
 
   // Third step - working groups
   yup.object().shape({
     workingGroups: yup.array().of(
       yup.object().shape({
-        workingGroup: yup.string().required(`${requiredErrorMsg}`),
-        participationLevel: yup.string().when('workingGroup', {
-          is: value => !!value,
-          then: yup.string().required(`${requiredErrorMsg}`)
-        }),
-        effectiveDate: yup.mixed().when('workingGroup', {
-          is: value => !!value,
+        workingGroup: yup.mixed().required(`${requiredErrorMsg}`),
+        participationLevel: yup.mixed().when('workingGroup', {
+          is: value => !!value?.value,
           then: yup.mixed().required(`${requiredErrorMsg}`)
         }),
-        workingGroupRepresentative:yup.object().shape({
-          firstName: yup.string().required(`${requiredErrorMsg}`),
-          lastName: yup.string().required(`${requiredErrorMsg}`),
-          jobtitle: yup.string().required(`${requiredErrorMsg}`),
-          email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
+        effectiveDate: yup.mixed().when('workingGroup', {
+          is: value => !!value?.value,
+          then: yup.mixed().required(`${requiredErrorMsg}`)
+        }),
+        workingGroupRepresentative:yup.object().when('workingGroup', {
+          is: value => !!value?.value,
+          then: yup.object().shape({
+            firstName: yup.string().required(`${requiredErrorMsg}`),
+            lastName: yup.string().required(`${requiredErrorMsg}`),
+            jobtitle: yup.string().required(`${requiredErrorMsg}`),
+            email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address')
+          })
         })
       })
     )

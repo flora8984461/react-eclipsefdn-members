@@ -22,7 +22,7 @@ const Preview = () => {
           <div className="col-md-8"><label>Street</label><div className="preview-field">{values.organization.address.street}</div></div>
           <div className="col-md-4"><label>City</label><div className="preview-field">{values.organization.address.city}</div></div>
           <div className="col-md-4"><label>province/State</label><div className="preview-field">{values.organization.address.provinceOrState}</div></div>
-          <div className="col-md-4"><label>Country</label><div className="preview-field">{values.organization.address.country}</div></div>
+          <div className="col-md-4"><label>Country</label><div className="preview-field">{values.organization.address.country.label}</div></div>
           <div className="col-md-4"><label>PostalCode</label><div className="preview-field">{values.organization.address.postalCode}</div></div>
         </div>
 
@@ -52,7 +52,7 @@ const Preview = () => {
 
         <h3 className="fw-600">Intended Membership Level</h3>
         <div className="row margin-bottom-10">
-          <div className="col-md-10"><div className="preview-field">{values.membershipLevel}</div></div>
+          <div className="col-md-10"><div className="preview-field">{values.membershipLevel.label}</div></div>
         </div>
 
         <h3 className="fw-600">Working Group(s) to Join</h3>
@@ -60,8 +60,8 @@ const Preview = () => {
           values.workingGroups.map((el, index) => (
             <React.Fragment key={index}>
             <div className="row margin-bottom-10">
-              <div className="col-md-8"><label>Working group</label><div className="preview-field">{el.workingGroup}</div></div>
-              <div className="col-md-8"><label>Intended Participation Level</label><div className="preview-field">{el.participationLevel}</div></div>
+              <div className="col-md-8"><label>Working group</label><div className="preview-field">{el.workingGroup.label}</div></div>
+              <div className="col-md-8"><label>Intended Participation Level</label><div className="preview-field">{el.participationLevel.label}</div></div>
               <div className="col-md-8"><label>Effective Date</label><div className="preview-field">{new Date(el.effectiveDate).toLocaleDateString()}</div></div>
 
               <div className="col-md-24"><p className="h4 fw-600 margin-top-25">The working Group Representative</p></div>

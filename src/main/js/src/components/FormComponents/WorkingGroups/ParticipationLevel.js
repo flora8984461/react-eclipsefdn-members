@@ -8,11 +8,11 @@ const ParticipationLevel = ({name, workingGroup}) => {
 
   useEffect(() => {
     if(workingGroupsData) {
-      let temp = workingGroupsData?.find(item => workingGroup === item.value);
+      let temp = workingGroupsData?.find(item => workingGroup.value === item.value);
       setParticipationLevels(temp?.participation_levels);
     }
     // eslint-disable-next-line
-  }, [workingGroup])
+  }, [workingGroup.value])
 
   const renderOptions = (array) => {
     return array?.map(el => ({ label: el, value: el }))

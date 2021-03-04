@@ -50,7 +50,7 @@ const WorkingGroup = ({ formField, workingGroupsData, arrayHelpers }) => {
             renderComponent={DefaultSelect}
           />
 
-          { workingGroup.workingGroup && workingGroup.workingGroup !== "not now" ? 
+          { workingGroup.workingGroup && workingGroup.workingGroup.value !== "" ? 
             <>
               <ParticipationLevel name={`${workingGroups}.${index}.participationLevel`} workingGroup={workingGroup.workingGroup} />
               <EffectiveDate name={`${workingGroups}.${index}.effectiveDate`} label="Effective Date" />

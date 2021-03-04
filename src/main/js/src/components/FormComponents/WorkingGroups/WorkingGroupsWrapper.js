@@ -21,9 +21,9 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
       .then(res=>res.json())
       .then(data => {
         let options = data.working_groups.map(item => ({ label: item.name, value: item.id, participation_levels: item.participation_levels }))
-        if (!isExistingMember) {
-         options.push({ label: 'I do not want to join a working group at this time', value: 'not now' })
-        }
+        // if (!isExistingMember) {
+        //  options.push({ label: 'I do not want to join a working group at this time', value: '' })
+        // }
         localStorage.setItem('workingGroupsData', JSON.stringify(options));
       })
     }
@@ -45,7 +45,7 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
       .then(resp => resp.json())
       .then(data => {
         if(data.length) {
-          otherProps.parentState.formik.setFieldValue(workingGroups, matchWorkingGroupFields(data))
+          otherProps.parentState.formik.setFieldValue(workingGroups, matchWorkingGroupFields(data, workingGroupsData))
         }
         setLoading(false);
       })
