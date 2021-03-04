@@ -6,21 +6,23 @@ const Step = (props) => {
   const { active, completed, index, onClick, stepReached, title, currentStep, formRef } = props;
   const styles = getStyles(props);
 
-    const handleClick = e => {
+    const handleClick = async (e) => {
 
       if (index === 0) {
         onClick();
       }
 
+      // If go to the steps after the current step
       if (index-1 > currentStep) {
         if (formRef.current) {
-          formRef.current.validateForm();
+          await formRef.current.submitForm();
           if (Object.keys(formRef.current.errors).length === 0) {
             onClick(index-1);
           }
         }
       }
 
+      // If go to the steps before the current step
       else if(index-1 <= currentStep) {
         onClick(index-1);
       }
