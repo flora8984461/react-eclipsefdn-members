@@ -76,9 +76,9 @@ export function matchCompanyFields(existingOrganizationData) {
 
 /**
  * @param membershipLevel -
- * Existing Contacts data, fetched from server
+ * Existing membershipLevel data, fetched from server
  * @param membership_levels
- * 
+ * Options of membership levels, created in Constants file, passed from membership level step
  * **/
 export function mapMembershipLevel(existingMembershipLevel, membership_levels) {
   let membership = membership_levels.find(el => el.value === existingMembershipLevel);
