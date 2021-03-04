@@ -85,7 +85,9 @@ export const initialValues = {
     email: '',
     jobtitle: '',
     id: ''
-  }
+  },
+
+  signingAuthority: ""
 
 }
 

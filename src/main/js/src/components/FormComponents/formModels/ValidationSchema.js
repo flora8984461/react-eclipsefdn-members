@@ -94,12 +94,12 @@ export const validationSchema = [
   }),
 
   // Forth, signing Authority
-  yup.object().shape({
-    signingAuthorityRepresentative:yup.object().shape({
-      firstName: yup.string().required(`${requiredErrorMsg}`),
-      lastName: yup.string().required(`${requiredErrorMsg}`),
-      jobtitle: yup.string().required(`${requiredErrorMsg}`),
-      email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address')
-    })
-  })
+  // yup.object().shape({
+  //   signingAuthorityRepresentative:yup.object().shape({
+  //     firstName: yup.string().required(`${requiredErrorMsg}`),
+  //     lastName: yup.string().required(`${requiredErrorMsg}`),
+  //     jobtitle: yup.string().required(`${requiredErrorMsg}`),
+  //     email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address')
+  //   })
+  // })
 ]

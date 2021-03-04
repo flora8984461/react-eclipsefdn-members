@@ -1,0 +1,14 @@
+.box {
+    background: 'white';
+    border: 1px solid #d9e0e7;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.radio-label {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    width: 100%;
+}
