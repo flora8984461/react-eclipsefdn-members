@@ -36,7 +36,6 @@ const SignIn = ({setStep}) => {
             <>
             <SignInIntroduction />
             <StepperComponent step={-1} childrenArray={fakeChildrenArray} />
-            <h1>Form chooser</h1>
             <FormChooser currentUser={currentUser} setStep={setStep} />
             </>
         )
