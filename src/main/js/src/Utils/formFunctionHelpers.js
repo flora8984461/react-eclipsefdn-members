@@ -140,7 +140,7 @@ export function matchWorkingGroupFields(existingworkingGroupData, workingGroupsO
   var res = [];
   // Array
   existingworkingGroupData.forEach((item, index) => {
-    let wg = workingGroupsOptions.find(el => el.value === item?.working_group_id);
+    let wg = workingGroupsOptions?.find(el => el.value === item?.working_group_id);
     res.push(
       {
         id: item?.id || '',

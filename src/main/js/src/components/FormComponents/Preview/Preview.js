@@ -18,7 +18,7 @@ const Preview = () => {
         </div>
 
         <h4 className="fw-600">Address</h4>
-        <div className="row margin-bottom-10">
+        <div className="row margin-bottom-30">
           <div className="col-md-8"><label>Street</label><div className="preview-field">{values.organization.address.street}</div></div>
           <div className="col-md-4"><label>City</label><div className="preview-field">{values.organization.address.city}</div></div>
           <div className="col-md-4"><label>province/State</label><div className="preview-field">{values.organization.address.provinceOrState}</div></div>
@@ -27,7 +27,7 @@ const Preview = () => {
         </div>
 
         <h3 className="fw-600">Company Representative Contact</h3>
-        <div className="row margin-bottom-10">
+        <div className="row margin-bottom-30">
           <div className="col-md-6"><label>First Name</label><div className="preview-field">{values.companyRepresentative.representative.firstName}</div></div>
           <div className="col-md-6"><label>Last Name</label><div className="preview-field">{values.companyRepresentative.representative.lastName}</div></div>
           <div className="col-md-6"><label>Job Title</label><div className="preview-field">{values.companyRepresentative.representative.jobtitle}</div></div>
@@ -35,7 +35,7 @@ const Preview = () => {
         </div>
 
         <h3 className="fw-600">Company Marketing Contact</h3>
-        <div className="row margin-bottom-10">
+        <div className="row margin-bottom-30">
           <div className="col-md-6"><label>First Name</label><div className="preview-field">{values.companyRepresentative.marketingRepresentative.firstName}</div></div>
           <div className="col-md-6"><label>Last Name</label><div className="preview-field">{values.companyRepresentative.marketingRepresentative.lastName}</div></div>
           <div className="col-md-6"><label>Job Title</label><div className="preview-field">{values.companyRepresentative.marketingRepresentative.jobtitle}</div></div>
@@ -43,7 +43,7 @@ const Preview = () => {
         </div>
 
         <h3 className="fw-600">Company Accounting Contact</h3>
-        <div className="row margin-bottom-10">
+        <div className="row margin-bottom-30">
           <div className="col-md-6"><label>First Name</label><div className="preview-field">{values.companyRepresentative.accounting.firstName}</div></div>
           <div className="col-md-6"><label>Last Name</label><div className="preview-field">{values.companyRepresentative.accounting.lastName}</div></div>
           <div className="col-md-6"><label>Job Title</label><div className="preview-field">{values.companyRepresentative.accounting.jobtitle}</div></div>
@@ -51,7 +51,7 @@ const Preview = () => {
         </div>
 
         <h3 className="fw-600">Intended Membership Level</h3>
-        <div className="row margin-bottom-10">
+        <div className="row margin-bottom-30">
           <div className="col-md-10"><div className="preview-field">{values.membershipLevel.label}</div></div>
         </div>
 
@@ -59,7 +59,7 @@ const Preview = () => {
         {
           values.workingGroups.map((el, index) => (
             <React.Fragment key={index}>
-            <div className="row margin-bottom-10">
+            <div className="row margin-bottom-30">
               <div className="col-md-8"><label>Working group</label><div className="preview-field">{el.workingGroup.label}</div></div>
               <div className="col-md-8"><label>Intended Participation Level</label><div className="preview-field">{el.participationLevel.label}</div></div>
               <div className="col-md-8"><label>Effective Date</label><div className="preview-field">{new Date(el.effectiveDate).toLocaleDateString()}</div></div>
@@ -76,7 +76,7 @@ const Preview = () => {
         }
 
         <h3 className="fw-600">Signing Authority</h3>
-        <div className="row margin-bottom-10">
+        <div className="row margin-bottom-30">
           <div className="col-md-6"><label>First Name</label><div className="preview-field">{values.signingAuthorityRepresentative.firstName}</div></div>
           <div className="col-md-6"><label>Last Name</label><div className="preview-field">{values.signingAuthorityRepresentative.lastName}</div></div>
           <div className="col-md-12"><label>Email</label><div className="preview-field">{values.signingAuthorityRepresentative.email}</div></div>

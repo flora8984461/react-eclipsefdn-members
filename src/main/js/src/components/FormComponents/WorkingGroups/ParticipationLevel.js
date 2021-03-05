@@ -3,7 +3,7 @@ import DefaultSelect from '../Inputs/CustomSelect/DefaultSelect';
 import CustomSelectWrapper from '../Inputs/CustomSelect/CustomSelectWrapper';
 
 const ParticipationLevel = ({name, workingGroup}) => {
-  const workingGroupsData = JSON.parse(localStorage.getItem('workingGroupsData'));
+  const workingGroupsData = JSON.parse(sessionStorage.getItem('workingGroupsData'));
   const [participationLevels, setParticipationLevels] = useState([]);
 
   useEffect(() => {
