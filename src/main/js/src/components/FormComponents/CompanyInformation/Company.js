@@ -14,7 +14,7 @@ const Company = () => {
 
     return (
     <>
-      <h4 className="fw-600" id={organizationName.name}> Organization <span className="orange-star">*</span> </h4>
+      <h2 className="fw-600 h4" id={organizationName.name}> Organization <span className="orange-star">*</span> </h2>
       <CustomSelectWrapper
         name={organizationName.name}
         ariaLabel={organizationName.name}

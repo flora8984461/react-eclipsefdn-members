@@ -39,7 +39,7 @@ const WorkingGroup = ({ formField, workingGroupsData, arrayHelpers }) => {
     <>
       { values.workingGroups && values.workingGroups.length > 0 && values.workingGroups.map((workingGroup, index) => (
         <div key={index}>
-          <h3 className="h4 fw-600" id={`${workingGroups}.${index}.workingGroup`}>Which working group would you like to join? <span className="orange-star">*</span> </h3>
+          <h2 className="h4 fw-600" id={`${workingGroups}.${index}.workingGroup`}>Which working group would you like to join? <span className="orange-star">*</span> </h2>
           <CustomSelectWrapper
             label={WORKING_GROUPS}
             name={`${workingGroups}.${index}.workingGroup`}

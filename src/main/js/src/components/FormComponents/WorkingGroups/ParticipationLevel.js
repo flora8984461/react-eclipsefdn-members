@@ -20,7 +20,7 @@ const ParticipationLevel = ({name, workingGroup}) => {
 
   return (
     <>
-      <h4 className="fw-600 margin-top-30" id={name}>What is your intended participation level?<span className="orange-star margin-left-5">*</span></h4>
+      <h3 className="fw-600 margin-top-30 h4" id={name}>What is your intended participation level?<span className="orange-star margin-left-5">*</span></h3>
       <div className="row">
         <div className="col-md-12">
           <CustomSelectWrapper

@@ -51,7 +51,7 @@ const WorkingGroupsWrapper = ({ formField, workingGroupsData, ...otherProps }) =
 
   return (
     <>
-    <h2 className="fw-600">Working Group</h2>
+    <h1 className="fw-600 h2">Working Group</h1>
     <p>Please complete the following details for joining a Working Group</p>
     <div id="working-groups-page" className="align-center margin-top-50 margin-bottom-30">
     <FieldArray

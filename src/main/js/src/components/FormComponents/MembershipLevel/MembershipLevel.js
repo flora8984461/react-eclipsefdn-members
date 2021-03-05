@@ -52,9 +52,9 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
   return (
     <>
     <div className="align-center">
-      <h2 className="fw-600">Membership Level</h2>
+      <h1 className="fw-600 h2">Membership Level</h1>
       <p>Please Indicate the class of membership for which you are applying</p>
-      <h3 className="fw-600" id={membershipLevel.name}>What is your intended Membership Level?</h3>
+      <h2 className="fw-600 h3" id={membershipLevel.name}>What is your intended Membership Level?</h2>
       <div className="row">
         <div className="col-md-12">
           <CustomSelectWrapper
