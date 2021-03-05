@@ -54,13 +54,14 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
     <div className="align-center">
       <h2 className="fw-600">Membership Level</h2>
       <p>Please Indicate the class of membership for which you are applying</p>
-      <h3 className="fw-600">What is your intended Membership Level?</h3>
+      <h3 className="fw-600" id={membershipLevel.name}>What is your intended Membership Level?</h3>
       <div className="row">
         <div className="col-md-12">
           <CustomSelectWrapper
             name={membershipLevel.name}
             renderComponent={DefaultSelect}
             options={membership_levels}
+            ariaLabel={membershipLevel.name}
           />
         </div>
       </div>

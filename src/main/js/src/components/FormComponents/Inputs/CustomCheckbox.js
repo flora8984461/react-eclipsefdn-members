@@ -16,6 +16,8 @@ const CustomCheckbox = ({ name, label }) => {
             checked={field.value}
             name={field.name}
             type="checkbox"
+            aria-checked={field.value}
+            aria-label={name}
           />
           <span>{label}</span>
         </label>

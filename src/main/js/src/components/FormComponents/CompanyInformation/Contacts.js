@@ -13,7 +13,7 @@ const Contacts = ({formValues, formField}) => {
       <>
         { representatives.map((el, index) => 
           <div key={prefix + index} className="col-md-12">
-            <Input name={el.name} labelName={el.label} placeholder={el.placeholder} disableInput={disableInput} />
+            <Input name={el.name} labelName={el.label} ariaLabel={prefix + el.label} placeholder={el.placeholder} disableInput={disableInput} />
           </div>
         ) }
       </>

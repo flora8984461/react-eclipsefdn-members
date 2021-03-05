@@ -23,16 +23,15 @@ const DateInput = (props) => {
             placeholder="Date"
             type="text"
             className={`form-control margin-bottom-10 ${props.meta.touched && props.meta.error ? "form-border-error" : ""}`} 
-            aria-describedby="date"
+            aria-labelledby={props.name}
           />
-          <span className="input-group-addon" id="date"><span className="glyphicon glyphicon-calendar" /></span>
+          <span className="input-group-addon"><span className="glyphicon glyphicon-calendar" /></span>
         </div>
     )
   })
 
   return (
     <>
-      <label id="effective-date-label" htmlFor={name} className="sr-only">{label}</label>
       <FastField name={name}>
         {({ form, field, meta }) => {
           const { setFieldValue } = form

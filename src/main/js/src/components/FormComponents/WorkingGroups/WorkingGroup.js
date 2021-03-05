@@ -39,7 +39,7 @@ const WorkingGroup = ({ formField, workingGroupsData, arrayHelpers }) => {
     <>
       { values.workingGroups && values.workingGroups.length > 0 && values.workingGroups.map((workingGroup, index) => (
         <div key={index}>
-          <h3 className="h4 fw-600">Which working group would you like to join? <span className="orange-star">*</span> </h3>
+          <h3 className="h4 fw-600" id={`${workingGroups}.${index}.workingGroup`}>Which working group would you like to join? <span className="orange-star">*</span> </h3>
           <CustomSelectWrapper
             label={WORKING_GROUPS}
             name={`${workingGroups}.${index}.workingGroup`}
@@ -48,6 +48,7 @@ const WorkingGroup = ({ formField, workingGroupsData, arrayHelpers }) => {
             options={workingGroupsData}
             isExistingMember={isExistingMember}
             renderComponent={DefaultSelect}
+            ariaLabel={`${workingGroups}.${index}.workingGroup`}
           />
 
           { workingGroup.workingGroup && workingGroup.workingGroup.value !== "" ? 

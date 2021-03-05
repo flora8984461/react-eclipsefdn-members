@@ -28,6 +28,7 @@ const DefaultSelect = (props) => {
 
   return (
     <Select
+      aria-labelledby={props.ariaLabel}
       isClearable
       isSearchable
       options={props.options}

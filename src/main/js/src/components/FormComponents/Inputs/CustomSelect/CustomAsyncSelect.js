@@ -77,6 +77,7 @@ const CustomAsyncSelect = (props) => {
     return (
       <AsyncCreatable
         {...field}
+        aria-labelledby={props.ariaLabel}
         isClearable
         isSearchable
         cacheOptions

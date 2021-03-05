@@ -20,15 +20,16 @@ const ParticipationLevel = ({name, workingGroup}) => {
 
   return (
     <>
-      <h4 className="fw-600 margin-top-30">What is your intended participation level?<span className="orange-star margin-left-5">*</span></h4>
+      <h4 className="fw-600 margin-top-30" id={name}>What is your intended participation level?<span className="orange-star margin-left-5">*</span></h4>
       <div className="row">
-      <div className="col-md-12">
-      <CustomSelectWrapper
-        name={name}
-        renderComponent={DefaultSelect}
-        options={renderOptions(participationLevels)}
-      />
-      </div>
+        <div className="col-md-12">
+          <CustomSelectWrapper
+            name={name}
+            renderComponent={DefaultSelect}
+            options={renderOptions(participationLevels)}
+            ariaLabel={name}
+          />
+        </div>
       </div>
     </>
   );
