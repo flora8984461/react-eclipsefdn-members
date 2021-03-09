@@ -7,7 +7,7 @@ import Loading from '../../Loading/Loading';
 import { end_point, api_prefix_form, FETCH_HEADER, workingGroups, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../../Constants/Constants';
 
 const WorkingGroupsWrapper = ({ formField, workingGroupsData, ...otherProps }) => {
-  const { currentFormId } = useContext(MembershipContext);
+  const { currentUser, currentFormId } = useContext(MembershipContext);
   const [loading, setLoading] = useState(false);
 
   // Fetch existing form data

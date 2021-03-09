@@ -38,7 +38,7 @@ const DefaultSelect = (props) => {
       }}
       onBlur={props.form.handleBlur(props.field.name)}
       className="margin-bottom-10 form-group"
-      styles={generateCustomStyles(false, meta.error)}
+      styles={generateCustomStyles(false, meta.touched && meta.error)}
       theme={selectTheme}
     />
   )

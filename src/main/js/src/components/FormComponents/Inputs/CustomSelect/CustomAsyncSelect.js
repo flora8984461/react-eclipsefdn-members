@@ -88,7 +88,7 @@ const CustomAsyncSelect = (props) => {
           handleSelect(option, action)
         }}
         onBlur={props.form.handleBlur(props.field.name)}
-        styles={generateCustomStyles(true, meta.error)}
+        styles={generateCustomStyles(true, meta.touched && meta.error)}
         theme={selectTheme}
         noOptionsMessage={() => 'Type to Search...'}
         className="margin-bottom-10 form-group"
