@@ -8,28 +8,47 @@ import MembershipContext from '../../../Context/MembershipContext';
 import SubmitSuccess from '../SubmitSuccess';
 import { newForm_tempId } from '../../../Constants/Constants';
 
-//form.validateForm(); to manually call validate
+/**
+ * A wrapper for each step of form.
+ * - Check and mark step completed
+ * - Perform "next" / "submit" action
+ * - match current Child form component
+ * - match current ValidationSchema
+ * - -------------------------------
+ * 
+ * - Props:
+ *    - step: current step you are in
+ *    - setStep: setStep function passed from MultiStepForm
+ *    - children: CompanyInformation, MembershipLevel, WorkingGroupsWrapper, SigningAuthority
+ *    - props: any other props passed from MultiStepForm component
+ * 
+ * --------------------------------------
+ * - Render Formik component, 
+ *    including each step of form component (currentChild), CustomStepButton (render as prev, next, or final submit)
+ * - Render StepperComponent component
+ * - Render Submit Success confirmation component once submit after preview
+ * **/
 
 const FormikStepper = ({ step, setStep, children, ...props }) => {
 
   const [completed, setCompleted] = useState(new Set());
-  const childrenArray = React.Children.toArray(children)
-  const currentChild = childrenArray[step]
-  const currentValidationSchema = validationSchema[step]
+  const childrenArray = React.Children.toArray(children);
+  const currentChild = childrenArray[step];
+  const currentValidationSchema = validationSchema[step];
 
+  // Pass this form ref to StepperComponent, to make StepperComponent has access to formik API, so that can execute submit / validation action when using the top step navigation
   const formRef = useRef();
 
-  const { currentFormId, setCurrentFormId } = useContext(MembershipContext);
-  const { currentUser } = useContext(MembershipContext);
+  const { currentUser, currentFormId, setCurrentFormId } = useContext(MembershipContext);
 
   function isLastStep() {
-    return step === childrenArray.length - 1
+    return step === childrenArray.length - 1;
   }
 
   const handleComplete = () => {
-      const newCompleted = new Set(completed)
-      newCompleted.add(step)
-      setCompleted(newCompleted)
+      const newCompleted = new Set(completed);
+      newCompleted.add(step);
+      setCompleted(newCompleted);
     }
 
   const defaultBehaviour = () => {
@@ -45,11 +64,11 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
         break;
 
       case 0: 
-        if(values.companyRepresentative.marketingRepresentative.sameAsCompany) {
-          assignContactData(values.companyRepresentative.marketingRepresentative, values.companyRepresentative.representative)
+        if(values.representative.marketing.sameAsCompany) {
+          assignContactData(values.representative.marketing, values.representative.company);
         }
-        if (values.companyRepresentative.accounting.sameAsCompany) {
-          assignContactData(values.companyRepresentative.accounting, values.companyRepresentative.representative)
+        if (values.representative.accounting.sameAsCompany) {
+          assignContactData(values.representative.accounting, values.representative.company);
         }
 
         if (currentFormId === newForm_tempId) {

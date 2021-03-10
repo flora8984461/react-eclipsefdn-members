@@ -7,6 +7,13 @@ import Loading from '../../Loading/Loading';
 import { mapMembershipLevel } from '../../../Utils/formFunctionHelpers';
 import { api_prefix_form, FETCH_HEADER, membership_levels, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../../Constants/Constants';
 
+/**
+ * - Render membership select component (use React-Select), with fetch and prefill data operation
+ *  - Props:
+ *    -  otherProps: any other props passing down from MultiStepForm and FormikStepper components, including formik props of formik library (such as "formik.values", "formik.setFieldValue");
+ *    - formField: the form field in formModels/formFieldModel.js;
+ * **/
+
 const MembershipLevel = ({ formField, ...otherProps }) => {
 
   const { currentFormId } = useContext(MembershipContext);
@@ -18,6 +25,7 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
   // Fetch data only once and prefill data, behaves as componentDidMount
   useEffect(() => {
 
+    // All pre-process: if running without server, use fake json data; if running with API, use API
     let url_prefix_local;
     let url_suffix_local = '';
     if ( getCurrentMode() === MODE_REACT_ONLY ) {
@@ -29,11 +37,14 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
       url_prefix_local = api_prefix_form;
     }
 
+    // If the current form exsits, and it is not creating a new form
     if (currentFormId && currentFormId !== newForm_tempId) {
       fetch(url_prefix_local + `/${currentFormId}` + url_suffix_local, { headers : FETCH_HEADER })
       .then(resp => resp.json())
       .then(data => {
         if(data) {
+          // mapMembershipLevel(): Call the the function to map the retrived membership level backend data to fit frontend, and
+          // setFieldValue(): Prefill Data --> Call the setFieldValue of Formik, to set membershipLevel field with the mapped data
           otherProps.parentState.formik.setFieldValue(membershipLevel.name, mapMembershipLevel(data[0]?.membership_level,  membership_levels));
         }
         setLoading(false);

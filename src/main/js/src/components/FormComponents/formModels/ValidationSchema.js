@@ -17,14 +17,14 @@ export const validationSchema = [
     }),
 
     // First step - representative contacts
-    companyRepresentative: yup.object().shape({
-      representative: yup.object().shape({
+    representative: yup.object().shape({
+      company: yup.object().shape({
           firstName: yup.string().required(`${requiredErrorMsg}`),
           lastName: yup.string().required(`${requiredErrorMsg}`),
           jobtitle: yup.string().required(`${requiredErrorMsg}`),
           email: yup.string().required(`${requiredErrorMsg}`).email('Invalid email address') 
       }),
-      marketingRepresentative: yup.object().shape({
+      marketing: yup.object().shape({
         sameAsCompany: yup.boolean(),
         firstName: yup.string().when('sameAsCompany', {
           is: false,

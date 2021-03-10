@@ -6,6 +6,18 @@ import { matchWorkingGroupFields } from '../../../Utils/formFunctionHelpers';
 import Loading from '../../Loading/Loading';
 import { end_point, api_prefix_form, FETCH_HEADER, workingGroups, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../../Constants/Constants';
 
+/**
+ * - Wrapper for FieldArray of WorkingGroup component, with fetch and prefill data operation
+ *    Note: FieldArray is from Formik library that add/remove easily in an array of same field inputs, please refer to https://formik.org/docs/api/fieldarray 
+ * 
+ *  - Props:
+ *    - workingGroupsData: working group options to choose from; passed from MultiStepForm component
+ * 
+ *    - otherProps: any other props passing down from MultiStepForm and FormikStepper components, including formik props of formik library (such as "formik.values", "formik.setFieldValue");
+ * 
+ *    - formField: the form field in formModels/formFieldModel.js
+ * **/
+
 const WorkingGroupsWrapper = ({ formField, workingGroupsData, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext);
   const [loading, setLoading] = useState(false);
@@ -13,6 +25,7 @@ const WorkingGroupsWrapper = ({ formField, workingGroupsData, ...otherProps }) =
   // Fetch existing form data
   function fetchWorkingGroupsData() {
 
+    // All pre-process: if running without server, use fake json data; if running with API, use API
     let url_prefix_local;
     let url_suffix_local = '';
     if ( getCurrentMode() === MODE_REACT_ONLY ) {
@@ -24,11 +37,14 @@ const WorkingGroupsWrapper = ({ formField, workingGroupsData, ...otherProps }) =
       url_prefix_local = api_prefix_form;
     }
 
+    // If the current form exsits, and it is not creating a new form
     if(currentFormId && currentFormId !== newForm_tempId) {
       fetch(url_prefix_local + `/${currentFormId}/` + end_point.working_groups + url_suffix_local, { headers: FETCH_HEADER })
       .then(resp => resp.json())
       .then(data => {
         if(data.length) {
+          // matchWorkingGroupFields(): Call the the function to map the retrived working groups backend data to fit frontend, and
+          // setFieldValue(): Prefill Data --> Call the setFieldValue of Formik, to set workingGroups field with the mapped data
           otherProps.parentState.formik.setFieldValue(workingGroups, matchWorkingGroupFields(data, workingGroupsData))
         }
         setLoading(false);

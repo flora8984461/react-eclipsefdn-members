@@ -15,7 +15,7 @@ export const requiredErrorMsg = 'is required'
 
 export const initialValues = {
 
-  // Step1: company Info
+  // Step1: Orgnaization Info
   organization: {
     id: '',
     legalName: '',
@@ -30,9 +30,9 @@ export const initialValues = {
     twitterHandle: '',
   },
 
-  // Step1: Company Representative
-  companyRepresentative: {
-    representative: {
+  // Step1: Representatives
+  representative: {
+    company: {
       id: '',
       firstName: '',
       lastName: '',
@@ -40,7 +40,7 @@ export const initialValues = {
       email: ''
     },
 
-    marketingRepresentative: {
+    marketing: {
       sameAsCompany: false,
       id: '',
       firstName: '',
@@ -139,54 +139,54 @@ export const formField = {
     label: twitterLabel,
     placeholder: twitter,
   },
-  companyRepresentative: [
+  company: [
     {
-      name: 'companyRepresentative.representative.firstName',
+      name: 'representative.company.firstName',
       label: firstName,
       placeholder: firstName,
       requiredErrorMsg: requiredErrorMsg
     },
     {
-      name: 'companyRepresentative.representative.lastName',
+      name: 'representative.company.lastName',
       label: lastName,
       placeholder: lastName,
       requiredErrorMsg: requiredErrorMsg
     },
     {
-      name: 'companyRepresentative.representative.jobtitle',
+      name: 'representative.company.jobtitle',
       label: jobtitle,
       placeholder: jobtitle,
       requiredErrorMsg: requiredErrorMsg
     },
     {
-      name: 'companyRepresentative.representative.email',
+      name: 'representative.company.email',
       label: email,
       placeholder: email,
       requiredErrorMsg: requiredErrorMsg,
       invalidErrorMsg: 'email format is incorrect'
     }
   ],
-  marketingRepresentative: [
+  marketing: [
     {
-      name: 'companyRepresentative.marketingRepresentative.firstName',
+      name: 'representative.marketing.firstName',
       label: firstName,
       placeholder: firstName,
       requiredErrorMsg: requiredErrorMsg
     },
     {
-      name: 'companyRepresentative.marketingRepresentative.lastName',
+      name: 'representative.marketing.lastName',
       label: lastName,
       placeholder: lastName,
       requiredErrorMsg: requiredErrorMsg
     },
     {
-      name: 'companyRepresentative.marketingRepresentative.jobtitle',
+      name: 'representative.marketing.jobtitle',
       label: jobtitle,
       placeholder: jobtitle,
       requiredErrorMsg: requiredErrorMsg
     },
     {
-      name: 'companyRepresentative.marketingRepresentative.email',
+      name: 'representative.marketing.email',
       label: email,
       placeholder: email,
       requiredErrorMsg: requiredErrorMsg,
@@ -195,25 +195,25 @@ export const formField = {
   ],
   accounting: [
     {
-      name: 'companyRepresentative.accounting.firstName',
+      name: 'representative.accounting.firstName',
       label: firstName,
       placeholder: firstName,
       requiredErrorMsg: requiredErrorMsg
     },
     {
-      name: 'companyRepresentative.accounting.lastName',
+      name: 'representative.accounting.lastName',
       label: lastName,
       placeholder: lastName,
       requiredErrorMsg: requiredErrorMsg
     },
     {
-      name: 'companyRepresentative.accounting.jobtitle',
+      name: 'representative.accounting.jobtitle',
       label: jobtitle,
       placeholder: jobtitle,
       requiredErrorMsg: requiredErrorMsg
     },
     {
-      name: 'companyRepresentative.accounting.email',
+      name: 'representative.accounting.email',
       label: email,
       placeholder: email,
       requiredErrorMsg: requiredErrorMsg,
