@@ -5,9 +5,27 @@ import { useField } from 'formik';
 import { FETCH_HEADER, companies } from '../../../../Constants/Constants';
 import { formField } from '../../formModels/formFieldModel';
 
+/**
+ * Use AsyncCreatable from React Select, in order to be able to call APIs when open the dropdown, and do search APIs, please refer to https://react-select.com/creatable; And allows user to create a new option if cannot find one the user wants.
+ * 
+ * - Props: the same from CustomSelectWrapper.js
+ * 
+ *  useField(), will allow you to get [field, meta], the current Field Props
+ * **/
+
 const CustomAsyncSelect = (props) => {
   const { organizationName, organizationAddress, organizationTwitter } = formField;
   const [field, meta] = useField(props.field.name);  // or props.field, must contain name key
+
+  /**
+   * @param option - 
+   *        the option you are selecting
+   * @param action - 
+   *        type ActionTypes = | 'clear' | 'create-option' | 'deselect-option' | 'pop-value' | 'remove-value' | 'select-option' | 'set-value'
+   * Please refer to: https://react-select.com/props#prop-types 
+   * 
+   * option.__isNew__ defines wether the option is from the option list or input by the user
+   * **/
 
   const handleSelect = (option, action) => {
 
@@ -55,7 +73,7 @@ const CustomAsyncSelect = (props) => {
       let src_data;
 
       switch(props.srcData) {
-
+        // This is currently using a fake data in public/companies.json
         case companies:
           src_data = 'companies.json'
           if (inputValue) {
@@ -76,7 +94,7 @@ const CustomAsyncSelect = (props) => {
 
     return (
       <AsyncCreatable
-        {...field}
+        {...field}  // Inherit field props
         aria-labelledby={props.ariaLabel}
         isClearable
         isSearchable
@@ -87,7 +105,7 @@ const CustomAsyncSelect = (props) => {
         onChange={(option, action) => {
           handleSelect(option, action)
         }}
-        onBlur={props.form.handleBlur(props.field.name)}
+        onBlur={props.form.handleBlur(props.field.name)}  // Inherit the handleBlur from formik
         styles={generateCustomStyles(true, meta.error)}
         theme={selectTheme}
         noOptionsMessage={() => 'Type to Search...'}

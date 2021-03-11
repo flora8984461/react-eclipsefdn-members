@@ -36,7 +36,7 @@ const DefaultSelect = (props) => {
       onChange={(option, action) => {
         handleSelect(option, action)
       }}
-      onBlur={props.form.handleBlur(props.field.name)}
+      onBlur={props.form.handleBlur(props.field.name)}  // Inherit the handleBlur from formik
       className="margin-bottom-10 form-group"
       styles={generateCustomStyles(false, meta.error)}
       theme={selectTheme}
