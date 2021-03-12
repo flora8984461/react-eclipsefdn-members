@@ -39,7 +39,7 @@ const WorkingGroup = ({ formField, workingGroupsData, arrayHelpers }) => {
     <>
       { values.workingGroups && values.workingGroups.length > 0 && values.workingGroups.map((workingGroup, index) => (
         <div key={index}>
-          <h3 className="h4 fw-600">Which working group would you like to join? <span className="orange-star">*</span> </h3>
+          <h2 className="h4 fw-600" id={`${workingGroups}.${index}.workingGroup`}>Which working group would you like to join? <span className="orange-star">*</span> </h2>
           <CustomSelectWrapper
             label={WORKING_GROUPS}
             name={`${workingGroups}.${index}.workingGroup`}
@@ -48,17 +48,17 @@ const WorkingGroup = ({ formField, workingGroupsData, arrayHelpers }) => {
             options={workingGroupsData}
             isExistingMember={isExistingMember}
             renderComponent={DefaultSelect}
+            ariaLabel={`${workingGroups}.${index}.workingGroup`}
           />
 
-          { workingGroup.workingGroup && workingGroup.workingGroup !== "not now" ? 
+          { workingGroup.workingGroup && workingGroup.workingGroup.value !== "" ? 
             <>
               <ParticipationLevel name={`${workingGroups}.${index}.participationLevel`} workingGroup={workingGroup.workingGroup} />
               <EffectiveDate name={`${workingGroups}.${index}.effectiveDate`} label="Effective Date" />
+              <WorkingGroupsRepresentative name={`${workingGroups}.${index}.workingGroupRepresentative`} formField={formField} label="Working Group Representative" />
             </>
             : null
           }
-            <WorkingGroupsRepresentative name={`${workingGroups}.${index}.workingGroupRepresentative`} formField={formField} label="Working Group Representative" />
-            
             { values.workingGroups.length > 1 &&
             <div className="text-center margin-bottom-20">
               <button className="btn btn-secondary padding-15" type="button" onClick={() => removeWorkingGroupCall(arrayHelpers.remove, index, values.workingGroups[index].id)}>

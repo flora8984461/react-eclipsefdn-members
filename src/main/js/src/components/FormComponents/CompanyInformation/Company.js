@@ -14,9 +14,10 @@ const Company = () => {
 
     return (
     <>
-      <h4 className="fw-600"> Organization <span className="orange-star">*</span> </h4>
+      <h2 className="fw-600 h4" id={organizationName.name}> Organization <span className="orange-star">*</span> </h2>
       <CustomSelectWrapper
         name={organizationName.name}
+        ariaLabel={organizationName.name}
         srcData={companies}
         isExistingMember={isExistingMember}
         renderComponent={CustomAsyncSelect}
@@ -39,9 +40,10 @@ const Company = () => {
 
       <div className="row margin-bottom-40">
         <div className="col-md-8">
-          <label htmlFor={organizationAddress.country.name}>Country</label><span className="orange-star margin-left-5">*</span>
+          <label id={organizationAddress.country.name}>Country</label><span className="orange-star margin-left-5">*</span>
           <CustomSelectWrapper
             name={organizationAddress.country.name}
+            ariaLabel={organizationAddress.country.name}
             renderComponent={DefaultSelect}
             options={countryList}
           />

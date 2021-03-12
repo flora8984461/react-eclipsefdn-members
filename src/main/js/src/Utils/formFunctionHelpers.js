@@ -62,13 +62,30 @@ export function matchCompanyFields(existingOrganizationData) {
         street: existingOrganizationData?.address.street || '',
         city: existingOrganizationData?.address.city || '',
         provinceOrState: existingOrganizationData?.address.province_state || '',
-        country: existingOrganizationData?.address.country || '',
+        country: {
+          label: existingOrganizationData?.address.country,
+          value: existingOrganizationData?.address.country
+        } || '',
         postalCode: existingOrganizationData?.address.postal_code || '',
       },
       twitterHandle: existingOrganizationData?.twitter_handle || '',  
     }
   }
 
+}
+
+/**
+ * @param membershipLevel -
+ * Existing membershipLevel data, fetched from server
+ * @param membership_levels
+ * Options of membership levels, created in Constants file, passed from membership level step
+ * **/
+export function mapMembershipLevel(existingMembershipLevel, membership_levels) {
+  let membership = membership_levels.find(el => el.value === existingMembershipLevel);
+  return {
+    label: membership?.label,
+    value: existingMembershipLevel
+  }
 }
 
 /**
@@ -116,17 +133,26 @@ export function matchContactFields(existingContactData) {
 /**
  * @param existingworkingGroupData -
  * Existing working groups data, fetched from server
+ * @param workingGroupsOptions -
+ * Options of working groups to select, fetched from server
  * **/
-export function matchWorkingGroupFields(existingworkingGroupData) {
+export function matchWorkingGroupFields(existingworkingGroupData, workingGroupsOptions) {
   var res = [];
   // Array
   existingworkingGroupData.forEach((item, index) => {
-
+    let wg = workingGroupsOptions?.find(el => el.value === item?.working_group_id);
     res.push(
       {
         id: item?.id || '',
-        workingGroup: item?.working_group_id || '',
-        participationLevel: item?.participation_level || '',
+        workingGroup: {
+          label: wg?.label,
+          value: item?.working_group_id,
+          participation_levels: wg?.participation_levels
+        } || '',
+        participationLevel: {
+          label: item?.participation_level,
+          value: item?.participation_level
+        } || '',
         effectiveDate: new Date(item?.effective_date) || '',
         workingGroupRepresentative: {
           firstName: item?.contact.first_name || '',
@@ -155,7 +181,7 @@ export function matchCompanyFieldsToBackend(organizationData, formId) {
   var org = {
     address: {
       city: organizationData.address.city,
-      country: organizationData.address.country,
+      country: organizationData.address.country.value,
       postal_code: organizationData.address.postalCode,
       province_state: organizationData.address.provinceOrState,
       street: organizationData.address.street
@@ -186,7 +212,7 @@ export function matchMembershipLevelFieldsToBackend(membershipLevel, formId, use
   return {
     id: formId,
     user_id: userId,
-    membership_level: membershipLevel,
+    membership_level: membershipLevel.value,
     signing_authority: true
   }
 
@@ -232,14 +258,13 @@ export function matchContactFieldsToBackend(contactData, contactType, formId) {
  * Form Id fetched from the server, sotored in membership context, used for calling APIs
  * **/
 export function matchWGFieldsToBackend(eachWorkingGroupData, formId) {
-
   var wg_contact = matchContactFieldsToBackend(eachWorkingGroupData.workingGroupRepresentative, contact_type.WORKING_GROUP, formId);
-
+  
   return {
-    id: eachWorkingGroupData.id,
-    working_group_id: eachWorkingGroupData.workingGroup,
-    participation_level: eachWorkingGroupData.participationLevel,
-    effective_date: (eachWorkingGroupData.effectiveDate).toISOString().replace(/.\d+Z$/g, "Z"),
+    id: eachWorkingGroupData?.id,
+    working_group_id: eachWorkingGroupData?.workingGroup.value,
+    participation_level: eachWorkingGroupData?.participationLevel.value,
+    effective_date: (eachWorkingGroupData?.effectiveDate).toISOString().replace(/.\d+Z$/g, "Z"),
     contact: {
       ...wg_contact
     }

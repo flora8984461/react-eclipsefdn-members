@@ -13,9 +13,13 @@ const CustomAsyncSelect = (props) => {
 
     if (option && !option.__isNew__ && action !== 'clear') {
       if (props.srcData === companies) {
+
+        let country = { label: option.address.country, value:option.address.country }
+
         // Prefill existing data to selected companies
         props.form.setFieldValue(organizationName.name, option)
         props.form.setFieldValue(organizationAddress.address.name, option.address)
+        props.form.setFieldValue(organizationAddress.country.name, country)
         props.form.setFieldValue(organizationTwitter.name, option.twitterHandle)
       }
     }
@@ -73,6 +77,7 @@ const CustomAsyncSelect = (props) => {
     return (
       <AsyncCreatable
         {...field}
+        aria-labelledby={props.ariaLabel}
         isClearable
         isSearchable
         cacheOptions

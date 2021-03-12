@@ -7,7 +7,7 @@ const WorkingGroupRepresentative = ({ name, formField }) => {
   
   return (
     <>
-      <h4 className="fw-600">Who is the working group representative?<span className="orange-star margin-left-5">*</span></h4>
+      <h3 className="fw-600 h4">Who is the working group representative?<span className="orange-star margin-left-5">*</span></h3>
       <div className="row">
       { workingGroupRepresentative.map(el => 
           <div key={el.name} className="col-md-12">

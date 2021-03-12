@@ -6,6 +6,7 @@ import { matchWorkingGroupFields } from '../../../Utils/formFunctionHelpers';
 import Loading from '../../Loading/Loading';
 import { end_point, api_prefix_form, FETCH_HEADER, workingGroups, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../../Constants/Constants';
 
+<<<<<<< HEAD
 const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext);
   const { isExistingMember } = useContext(MembershipContext);
@@ -29,6 +30,15 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
     }
 
     // Fetch existing form data
+=======
+const WorkingGroupsWrapper = ({ formField, workingGroupsData, ...otherProps }) => {
+  const { currentFormId } = useContext(MembershipContext);
+  const [loading, setLoading] = useState(false);
+
+  // Fetch existing form data
+  function fetchWorkingGroupsData() {
+
+>>>>>>> upstream/master
     let url_prefix_local;
     let url_suffix_local = '';
     if ( getCurrentMode() === MODE_REACT_ONLY ) {
@@ -45,13 +55,19 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
       .then(resp => resp.json())
       .then(data => {
         if(data.length) {
-          otherProps.parentState.formik.setFieldValue(workingGroups, matchWorkingGroupFields(data))
+          otherProps.parentState.formik.setFieldValue(workingGroups, matchWorkingGroupFields(data, workingGroupsData))
         }
         setLoading(false);
       })
     } else {
       setLoading(false);
-    }
+    }    
+  }
+ 
+  // Fetch data only once and prefill data, behaves as componentDidMount
+  useEffect(() => {
+    // Fetch existing form data
+    fetchWorkingGroupsData();
     // eslint-disable-next-line
   }, [])
 
@@ -61,7 +77,7 @@ const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
 
   return (
     <>
-    <h2 className="fw-600">Working Group</h2>
+    <h1 className="fw-600 h2">Working Group</h1>
     <p>Please complete the following details for joining a Working Group</p>
     <div id="working-groups-page" className="align-center margin-top-50 margin-bottom-30">
     <FieldArray

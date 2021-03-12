@@ -4,6 +4,10 @@ import CustomSelectWrapper from '../Inputs/CustomSelect/CustomSelectWrapper';
 import MembershipFeeTable from './MembershipFeeTable';
 import MembershipContext from '../../../Context/MembershipContext';
 import Loading from '../../Loading/Loading';
+<<<<<<< HEAD
+=======
+import { mapMembershipLevel } from '../../../Utils/formFunctionHelpers';
+>>>>>>> upstream/master
 import { api_prefix_form, FETCH_HEADER, membership_levels, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../../Constants/Constants';
 
 const MembershipLevel = ({ formField, ...otherProps }) => {
@@ -33,7 +37,11 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
       .then(resp => resp.json())
       .then(data => {
         if(data) {
+<<<<<<< HEAD
           otherProps.parentState.formik.setFieldValue(membershipLevel.name, data[0]?.membership_level);
+=======
+          otherProps.parentState.formik.setFieldValue(membershipLevel.name, mapMembershipLevel(data[0]?.membership_level,  membership_levels));
+>>>>>>> upstream/master
         }
         setLoading(false);
       })
@@ -51,15 +59,16 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
   return (
     <>
     <div className="align-center">
-      <h2 className="fw-600">Membership Level</h2>
+      <h1 className="fw-600 h2">Membership Level</h1>
       <p>Please Indicate the class of membership for which you are applying</p>
-      <h3 className="fw-600">What is your intended Membership Level?</h3>
+      <h2 className="fw-600 h3" id={membershipLevel.name}>What is your intended Membership Level?</h2>
       <div className="row">
         <div className="col-md-12">
           <CustomSelectWrapper
             name={membershipLevel.name}
             renderComponent={DefaultSelect}
             options={membership_levels}
+            ariaLabel={membershipLevel.name}
           />
         </div>
       </div>

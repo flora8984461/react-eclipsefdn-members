@@ -1,11 +1,11 @@
 import React from 'react';
 import { Field } from 'formik';
 
-const Input = ({ name, labelName, placeholder, disableInput, requiredMark }) => {
+const Input = ({ name, labelName, ariaLabel, placeholder, disableInput, requiredMark }) => {
 
   return (
     <>
-    <label htmlFor={name}>{labelName}</label>
+    <label htmlFor={ariaLabel ? ariaLabel : name}>{labelName}</label>
     {requiredMark && <span className="orange-star margin-left-5">*</span>}
     <br />
     <Field name={name}>
@@ -16,7 +16,7 @@ const Input = ({ name, labelName, placeholder, disableInput, requiredMark }) => 
       }) => {
         return (
         <>
-          <input {...field} className={`form-control margin-bottom-10 ${meta.touched && meta.error ? "form-border-error" : ""}`} type="text" placeholder={placeholder} disabled={disableInput} />
+          <input {...field} id={ariaLabel ? ariaLabel : name} className={`form-control margin-bottom-10 ${meta.touched && meta.error ? "form-border-error" : ""}`} type="text" placeholder={placeholder} disabled={disableInput} />
         </>
       )}}
     </Field>
