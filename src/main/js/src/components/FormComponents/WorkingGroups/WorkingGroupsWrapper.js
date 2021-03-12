@@ -6,31 +6,6 @@ import { matchWorkingGroupFields } from '../../../Utils/formFunctionHelpers';
 import Loading from '../../Loading/Loading';
 import { end_point, api_prefix_form, FETCH_HEADER, workingGroups, newForm_tempId, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../../Constants/Constants';
 
-<<<<<<< HEAD
-const WorkingGroupsWrapper = ({ formField, ...otherProps }) => {
-  const { currentFormId } = useContext(MembershipContext);
-  const { isExistingMember } = useContext(MembershipContext);
-  const workingGroupsData = JSON.parse(localStorage.getItem('workingGroupsData'));
-  const [loading, setLoading] = useState(true);
-
-  // Fetch data only once and prefill data, behaves as componentDidMount
-  useEffect(() => {
-
-    // Fetch working groups data
-    if (!workingGroupsData) {
-      fetch('workingGroups.json' , { headers: FETCH_HEADER })
-      .then(res=>res.json())
-      .then(data => {
-        let options = data.working_groups.map(item => ({ label: item.name, value: item.id, participation_levels: item.participation_levels }))
-        if (!isExistingMember) {
-         options.push({ label: 'I do not want to join a working group at this time', value: 'not now' })
-        }
-        localStorage.setItem('workingGroupsData', JSON.stringify(options));
-      })
-    }
-
-    // Fetch existing form data
-=======
 const WorkingGroupsWrapper = ({ formField, workingGroupsData, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext);
   const [loading, setLoading] = useState(false);
@@ -38,7 +13,6 @@ const WorkingGroupsWrapper = ({ formField, workingGroupsData, ...otherProps }) =
   // Fetch existing form data
   function fetchWorkingGroupsData() {
 
->>>>>>> upstream/master
     let url_prefix_local;
     let url_suffix_local = '';
     if ( getCurrentMode() === MODE_REACT_ONLY ) {
