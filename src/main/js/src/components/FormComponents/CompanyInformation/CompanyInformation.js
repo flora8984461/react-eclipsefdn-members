@@ -18,11 +18,11 @@ import { end_point, api_prefix_form, FETCH_HEADER, newForm_tempId, getCurrentMod
 const CompanyInformation = ({ formField, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext); // current chosen form id
   const formValues = otherProps.parentState.formik.values; // current form values
+  const { setFieldValue } = otherProps.parentState.formik;
   const [ loading, setLoading ] = useState(true);
 
-  // Fetch data only once and prefill data, behaves as componentDidMount
+  // Fetch data only once and prefill data, as long as currentFormId and setFieldValue Function does not change, will not cause re-render again
   useEffect(() => {
-
     // Once we have API set up ready, we don't need the fake data anymore, and can remove these pre-process. it is mainly for if running the application only react without server.
     let url_prefix_local;
     let url_suffix_local = '';
@@ -55,23 +55,23 @@ const CompanyInformation = ({ formField, ...otherProps }) => {
           if (organizations[0]) {  // the organization data returned is always an array of one object, that is why using [0]
             // Call the the function to map the retrived organization backend data to fit frontend
             let tempOrg = matchCompanyFields(organizations[0]);
+            console.log(tempOrg)
             // Call the setFieldValue of Formik, to set organization field with the mapped data, if nested, it will automatically map the properties and values
-            otherProps.parentState.formik.setFieldValue('organization', tempOrg);
+            setFieldValue('organization', tempOrg);
           }
           if(contacts.length) {
             // Call the the function to map the retrived contacts (company representative, marketing rep, accounting rep) backend data to fit frontend
             let tempContacts = matchContactFields(contacts);
             // Prefill Data --> Call the setFieldValue of Formik, to set representative field with the mapped data, if nested, it will automatically map the properties and values
-            otherProps.parentState.formik.setFieldValue('representative', tempContacts);
+            setFieldValue('representative', tempContacts);
           }
           setLoading(false);
         })
-    }
-    else {
+      }
+      else {
       setLoading(false);
-    }
-    // eslint-disable-next-line
-  }, [])
+      }
+  }, [currentFormId, setFieldValue])
 
   // If it is in loading status, only return a loading spinning
   if (loading) {

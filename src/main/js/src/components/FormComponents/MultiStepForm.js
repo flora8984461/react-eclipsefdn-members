@@ -42,8 +42,7 @@ const MultiStepForm = () => {
       })
     }
 
-    // eslint-disable-next-line
-  }, [])
+  }, [workingGroupsData])
 
   const handleSubmit = (values) => {  // This is for final submit, after preview
       console.log(values)

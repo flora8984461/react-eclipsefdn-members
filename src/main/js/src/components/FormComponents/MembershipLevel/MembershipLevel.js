@@ -17,14 +17,13 @@ import { api_prefix_form, FETCH_HEADER, membership_levels, newForm_tempId, getCu
 const MembershipLevel = ({ formField, ...otherProps }) => {
 
   const { currentFormId } = useContext(MembershipContext);
-
+  const { setFieldValue } = otherProps.parentState.formik;
   const { membershipLevel } = formField;
 
   const [ loading, setLoading ] = useState(true);
 
-  // Fetch data only once and prefill data, behaves as componentDidMount
+  // Fetch data only once and prefill data, as long as currentFormId, membershipLevel.name and setFieldValue Function does not change, will not cause re-render again
   useEffect(() => {
-
     // All pre-process: if running without server, use fake json data; if running with API, use API
     let url_prefix_local;
     let url_suffix_local = '';
@@ -45,7 +44,7 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
         if(data) {
           // mapMembershipLevel(): Call the the function to map the retrived membership level backend data to fit frontend, and
           // setFieldValue(): Prefill Data --> Call the setFieldValue of Formik, to set membershipLevel field with the mapped data
-          otherProps.parentState.formik.setFieldValue(membershipLevel.name, mapMembershipLevel(data[0]?.membership_level,  membership_levels));
+          setFieldValue(membershipLevel.name, mapMembershipLevel(data[0]?.membership_level,  membership_levels));
         }
         setLoading(false);
       })
@@ -53,8 +52,7 @@ const MembershipLevel = ({ formField, ...otherProps }) => {
       setLoading(false);
     }
 
-    // eslint-disable-next-line
-  }, [])
+  }, [currentFormId, setFieldValue, membershipLevel.name])
   
   if (loading) {
     return <Loading />

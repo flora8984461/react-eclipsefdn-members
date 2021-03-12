@@ -9,6 +9,24 @@ import { FETCH_HEADER, api_prefix, end_point, fakeChildrenArray, getCurrentMode,
  * - When it is only running React App without server, uses fake user in public/fake_user.json
  * - When run with server, call the userInfo end_point
  * - When logged in, `if(currentUser)`, render form chooser
+ * 
+ * //// eslint-disable-next-line ---> not a best practice to use 
+ * 
+ * /// But if passing object or function into the dependency array, it is always considered as changed, and keeps re-run the useEffect which causes neverending re-render
+ * 
+ * For functions, the best way to use is useCallback()
+ * 
+ * For Object, need to use the sepecific object value or deconstruct it
+ * 
+ * Please refer to some good explanation about useEffect and dependecies: 
+ * https://betterprogramming.pub/why-eslint-hates-your-useeffect-dependencies-react-js-560fcac0b1f
+ * 
+ * https://stackoverflow.com/questions/55840294/how-to-fix-missing-dependency-warning-when-using-useeffect-react-hook
+ * 
+ * https://stackoverflow.com/questions/64106594/is-the-useeffect-has-a-missing-dependency-warning-sometimes-wrong
+ * 
+ * https://stackoverflow.com/questions/63201445/react-hook-useeffect-missing-dependencies-warning
+ * 
  * **/
 
 const SignIn = () => {
@@ -33,7 +51,7 @@ const SignIn = () => {
             })
             .catch(err => console.log(err));
         }
-    // eslint-disable-next-line
+    /// eslint-disable-next-line
     }, [])
 
     if (currentUser) {

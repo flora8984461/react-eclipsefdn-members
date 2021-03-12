@@ -3,7 +3,7 @@ import AsyncCreatable from 'react-select/async-creatable';
 import { selectTheme, generateCustomStyles } from './customSelectStyle';
 import { useField } from 'formik';
 import { FETCH_HEADER, companies } from '../../../../Constants/Constants';
-import { initialValues, formField } from '../../formModels/formFieldModel';
+import { formField } from '../../formModels/formFieldModel';
 
 /**
  * !Note: 
@@ -54,11 +54,12 @@ const CustomAsyncSelect = (props) => {
 
         // Need to reset the fields one by one, because the organization is a nested field, which cannot be reset to a string
         // If you do: `setFieldValue('organization', '')`, will get warning claiming that `Warning: A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen`;
+        // !!! And We do not want to reset the Id Field !!!
 
-        // Another way to reset is:
+        // Another way to reset is: (these require you get the exsiting org Id)
         /**
          * setFieldValue('organization', {
-         *    id: '',
+         *    id: existing id,
          *    legalName: '',
          *    address: {
          *      id: '',
@@ -75,17 +76,16 @@ const CustomAsyncSelect = (props) => {
          * Or
          * import { initialValues } from '../../formModels/formFieldModel'
          * setFieldValue('organization', initialValues.organization)
+         * setFieldValue('organization.id', existing id)
          * **/
 
-        // props.form.setFieldValue(organizationName.name, '')
-        // props.form.setFieldValue(organizationAddress.street.name, '')
-        // props.form.setFieldValue(organizationAddress.city.name, '')
-        // props.form.setFieldValue(organizationAddress.provinceOrState.name, '')
-        // props.form.setFieldValue(organizationAddress.country.name, '')
-        // props.form.setFieldValue(organizationAddress.postalCode.name, '')
-        // props.form.setFieldValue(organizationTwitter.name, '')
-
-        props.form.setFieldValue('organization', initialValues.organization)
+        props.form.setFieldValue(organizationName.name, '')
+        props.form.setFieldValue(organizationAddress.street.name, '')
+        props.form.setFieldValue(organizationAddress.city.name, '')
+        props.form.setFieldValue(organizationAddress.provinceOrState.name, '')
+        props.form.setFieldValue(organizationAddress.country.name, '')
+        props.form.setFieldValue(organizationAddress.postalCode.name, '')
+        props.form.setFieldValue(organizationTwitter.name, '')
 
       }
     }

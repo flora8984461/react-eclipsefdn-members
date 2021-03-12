@@ -21,9 +21,7 @@ const ParticipationLevel = ({name, workingGroup}) => {
       let temp = workingGroupsData?.find(item => workingGroup.value === item.value);
       setParticipationLevels(temp?.participation_levels);
     }
-    //workingGroup.value is the only denpendency
-    // eslint-disable-next-line
-  }, [workingGroup.value])
+  }, [workingGroupsData, workingGroup.value])
 
   // Need to have {label: foo, value: foo} format for react-select v2 to work properly, please refer to: https://react-select.com/home 
   const renderOptions = (array) => {

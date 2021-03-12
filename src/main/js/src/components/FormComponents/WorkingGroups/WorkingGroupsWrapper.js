@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import MembershipContext from '../../../Context/MembershipContext';
 import { FieldArray } from 'formik';
 import WorkingGroup from './WorkingGroup';
@@ -20,10 +20,12 @@ import { end_point, api_prefix_form, FETCH_HEADER, workingGroups, newForm_tempId
 
 const WorkingGroupsWrapper = ({ formField, workingGroupsData, ...otherProps }) => {
   const { currentFormId } = useContext(MembershipContext);
+  const { setFieldValue } = otherProps.parentState.formik;
   const [loading, setLoading] = useState(false);
 
   // Fetch existing form data
-  function fetchWorkingGroupsData() {
+
+  const fetchWorkingGroupsData = useCallback(() => {
 
     // All pre-process: if running without server, use fake json data; if running with API, use API
     let url_prefix_local;
@@ -45,21 +47,20 @@ const WorkingGroupsWrapper = ({ formField, workingGroupsData, ...otherProps }) =
         if(data.length) {
           // matchWorkingGroupFields(): Call the the function to map the retrived working groups backend data to fit frontend, and
           // setFieldValue(): Prefill Data --> Call the setFieldValue of Formik, to set workingGroups field with the mapped data
-          otherProps.parentState.formik.setFieldValue(workingGroups, matchWorkingGroupFields(data, workingGroupsData))
+          setFieldValue(workingGroups, matchWorkingGroupFields(data, workingGroupsData))
         }
         setLoading(false);
       })
     } else {
       setLoading(false);
-    }    
-  }
- 
-  // Fetch data only once and prefill data, behaves as componentDidMount
+    }
+  }, [setFieldValue, currentFormId, workingGroupsData])
+
+  // Fetch data only once and prefill data, as long as fetchWorkingGroupsData Function does not change, will not cause re-render again
   useEffect(() => {
     // Fetch existing form data
     fetchWorkingGroupsData();
-    // eslint-disable-next-line
-  }, [])
+  }, [fetchWorkingGroupsData])
 
   if(loading) {
     return <Loading />
