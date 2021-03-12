@@ -3,7 +3,13 @@ import AsyncCreatable from 'react-select/async-creatable';
 import { selectTheme, generateCustomStyles } from './customSelectStyle';
 import { useField } from 'formik';
 import { FETCH_HEADER, companies } from '../../../../Constants/Constants';
-import { formField } from '../../formModels/formFieldModel';
+import { initialValues, formField } from '../../formModels/formFieldModel';
+
+/**
+ * !Note: 
+ *  You do not need to use this component if we don't use API call for organization options, you can just use Creatable.  Please refer to https://react-select.com/creatable;  Or pure Input.
+ *  You do not need to Prefill other fields or reset the other fields when select / unselect organizations, if it's not an requirement to do so. I am just offering an example how to do it.
+ * **/
 
 /**
  * Use AsyncCreatable from React Select, in order to be able to call APIs when open the dropdown, and do search APIs, please refer to https://react-select.com/creatable; And allows user to create a new option if cannot find one the user wants.
@@ -45,13 +51,41 @@ const CustomAsyncSelect = (props) => {
     if (action.action === 'clear') {
       // Clear prefilled data when clear the selection
       if (props.srcData === companies) {
-        props.form.setFieldValue(organizationName.name, '')
-        props.form.setFieldValue(organizationAddress.street.name, '')
-        props.form.setFieldValue(organizationAddress.city.name, '')
-        props.form.setFieldValue(organizationAddress.provinceOrState.name, '')
-        props.form.setFieldValue(organizationAddress.country.name, '')
-        props.form.setFieldValue(organizationAddress.postalCode.name, '')
-        props.form.setFieldValue(organizationTwitter.name, '')
+
+        // Need to reset the fields one by one, because the organization is a nested field, which cannot be reset to a string
+        // If you do: `setFieldValue('organization', '')`, will get warning claiming that `Warning: A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen`;
+
+        // Another way to reset is:
+        /**
+         * setFieldValue('organization', {
+         *    id: '',
+         *    legalName: '',
+         *    address: {
+         *      id: '',
+         *      street: '',
+         *      city: '',
+         *      provinceOrState: '',
+         *      country: '',
+         *      postalCode: ''
+         *    }
+         *    twitterHandle: ''
+         * })
+         * 
+         * 
+         * Or
+         * import { initialValues } from '../../formModels/formFieldModel'
+         * setFieldValue('organization', initialValues.organization)
+         * **/
+
+        // props.form.setFieldValue(organizationName.name, '')
+        // props.form.setFieldValue(organizationAddress.street.name, '')
+        // props.form.setFieldValue(organizationAddress.city.name, '')
+        // props.form.setFieldValue(organizationAddress.provinceOrState.name, '')
+        // props.form.setFieldValue(organizationAddress.country.name, '')
+        // props.form.setFieldValue(organizationAddress.postalCode.name, '')
+        // props.form.setFieldValue(organizationTwitter.name, '')
+
+        props.form.setFieldValue('organization', initialValues.organization)
 
       }
     }

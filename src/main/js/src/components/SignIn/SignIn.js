@@ -5,7 +5,13 @@ import SignInIntroduction from './SignInIntroduction';
 import StepperComponent from '../Steppers/StepperComponent';
 import { FETCH_HEADER, api_prefix, end_point, fakeChildrenArray, getCurrentMode, MODE_REACT_ONLY, MODE_REACT_API } from '../../Constants/Constants';
 
-const SignIn = ({setStep}) => {
+/**
+ * - When it is only running React App without server, uses fake user in public/fake_user.json
+ * - When run with server, call the userInfo end_point
+ * - When logged in, `if(currentUser)`, render form chooser
+ * **/
+
+const SignIn = () => {
 
     const {currentUser, setCurrentUser} = useContext(MembershipContext);
 
@@ -36,7 +42,7 @@ const SignIn = ({setStep}) => {
             <>
             <SignInIntroduction />
             <StepperComponent step={-1} childrenArray={fakeChildrenArray} />
-            <FormChooser currentUser={currentUser} setStep={setStep} />
+            <FormChooser currentUser={currentUser} />
             </>
         )
 

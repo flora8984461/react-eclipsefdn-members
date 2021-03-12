@@ -42,6 +42,18 @@ export function assignContactData(currentContact, companyContact) {
 //== Transform data from backend to match my form model
 
 /**
+ * Notes:
+ * The match data functions look repeated on the properties, because of the naming convention is somehow different in JS and the data object retrieved from backend. JS uses camelCase. 
+ * Another reason I am making complicated `legalName` and `country` match, is due to the library React-Select. It needs to use the `{label: foo, value: foo}` format to be able shown on the select input fields.
+ * Please refer to: https://github.com/formium/formik/discussions/2954 
+ * and https://github.com/JedWatson/react-select/issues/3761
+ * and https://github.com/JedWatson/react-select/issues/4321
+ * 
+ * https://github.com/JedWatson/react-select/issues/3761 shows how you can use without mapping as a label, but I wanted to use the label to be shown in the preview, thus, still used { label: value: } format.
+ * 
+ * **/
+
+/**
  * @param existingOrganizationData -
  * Existing Organization data, fetched from server
  * **/
@@ -364,6 +376,8 @@ function callSendData(formId, endpoint='', method, dataBody, entityId='') {
  * /form/{id}, /form/{id}/organizations/{id}, /form/{id}/contacts/{id}, /form/{id}/working_groups/{id}
  * @param dataBody -
  * The data body passed to server, normally is the filled form data to be saved
+ * 
+ * If no data.id, means it's a new data entry, we should use POST. otherwise, use PUT
  * **/
 export function sendData(formId, endpoint, dataBody) {
 
@@ -450,6 +464,11 @@ export function deleteData(formId, endpoint, entityId, callback, index) {
  * User Id fetched from the server when sign in, sotored in membership context, used for calling APIs
  * @param defaultBehaviour -
  * Go to the next step and add this step to complete set, passed from FormikStepper Component
+ * 
+ * The logic:
+ * - POST a new form and returned the new form Id
+ * - Store the returned new form Id in my FormId Context
+ * - Send the API calls to organizations and contacts
  * **/
 export async function handleNewForm(setCurrentFormId, formData, userId, defaultBehaviour) {
 

@@ -27,6 +27,8 @@ import { newForm_tempId } from '../../../Constants/Constants';
  *    including each step of form component (currentChild), CustomStepButton (render as prev, next, or final submit)
  * - Render StepperComponent component
  * - Render Submit Success confirmation component once submit after preview
+ * 
+ * - `React.cloneElement(currentChild, { parentState: { formik, ...props } })`, this helps to pass the props to the children component (each current step of form component)
  * **/
 
 const FormikStepper = ({ step, setStep, children, ...props }) => {
@@ -56,13 +58,24 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
     setStep((s) => s + 1);
   }
 
+
+  /**
+   * this function is from Formik
+   * 
+   * @param values - From Formik, the whole form values
+   * 
+   * @param formikBag - From Formik, including all Formik properties or functions
+   * 
+   * **/
   const handleOnSubmit = async (values, formikBag) => {
 
     switch(step) {
+      // The final step, submit on the preview step
       case childrenArray.length - 1:
         defaultBehaviour();
         break;
 
+      // The organization info step, need to check if marketing & accounting are the same as company rep., if true, assign the company rep. data to the other rep. 
       case 0: 
         if(values.representative.marketing.sameAsCompany) {
           assignContactData(values.representative.marketing, values.representative.company);
@@ -71,9 +84,12 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
           assignContactData(values.representative.accounting, values.representative.company);
         }
 
+        // Need to check if starting a new form or not;
+        // If new form, need to use handleNewForm() server call
         if (currentFormId === newForm_tempId) {
           await handleNewForm(setCurrentFormId, values, currentUser.name, defaultBehaviour);
         }
+        // If existing form, need to use executeSendDataByStep() server call
         else {
           await executeSendDataByStep(step, values, currentFormId, currentUser.name);
           defaultBehaviour();
@@ -81,6 +97,7 @@ const FormikStepper = ({ step, setStep, children, ...props }) => {
         
         break;
 
+      // Other steps default server call
       default:
         await executeSendDataByStep(step, values, currentFormId, currentUser.name);
         defaultBehaviour();
